@@ -1,0 +1,11 @@
+db.sqlite3
+.env
+.vscode
+**/__*
+manage.py
+wsgi.py
+*/migrations
+node_modules
+
+
+frontend/src/Components/Links/links.json

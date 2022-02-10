@@ -1,0 +1,17 @@
+{
+    "python.pythonPath": "C:\\Users\\david\\AppData\\Local\\Programs\\Python\\Python310\\.env310\\scripts\\python.exe",
+    "python.formatting.provider": "black",
+    "git.ignoreLimitWarning": true,
+    "files.exclude": {
+        "**/node_modules": true,
+        "**/*__*": true,
+        "**/migrations": false
+    },
+    "jupyter.jupyterServerType": "local",
+    "editor.scrollbar.horizontalScrollbarSize": 14,
+    "workbench.editor.titleScrollbarSizing": "large",
+    "editor.scrollbar.verticalScrollbarSize": 24,
+    "python.linting.pylintArgs": [
+        "--django-settings-module=_backend.settings"
+    ]
+}
