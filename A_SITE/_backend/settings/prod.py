@@ -20,7 +20,7 @@ CSRF_TRUSTED_ORIGINS = [
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
-        "NAME": "dbhausen$reg_db",
+        "NAME": "dbhausen$ret_db",
         "USER": "dbhausen",
         "PASSWORD": "fhKBdLR@u79Gdme",
         "HOST": "dbhausen.mysql.pythonanywhere-services.com",
