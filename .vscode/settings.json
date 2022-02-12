@@ -4,7 +4,7 @@
     "git.ignoreLimitWarning": true,
     "files.exclude": {
         "**/node_modules": true,
-        "**/*__*": true,
+        "**/*__*": false,
         "**/migrations": false
     },
     "jupyter.jupyterServerType": "local",
@@ -12,6 +12,6 @@
     "workbench.editor.titleScrollbarSizing": "large",
     "editor.scrollbar.verticalScrollbarSize": 24,
     "python.linting.pylintArgs": [
-        "--django-settings-module=_backend.settings"
+        "--django-settings-module=_backend.settings.dev"
     ]
 }
