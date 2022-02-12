@@ -14,6 +14,15 @@ CSRF_TRUSTED_ORIGINS = [
     "http://dbhausen.pythonanywhere.com",
 ]
 
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = "django-insecure-nt5x(^hmvy0vutc5(&v_gkn_#bduvinhox+rpwrxbmw!kub=f6"
+
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = True
+
+ALLOWED_HOSTS = ["*"]
+
+
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
