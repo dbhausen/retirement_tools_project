@@ -111,6 +111,13 @@ STATIC_URL = "static/"
 
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
+FRONTEND_STATIC_DIR = BASE_DIR / "frontend" / "build" / "static"
+
+STATICFILES_DIRS = [
+    FRONTEND_STATIC_DIR,
+]
+
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 

@@ -1,11 +1,10 @@
 {
-    "python.pythonPath": "C:\\Users\\david\\AppData\\Local\\Programs\\Python\\Python310\\.env310\\scripts\\python.exe",
     "python.formatting.provider": "black",
     "git.ignoreLimitWarning": true,
     "files.exclude": {
         "**/node_modules": true,
-        "**/*__*": false,
-        "**/migrations": false
+        "**/*__*": true,
+        "**/migrations": true
     },
     "jupyter.jupyterServerType": "local",
     "editor.scrollbar.horizontalScrollbarSize": 14,

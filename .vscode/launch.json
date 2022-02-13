@@ -5,6 +5,27 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "cwd": "${workspaceFolder}/A_SITE/frontend",
+            "command": "yarn start",
+            "name": "yarn start",
+            "request": "launch",
+            "type": "node-terminal"
+        },
+        {
+            "cwd": "${workspaceFolder}/A_SITE/frontend",
+            "command": "yarn build",
+            "name": "yarn build",
+            "request": "launch",
+            "type": "node-terminal"
+        },
+        {
+            "name": "Chrome 3000",
+            "request": "launch",
+            "type": "pwa-chrome",
+            "url": "http://localhost:3000",
+            "webRoot": "${workspaceFolder}/A_SITE/frontend"
+        },
+        {
             "name": "Python: Django",
             "type": "python",
             "request": "launch",
