@@ -17,6 +17,20 @@ import os
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/4.0/howto/static-files/
+
+STATIC_URL = "static/"
+
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
+FRONTEND_TEMPLATE = BASE_DIR / "frontend" / "build"
+FRONTEND_STATIC_DIR = BASE_DIR / "frontend" / "build" / "static"
+
+STATICFILES_DIRS = [
+    FRONTEND_STATIC_DIR,
+]
+
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -57,7 +71,7 @@ ROOT_URLCONF = "_backend.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [FRONTEND_TEMPLATE],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -102,20 +116,6 @@ TIME_ZONE = "UTC"
 USE_I18N = True
 
 USE_TZ = True
-
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/4.0/howto/static-files/
-
-STATIC_URL = "static/"
-
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
-
-FRONTEND_STATIC_DIR = BASE_DIR / "frontend" / "build" / "static"
-
-STATICFILES_DIRS = [
-    FRONTEND_STATIC_DIR,
-]
 
 
 # Default primary key field type
