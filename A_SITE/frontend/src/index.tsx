@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 
-const calculateWinner = (squares) => {
+const calculateWinner = (squares: string[]) => {
   const lines = [
     [0, 1, 2],
     [3, 4, 5],
@@ -26,7 +26,12 @@ const calculateWinner = (squares) => {
   return null;
 };
 
-const Square = (props) => {
+interface ISquare {
+  onClick: () => void;
+  value: string;
+}
+
+const Square = (props: ISquare) => {
   return (
     <button className="square" onClick={props.onClick}>
       {props.value}
@@ -34,8 +39,13 @@ const Square = (props) => {
   );
 };
 
-class Board extends React.Component {
-  renderSquare(i) {
+interface IBoardProps {
+  onClick: (i: number) => void;
+  squares: string[];
+}
+
+class Board extends React.Component<IBoardProps> {
+  renderSquare(i: number) {
     return (
       <Square
         value={this.props.squares[i]}
@@ -70,8 +80,13 @@ class Board extends React.Component {
   }
 }
 
-class Game extends React.Component {
-  constructor(props) {
+interface IGameState {
+  history: { squares: string[]; player: string; winner: string | null }[];
+  stepNumber: number;
+}
+
+class Game extends React.Component<any, IGameState> {
+  constructor(props: any) {
     super(props);
     this.state = {
       history: [{ squares: Array(9).fill(""), player: "X", winner: null }],
@@ -79,22 +94,23 @@ class Game extends React.Component {
     };
   }
 
-  jumpTo(step) {
+  jumpTo(step: number) {
     this.setState({
       stepNumber: step,
     });
   }
 
-  handleClick(i) {
+  handleClick(i: number) {
     const stepNumber = this.state.stepNumber;
     const newHistory = this.state.history.slice(0, stepNumber + 1);
-    //the following line works
-    //const currentSquares = [...newHistory.at(stepNumber).squares];
-    //but the next line is easier to read.
-    //Both lines result in a shallow clone of squares
-    const currentSquares = newHistory.at(stepNumber).squares.slice();
-    const currentPlayer = newHistory.at(stepNumber).player;
-    const currentWiner = newHistory.at(stepNumber).winner;
+    const currentPlay = newHistory.at(stepNumber);
+    if (!currentPlay) {
+      console.error("No current play!");
+      return;
+    }
+    const currentSquares = currentPlay.squares.slice();
+    const currentPlayer = currentPlay.player;
+    const currentWiner = currentPlay.winner;
     if (currentSquares[i] !== "" || currentWiner) {
       return;
     }
@@ -116,11 +132,17 @@ class Game extends React.Component {
 
   render() {
     const stepNumber = this.state.stepNumber;
-    const currentSquares = [...this.state.history.at(stepNumber).squares];
-    const player = this.state.history.at(stepNumber).player;
-    const winner = this.state.history.at(stepNumber).winner;
+    const currentPlay = this.state.history.at(stepNumber);
+    if (!currentPlay) {
+      console.error("No current play!");
+      return;
+    }
 
-    const moves = this.state.history.map((step, move) => {
+    const currentSquares = currentPlay.squares.slice();
+    const player = currentPlay.player;
+    const winner = currentPlay.winner;
+
+    const moves = this.state.history.map((step: any, move: number) => {
       const desc = move ? "Go to move #" + move : "Go to game start";
 
       return (
@@ -142,7 +164,7 @@ class Game extends React.Component {
         <div className="game-board">
           <Board
             squares={currentSquares}
-            onClick={(i) => this.handleClick(i)}
+            onClick={(i: number) => this.handleClick(i)}
           />
         </div>
         <div className="game-info">
