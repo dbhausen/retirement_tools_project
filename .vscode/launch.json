@@ -42,5 +42,15 @@
             ],
             "django": true
         },
+        {
+            "name": "python collctstatic",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}\\A_SITE\\manage.py",
+            "args": [
+                "collectstatic"
+            ],
+            "django": true
+        },
     ]
 }

@@ -165,11 +165,19 @@ const Game = (): JSX.Element => {
   };
 
   const handlePingClickDjango = () => {
-    const url = "https://dbhausen.pythonanywhere.com/snip/snippets/1/";
+    const url = env().API_HOST + "/snip/snippets/2/";
 
     type TDjangoResponse = {
       data?: {
-        data?: {};
+        code: string;
+        highlight: string;
+        id: number;
+        language: string;
+        linenos: boolean;
+        owner: string;
+        style: string;
+        title: string;
+        url: string;
       };
       errors?: Array<{ message: string }>;
     };
@@ -177,7 +185,7 @@ const Game = (): JSX.Element => {
     axios
       .get(url)
       .then((response: TDjangoResponse) => {
-        console.log(response);
+        console.log(response.data?.title);
       })
       .catch((error: any) => {
         console.log(error);

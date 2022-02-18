@@ -17,10 +17,12 @@ CORS_ALLOW_CREDENTIALS = True
 # change to app.example.com in production settings
 CORS_ALLOWED_ORIGINS = [
     "http://dbhausen.pythonanywhere.com",
+    "http://localhost:3000",
 ]
 
 CSRF_TRUSTED_ORIGINS = [
     "http://dbhausen.pythonanywhere.com",
+    "http://localhost:3000",
 ]
 
 

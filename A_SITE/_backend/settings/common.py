@@ -34,6 +34,7 @@ STATICFILES_DIRS = [
 # Application definition
 
 INSTALLED_APPS = [
+    "corsheaders",
     "annuity_app.apps.AnnuityAppConfig",
     "quickstart.apps.QuickstartConfig",
     "snippets.apps.SnippetsConfig",
@@ -49,6 +50,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
