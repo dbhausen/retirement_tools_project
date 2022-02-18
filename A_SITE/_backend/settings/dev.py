@@ -12,6 +12,17 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
+CORS_ALLOW_CREDENTIALS = True
+
+# change to app.example.com in production settings
+CORS_ALLOWED_ORIGINS = [
+    "http://dbhausen.pythonanywhere.com",
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    "http://dbhausen.pythonanywhere.com",
+]
+
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
@@ -22,6 +33,3 @@ DATABASES = {
         "NAME": BASE_DIR / "db.sqlite3",
     }
 }
-
-
-

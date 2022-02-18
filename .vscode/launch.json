@@ -26,6 +26,13 @@
             "webRoot": "${workspaceFolder}/A_SITE/frontend"
         },
         {
+            "name": "Chrome 8000",
+            "request": "launch",
+            "type": "pwa-chrome",
+            "url": "http://localhost:8000",
+            "webRoot": "${workspaceFolder}/A_SITE/frontend"
+        },
+        {
             "name": "Python: Django",
             "type": "python",
             "request": "launch",
