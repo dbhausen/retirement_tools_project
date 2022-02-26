@@ -26,6 +26,19 @@ const data02 = [
   { name: "Both", value: 15 },
 ];
 
+const names = [
+  "Oliver Hansen",
+  "Van Henry",
+  "April Tucker",
+  "Ralph Hubbard",
+  "Omar Alexander",
+  "Carlos Abbott",
+  "Miriam Wagner",
+  "Bradley Wilkerson",
+  "Virginia Andrews",
+  "Kelly Snyder",
+];
+
 const COLORS = ["#546E7A", "#00C49F", "#FF8042"];
 const COLORS2 = ["#546E7A", "#2E7D32"];
 
@@ -387,17 +400,22 @@ const Annuity = () => {
                       />
                     </Grid>
                     <Grid item xs>
-                      <NativeSelect
-                        defaultValue={30}
+                      <Select
+                        native
+                        value={spouse2Age}
+                        // @ts-ignore Typings are not considering `native`
+                        onChange={handleAgeInputChange}
+                        label="Native"
                         inputProps={{
-                          name: "age",
-                          id: "uncontrolled-native",
+                          id: "select-multiple-native",
                         }}
                       >
-                        <option value={10}>Ten</option>
-                        <option value={20}>Twenty</option>
-                        <option value={30}>Thirty</option>
-                      </NativeSelect>
+                        {names.map((name) => (
+                          <option key={name} value={name}>
+                            {name}
+                          </option>
+                        ))}
+                      </Select>
                     </Grid>
                   </Grid>
                 </Box>
