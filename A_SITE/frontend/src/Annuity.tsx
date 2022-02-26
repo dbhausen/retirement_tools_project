@@ -81,7 +81,7 @@ const Annuity = () => {
   ) => {
     const age = event.target.value === "" ? 0 : Number(event.target.value);
     setTargetAge(age);
-    upDateSurvivalData();
+    upDateSurvivalData(age);
   };
 
   const handleTargetAgeSliderChange = (
@@ -90,26 +90,34 @@ const Annuity = () => {
   ) => {
     const age = newValue as number;
     setTargetAge(age);
-    upDateSurvivalData();
+    //  upDateSurvivalData(age);
   };
 
-  const upDateSurvivalData = () => {
+  const upDateSurvivalData = (age: number) => {
     const newSurvivalData = [
       {
         name: "A1",
-        value: us.getProbabilityOfNeitherReachingTargetAge(targetAge),
+        value: us.getProbabilityOfNeitherReachingTargetAge(age),
       },
       {
         name: "A2",
-        value: us.getProbabilityOfExactlyOneReachingTargetAge(targetAge),
+        value: us.getProbabilityOfExactlyOneReachingTargetAge(age),
       },
       {
         name: "B1",
-        value: us.getProbabilityOfBothReachingTargetAge(targetAge),
+        value: us.getProbabilityOfBothReachingTargetAge(age),
       },
     ];
 
     setSurvivalData(newSurvivalData);
+  };
+
+  const handleSliderChangeCommitted = (
+    event: React.SyntheticEvent | Event,
+    value: number | Array<number>
+  ) => {
+    upDateSurvivalData(targetAge);
+    setMinTargetAge(us.getAgeOfYoungest());
   };
 
   const handleAge1SliderChange = (
@@ -117,10 +125,9 @@ const Annuity = () => {
     newValue: number | number[]
   ) => {
     const age = newValue as number;
+
     us.person1.setAge(age);
 
-    upDateSurvivalData();
-    setMinTargetAge(us.getAgeOfYoungest());
     setSpouse1Age(age);
   };
 
@@ -131,8 +138,7 @@ const Annuity = () => {
     const age = newValue as number;
 
     us.person2.setAge(age);
-    upDateSurvivalData();
-    setMinTargetAge(us.getAgeOfYoungest());
+
     setSpouse2Age(age);
   };
 
@@ -141,15 +147,13 @@ const Annuity = () => {
 
     if (event.currentTarget.name === "spouse1") {
       us.person1.setAge(age);
-      setMinTargetAge(us.getAgeOfYoungest());
       setSpouse1Age(age);
-      upDateSurvivalData();
     } else {
       us.person2.setAge(age);
-      setMinTargetAge(us.getAgeOfYoungest());
       setSpouse2Age(age);
-      upDateSurvivalData();
     }
+    setMinTargetAge(us.getAgeOfYoungest());
+    upDateSurvivalData(targetAge);
   };
 
   const handle1Blur = () => {
@@ -163,6 +167,8 @@ const Annuity = () => {
     } else if (spouse2Age > 117) {
       setSpouse2Age(117);
     }
+    setMinTargetAge(us.getAgeOfYoungest());
+    upDateSurvivalData(targetAge);
   };
 
   const handleSexChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -173,7 +179,7 @@ const Annuity = () => {
       us.person2.sex = event.target.value;
       setSpouse2Sex(us.person2.sex);
     }
-    upDateSurvivalData();
+    upDateSurvivalData(targetAge);
   };
 
   const CoupleStats = () => {
@@ -307,8 +313,10 @@ const Annuity = () => {
                     <Grid item xs>
                       <Slider
                         max={117}
+                        name="spouse1"
                         value={typeof spouse1Age === "number" ? spouse1Age : 0}
                         onChange={handleAge1SliderChange}
+                        onChangeCommitted={handleSliderChangeCommitted}
                         aria-labelledby="input-slider"
                       />
                     </Grid>
@@ -350,6 +358,7 @@ const Annuity = () => {
                         max={117}
                         value={typeof spouse2Age === "number" ? spouse2Age : 0}
                         onChange={handleAge2SliderChange}
+                        onChangeCommitted={handleSliderChangeCommitted}
                         aria-labelledby="input-slider"
                       />
                     </Grid>
@@ -388,6 +397,7 @@ const Annuity = () => {
                   min={minTargeAge}
                   value={typeof targetAge === "number" ? targetAge : 0}
                   onChange={handleTargetAgeSliderChange}
+                  onChangeCommitted={handleSliderChangeCommitted}
                   aria-labelledby="input-slider"
                 />
               </Grid>
@@ -428,9 +438,7 @@ const Annuity = () => {
               opacity: [0.9, 0.8, 0.7],
             },
           }}
-        >
-          <MyChart data={survivalData} />
-        </Box>
+        ></Box>
       </Grid>
     </Grid>
   );

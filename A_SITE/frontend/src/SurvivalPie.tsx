@@ -58,11 +58,11 @@ const MyChart = (props: ISurvivalData) => {
         data={props.data}
         isAnimationActive={false}
         dataKey="value"
-        cx={90}
-        cy={80}
+        cx={47}
+        cy={55}
         label={renderCustomizedLabel}
         innerRadius={3}
-        outerRadius={55}
+        outerRadius={52}
         paddingAngle={2}
         fill="#8884d8"
       >
