@@ -18,14 +18,16 @@ import { alpha, styled } from "@mui/material/styles";
 
 import { MyChart } from "./SurvivalPie";
 import SexFormControl from "./SexFormControl";
+import { NativeSelect } from "@mui/material";
 
 const data02 = [
-  { name: "A1", value: 90 },
-  { name: "A2", value: 25 },
-  { name: "B1", value: 15 },
+  { name: "Neither", value: 90 },
+  { name: "One", value: 25 },
+  { name: "Both", value: 15 },
 ];
 
 const COLORS = ["#546E7A", "#00C49F", "#FF8042"];
+const COLORS2 = ["#546E7A", "#2E7D32"];
 
 const SuccessSlider = styled(Slider)<SliderProps>(({ theme }) => ({
   width: "100%",
@@ -250,14 +252,19 @@ const Annuity = () => {
               </Typography>
             </Grid>
           </Grid>
-          <Grid container direction="row" alignItems={"flex-start"}>
+          <Grid
+            container
+            direction="row"
+            bgcolor={COLORS2[1]}
+            alignItems={"flex-start"}
+          >
             <Grid item xs={9} sm={8} md={10} lg={8} xl={8}>
-              <Typography fontWeight="bold" variant="body2">
+              <Typography color={"white"} variant="body2">
                 {"At least one reaches " + targetAge.toString() + ":"}
               </Typography>
             </Grid>
             <Grid item xs={3} sm={1} md={1} lg={1} xl={1}>
-              <Typography variant="body2" fontWeight="bold" textAlign="right">
+              <Typography variant="body2" color={"white"} textAlign="right">
                 {displayPercent(
                   us.getProbabilityOfAtLeastOneReachingTargetAge(targetAge)
                 )}
@@ -349,10 +356,10 @@ const Annuity = () => {
                     Age
                   </Typography>
                   <Grid container spacing={2} alignItems="center">
-                    <Grid item>
+                    <Grid item xs>
                       <CalEvent />
                     </Grid>
-                    <Grid item xs>
+                    <Grid item xs={5}>
                       <Slider
                         max={100}
                         min={20}
@@ -363,7 +370,7 @@ const Annuity = () => {
                         aria-labelledby="input-slider"
                       />
                     </Grid>
-                    <Grid item>
+                    <Grid item xs={2}>
                       <Input
                         value={spouse2Age}
                         size="small"
@@ -378,6 +385,19 @@ const Annuity = () => {
                           "aria-labelledby": "input-slider",
                         }}
                       />
+                    </Grid>
+                    <Grid item xs>
+                      <NativeSelect
+                        defaultValue={30}
+                        inputProps={{
+                          name: "age",
+                          id: "uncontrolled-native",
+                        }}
+                      >
+                        <option value={10}>Ten</option>
+                        <option value={20}>Twenty</option>
+                        <option value={30}>Thirty</option>
+                      </NativeSelect>
                     </Grid>
                   </Grid>
                 </Box>
