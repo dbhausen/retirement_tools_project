@@ -25,8 +25,10 @@ const data02 = [
   { name: "B1", value: 15 },
 ];
 
+const COLORS = ["#546E7A", "#00C49F", "#FF8042"];
+
 const SuccessSlider = styled(Slider)<SliderProps>(({ theme }) => ({
-  width: "85%",
+  width: "100%",
   color: theme.palette.primary.main,
 
   "& .MuiSlider-thumb": {
@@ -96,15 +98,15 @@ const Annuity = () => {
   const upDateSurvivalData = (age: number) => {
     const newSurvivalData = [
       {
-        name: "A1",
+        name: "Neither",
         value: us.getProbabilityOfNeitherReachingTargetAge(age),
       },
       {
-        name: "A2",
+        name: "One",
         value: us.getProbabilityOfExactlyOneReachingTargetAge(age),
       },
       {
-        name: "B1",
+        name: "Both",
         value: us.getProbabilityOfBothReachingTargetAge(age),
       },
     ];
@@ -157,15 +159,15 @@ const Annuity = () => {
   };
 
   const handle1Blur = () => {
-    if (spouse1Age < 0) {
-      setSpouse1Age(0);
-    } else if (spouse1Age > 117) {
-      setSpouse1Age(117);
+    if (spouse1Age < 20) {
+      setSpouse1Age(20);
+    } else if (spouse1Age > 100) {
+      setSpouse1Age(1007);
     }
-    if (spouse2Age < 0) {
-      setSpouse2Age(0);
-    } else if (spouse2Age > 117) {
-      setSpouse2Age(117);
+    if (spouse2Age < 20) {
+      setSpouse2Age(20);
+    } else if (spouse2Age > 100) {
+      setSpouse2Age(100);
     }
     setMinTargetAge(us.getAgeOfYoungest());
     upDateSurvivalData(targetAge);
@@ -192,17 +194,17 @@ const Annuity = () => {
           <Grid
             container
             direction="row"
-            border="solid 1px"
+            bgcolor={COLORS[0]}
             alignItems={"flex-start"}
           >
             <Grid item xs={9} sm={8} md={10} lg={8} xl={8}>
-              <Typography variant="body2">
+              <Typography variant="body2" color={"white"}>
                 {"Neither reach " + targetAge.toString() + ":"}
               </Typography>
             </Grid>
 
             <Grid item xs={3} sm={1} md={1} lg={1} xl={1}>
-              <Typography variant="body2" textAlign="right">
+              <Typography variant="body2" color={"white"} textAlign="right">
                 {displayPercent(
                   us.getProbabilityOfNeitherReachingTargetAge(targetAge)
                 )}
@@ -212,7 +214,7 @@ const Annuity = () => {
           <Grid
             container
             direction="row"
-            border="solid 1px"
+            bgcolor={COLORS[1]}
             alignItems={"flex-start"}
           >
             <Grid item xs={9} sm={8} md={10} lg={8} xl={8}>
@@ -232,8 +234,8 @@ const Annuity = () => {
           <Grid
             container
             direction="row"
-            border="solid 1px"
             alignItems={"flex-end"}
+            bgcolor={COLORS[2]}
           >
             <Grid item xs={9} sm={8} md={10} lg={8} xl={8}>
               <Typography variant="body2">
@@ -248,12 +250,7 @@ const Annuity = () => {
               </Typography>
             </Grid>
           </Grid>
-          <Grid
-            container
-            direction="row"
-            border="solid 1px"
-            alignItems={"flex-start"}
-          >
+          <Grid container direction="row" alignItems={"flex-start"}>
             <Grid item xs={9} sm={8} md={10} lg={8} xl={8}>
               <Typography fontWeight="bold" variant="body2">
                 {"At least one reaches " + targetAge.toString() + ":"}
@@ -312,8 +309,10 @@ const Annuity = () => {
                     </Grid>
                     <Grid item xs>
                       <Slider
-                        max={117}
+                        max={100}
+                        min={20}
                         name="spouse1"
+                        valueLabelDisplay="auto"
                         value={typeof spouse1Age === "number" ? spouse1Age : 0}
                         onChange={handleAge1SliderChange}
                         onChangeCommitted={handleSliderChangeCommitted}
@@ -355,7 +354,9 @@ const Annuity = () => {
                     </Grid>
                     <Grid item xs>
                       <Slider
-                        max={117}
+                        max={100}
+                        min={20}
+                        valueLabelDisplay="auto"
                         value={typeof spouse2Age === "number" ? spouse2Age : 0}
                         onChange={handleAge2SliderChange}
                         onChangeCommitted={handleSliderChangeCommitted}
@@ -390,10 +391,13 @@ const Annuity = () => {
               direction="row"
               spacing={0.25}
             >
+              <Grid item xs={1}>
+                <Typography variant="h6">{minTargeAge}</Typography>
+              </Grid>
               <Grid id="target-slider" item xs={10}>
                 <SuccessSlider
                   valueLabelDisplay="auto"
-                  max={117}
+                  max={100}
                   min={minTargeAge}
                   value={typeof targetAge === "number" ? targetAge : 0}
                   onChange={handleTargetAgeSliderChange}
@@ -401,7 +405,16 @@ const Annuity = () => {
                   aria-labelledby="input-slider"
                 />
               </Grid>
-              <Grid id="target-input" item xs>
+              <Grid item xs={1} sx={{ display: { sm: "none", xs: "block" } }}>
+                <Typography variant="h6">100</Typography>
+              </Grid>
+
+              <Grid
+                id="target-input"
+                item
+                xs={1}
+                sx={{ display: { xs: "none", sm: "block" } }}
+              >
                 <Input
                   value={targetAge}
                   size="small"

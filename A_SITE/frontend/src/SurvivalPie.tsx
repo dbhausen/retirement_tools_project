@@ -21,7 +21,7 @@ interface ISurvivalData {
   data: IDatum[];
 }
 
-const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
+const COLORS = ["#546E7A", "#00C49F", "#FF8042"];
 const RADIAN = Math.PI / 180;
 const renderCustomizedLabel = ({
   cx,
