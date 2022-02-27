@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import Button from "@mui/material/Button";
+
+import { Box } from "@mui/material";
 import env from "./Env";
-
-import "./index.css";
-
-const axios = require("axios").default;
 
 const calculateWinner = (squares: string[]) => {
   const lines = [
@@ -72,7 +70,6 @@ const Board = (props: IBoardProps): JSX.Element => {
     </div>
   );
 };
-
 type THistory = Array<{
   squares: Array<string>;
   player: string;
@@ -84,120 +81,16 @@ const Game = (): JSX.Element => {
     { squares: Array(9).fill(""), player: "X", winner: null },
   ]);
   const [stepNumber, setStepNumber] = useState<number>(0);
-  const [pokemon, setPokemon] = useState<PokemonData>();
 
   const jumpTo = (step: number): void => {
     setStepNumber(step);
-  };
-
-  const formatDate = (date: Date) =>
-    `${date.getHours()}:${String(date.getMinutes()).padStart(2, "0")} ${String(
-      date.getSeconds()
-    ).padStart(2, "0")}.${String(date.getMilliseconds()).padStart(3, "0")}`;
-
-  interface PokemonData {
-    id: string;
-    number: string;
-    name: string;
-    image: string;
-    fetchedAt: string;
-
-    attacks: {
-      special: Array<{
-        name: string;
-        type: string;
-        damage: number;
-      }>;
-    };
-  }
-
-  const handlePingClickAxios = () => {
-    const name = "Charmeleon";
-    const url = "https://graphql-pokemon2.vercel.app/";
-    const pokemonQuery = `
-        query PokemonInfo($name: String) {
-          pokemon(name: $name) {
-            id
-            number
-            name
-            image
-            attacks {
-              special {
-                name
-                type
-                damage
-              }
-            }
-          }
-        }
-      `;
-
-    type AxiosResponse = {
-      data?: {
-        data?: {
-          pokemon: Omit<PokemonData, "fetchedAt">;
-        };
-      };
-      errors?: Array<{ message: string }>;
-    };
-
-    axios
-      .get(url, {
-        params: {
-          query: pokemonQuery,
-          variables: { name: name.toLowerCase() },
-        },
-      })
-      .then((response: AxiosResponse) => {
-        const pokemon = response.data?.data?.pokemon;
-        if (!pokemon) {
-          throw new Error("No Pokemon named: " + name);
-        } else {
-          const pokemonWithDate = Object.assign(pokemon, {
-            fetchedAt: formatDate(new Date()),
-          });
-          console.log(pokemon.name);
-          setPokemon(pokemonWithDate);
-        }
-      })
-      .catch((error: any) => {
-        console.log(error);
-      });
-  };
-
-  const handlePingClickDjango = () => {
-    const url = env().API_HOST + "/snip/snippets/2/";
-
-    type TDjangoResponse = {
-      data?: {
-        code: string;
-        highlight: string;
-        id: number;
-        language: string;
-        linenos: boolean;
-        owner: string;
-        style: string;
-        title: string;
-        url: string;
-      };
-      errors?: Array<{ message: string }>;
-    };
-
-    axios
-      .get(url)
-      .then((response: TDjangoResponse) => {
-        console.log(response.data?.title);
-      })
-      .catch((error: any) => {
-        console.log(error);
-      });
   };
 
   const handleClick = (i: number) => {
     console.log(env().API_HOST);
 
     const newHistory = history.slice(0, stepNumber + 1);
-    const currentPlay = newHistory.at(stepNumber);
+    const currentPlay = newHistory[stepNumber];
     if (!currentPlay) {
       throw new Error("Unexpexted no current play.");
     }
@@ -247,7 +140,8 @@ const Game = (): JSX.Element => {
   });
 
   const newHistory = history.slice(0, stepNumber + 1);
-  const currentPlay = newHistory.at(stepNumber);
+
+  const currentPlay = newHistory[stepNumber];
   if (!currentPlay) {
     throw new Error("Unexpexted no current play.");
   }
@@ -259,7 +153,7 @@ const Game = (): JSX.Element => {
     : "Next player: " + currentPlayer;
 
   return (
-    <div className="game">
+    <Box sx={{ marginTop: "70px" }}>
       <div className="game-board">
         <Board
           squares={currentSquares}
@@ -270,14 +164,7 @@ const Game = (): JSX.Element => {
         <div>{status}</div>
         <ol>{moves}</ol>
       </div>
-
-      <div>
-        <Button onClick={handlePingClickAxios}>Axios</Button>
-        {pokemon?.name}
-        <img src={pokemon?.image} alt="" />
-      </div>
-      <Button onClick={handlePingClickDjango}>django</Button>
-    </div>
+    </Box>
   );
 };
 

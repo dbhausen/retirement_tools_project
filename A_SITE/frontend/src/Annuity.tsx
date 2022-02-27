@@ -8,17 +8,12 @@ import Typography from "@mui/material/Typography";
 
 import MuiInput from "@mui/material/Input";
 import CalEvent from "@mui/icons-material/Event";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormHelperText from "@mui/material/FormHelperText";
-import FormControl from "@mui/material/FormControl";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
+import Select from "@mui/material/Select";
 import Slider, { SliderProps } from "@mui/material/Slider";
 import { alpha, styled } from "@mui/material/styles";
 
 import { MyChart } from "./SurvivalPie";
 import SexFormControl from "./SexFormControl";
-import { NativeSelect } from "@mui/material";
 
 const data02 = [
   { name: "Neither", value: 90 },

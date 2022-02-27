@@ -4,6 +4,7 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Game from "./Game";
 import Annuity from "./Annuity";
+import PokemonApp from "./Pokemon";
 import Typography from "@mui/material/Typography";
 import {
   Route,
@@ -14,6 +15,7 @@ import {
   BrowserRouter as Router,
 } from "react-router-dom";
 import { AppBar, Toolbar } from "@mui/material";
+import SizeId from "./SizeId";
 
 function useRouteMatch(patterns: readonly string[]) {
   let { pathname } = useLocation();
@@ -34,7 +36,7 @@ function MyTabs() {
   // This means that if you have nested routes like:
   // users, users/new, users/edit.
   // Then the order should be ['users/add', 'users/edit', 'users'].
-  const routeMatch = useRouteMatch(["/inbox/:id", "/Game", "/Annuity", "/"]);
+  const routeMatch = useRouteMatch(["/PokemonApp", "/Game", "/Annuity", "/"]);
   const currentTab = routeMatch?.pattern?.path;
 
   return (
@@ -49,15 +51,15 @@ function MyTabs() {
             component={Link}
           />
           <Tab
-            color="secondary"
-            label="Inbox"
-            value="/inbox/:id"
-            to="/inbox/1"
+            label="PokemonApp"
+            value="/PokemonApp"
+            to="/PokemonApp"
             component={Link}
           />
           <Tab label="Game" value="/Game" to="/Game" component={Link} />
         </Tabs>
       </Toolbar>
+      <SizeId />
     </AppBar>
   );
 }
@@ -87,6 +89,7 @@ function Apps(): JSX.Element {
           <Route path="*" element={<CurrentRoute />} />
           <Route path="/Game" element={<Game />} />
           <Route path="/Annuity" element={<Annuity />} />
+          <Route path="/PokemonApp" element={<PokemonApp />} />
         </Routes>
       </Box>
     </Router>
