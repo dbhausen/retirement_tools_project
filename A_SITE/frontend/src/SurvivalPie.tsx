@@ -47,13 +47,13 @@ const MyChart = (props: ISurvivalData) => {
     { name: "Either", value: props.data[1].value + props.data[2].value },
   ];
   return (
-    <PieChart height={160} width={300}>
+    <PieChart height={140} width={300}>
       <Pie
         data={props.data}
         isAnimationActive={false}
         dataKey="value"
-        cx={67}
-        cy={70}
+        cx={65}
+        cy={65}
         label={renderCustomizedLabel}
         innerRadius={3}
         outerRadius={52}
@@ -69,8 +69,8 @@ const MyChart = (props: ISurvivalData) => {
         data={data02}
         isAnimationActive={false}
         dataKey="value"
-        cx={67}
-        cy={70}
+        cx={65}
+        cy={65}
         innerRadius={55}
         outerRadius={66}
         paddingAngle={2}

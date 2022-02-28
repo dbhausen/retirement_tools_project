@@ -12,11 +12,16 @@ interface IProps {
 const CoupleStats = (props: IProps) => {
   return (
     <Grid container direction={"column"}>
-      <Grid container direction={"row"} alignItems={"flex-start"}>
+      <Grid
+        container
+        direction={"row"}
+        alignItems={"flex-start"}
+        alignContent={"space-between"}
+      >
         <Grid id="pie-chart" item xs={6}>
           <MyChart data={props.survivalData} />
         </Grid>
-        <Grid id="stat-chart" item xs sx={{ marginTop: "30px" }}>
+        <Grid id="stat-chart" item xs sx={{ marginTop: "25px" }}>
           <Grid
             container
             direction="row"
