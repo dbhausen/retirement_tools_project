@@ -1,4 +1,4 @@
-import { Grid, Typography } from "@mui/material";
+import { Grid, Link, Typography } from "@mui/material";
 import { COLORS, COLORS2, MyChart } from "./SurvivalPie";
 
 const displayPercent = (percent: number) => `${(percent * 100).toFixed(2)}%`;
@@ -8,6 +8,7 @@ interface IProps {
   targetAge: number;
   us: any;
 }
+//https://www.ssa.gov/oact/STATS/table4c6.html
 
 const CoupleStats = (props: IProps) => {
   return (
@@ -112,9 +113,12 @@ const CoupleStats = (props: IProps) => {
       </Grid>
       <Grid item>
         <Typography variant="body2">
-          {"Probability that one or more of this couple will reach age " +
+          {"Probability that one or more of this couple will live past age " +
             props.targetAge.toString() +
-            "."}
+            " based on the "}
+          <Link href="https://www.ssa.gov/oact/STATS/table4c6.html">
+            Social Security Actuarial Life Table.
+          </Link>
         </Typography>
       </Grid>
     </Grid>

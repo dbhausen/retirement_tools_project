@@ -67,9 +67,6 @@ const Annuity = () => {
 
   const [targetAge, setTargetAge] = useState<number>(90);
 
-  const [minTargeAge, setMinTargetAge] = useState<number>(
-    us.getAgeOfYoungest()
-  );
   const [survivalData, setSurvivalData] = useState(data02);
 
   const handleTargetAgeInputChange = (
@@ -113,7 +110,6 @@ const Annuity = () => {
     value: number | Array<number>
   ) => {
     upDateSurvivalData(targetAge);
-    setMinTargetAge(us.getAgeOfYoungest());
   };
 
   const handleAge1SliderChange = (
@@ -148,7 +144,7 @@ const Annuity = () => {
       us.person2.setAge(age);
       setSpouse2Age(age);
     }
-    setMinTargetAge(us.getAgeOfYoungest());
+
     upDateSurvivalData(targetAge);
   };
 
@@ -163,7 +159,7 @@ const Annuity = () => {
     } else if (spouse2Age > 100) {
       setSpouse2Age(100);
     }
-    setMinTargetAge(us.getAgeOfYoungest());
+
     upDateSurvivalData(targetAge);
   };
 
@@ -266,7 +262,7 @@ const Annuity = () => {
           </Grid>
           <Grid id="target-desc">
             <Typography variant="body2" fontWeight={"bold"}>
-              Step 3: Set planning horizon
+              Step 3: Set planned life span
             </Typography>
             <Typography variant="caption" fontWeight={"bold"}>
               (how long do you need your assets to last)
@@ -278,7 +274,7 @@ const Annuity = () => {
                 <Slider
                   valueLabelDisplay="auto"
                   max={100}
-                  min={minTargeAge}
+                  min={20}
                   value={typeof targetAge === "number" ? targetAge : 0}
                   onChange={handleTargetAgeSliderChange}
                   onChangeCommitted={handleSliderChangeCommitted}
@@ -291,6 +287,11 @@ const Annuity = () => {
                 </Typography>
               </Grid>
             </Grid>
+          </Grid>
+          <Grid id="target-desc">
+            <Typography variant="body2" fontWeight={"bold"}>
+              Step 4: Evaluate your plan
+            </Typography>
           </Grid>
 
           <Grid id="couple" item>
