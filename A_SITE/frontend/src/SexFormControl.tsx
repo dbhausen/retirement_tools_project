@@ -15,7 +15,6 @@ interface IProps {
 const SexFormControl = (props: IProps) => {
   return (
     <FormControl>
-      <FormLabel id="demo-controlled-radio-buttons-group">Sex</FormLabel>
       <RadioGroup
         row
         aria-labelledby="demo-controlled-radio-buttons-group"

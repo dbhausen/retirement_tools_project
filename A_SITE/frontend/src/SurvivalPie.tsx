@@ -1,16 +1,4 @@
-import { Grid } from "@mui/material";
-import {
-  LineChart,
-  Line,
-  CartesianGrid,
-  XAxis,
-  YAxis,
-  Tooltip,
-  PieChart,
-  ResponsiveContainer,
-  Pie,
-  Cell,
-} from "recharts";
+import { PieChart, Pie, Cell } from "recharts";
 
 interface IDatum {
   name: string;
@@ -96,4 +84,4 @@ const MyChart = (props: ISurvivalData) => {
   );
 };
 
-export { MyChart };
+export { MyChart, COLORS, COLORS2 };

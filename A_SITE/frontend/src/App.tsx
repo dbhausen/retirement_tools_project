@@ -51,7 +51,7 @@ function MyTabs() {
             component={Link}
           />
           <Tab
-            label="PokemonApp"
+            label="Poke'"
             value="/PokemonApp"
             to="/PokemonApp"
             component={Link}
