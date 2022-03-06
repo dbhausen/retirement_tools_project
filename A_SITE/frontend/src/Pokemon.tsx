@@ -1,38 +1,39 @@
-import React, { useState } from "react";
-import Button from "@mui/material/Button";
+import React, { useState } from 'react'
+import Button from '@mui/material/Button'
 
-import "./index.css";
-import { Box } from "@mui/material";
+import './index.css'
+import { Box } from '@mui/material'
 
-const axios = require("axios").default;
+const axios = require('axios').default
+
 const formatDate = (date: Date) =>
-  `${date.getHours()}:${String(date.getMinutes()).padStart(2, "0")} ${String(
-    date.getSeconds()
-  ).padStart(2, "0")}.${String(date.getMilliseconds()).padStart(3, "0")}`;
+	`${date.getHours()}:${String(date.getMinutes()).padStart(2, '0')} ${String(
+		date.getSeconds()
+	).padStart(2, '0')}.${String(date.getMilliseconds()).padStart(3, '0')}`
 
 interface PokemonData {
-  id: string;
-  number: string;
-  name: string;
-  image: string;
-  fetchedAt: string;
+	id: string
+	number: string
+	name: string
+	image: string
+	fetchedAt: string
 
-  attacks: {
-    special: Array<{
-      name: string;
-      type: string;
-      damage: number;
-    }>;
-  };
+	attacks: {
+		special: Array<{
+			name: string
+			type: string
+			damage: number
+		}>
+	}
 }
 
-const PokemonApp = () => {
-  const [pokemon, setPokemon] = useState<PokemonData>();
+function PokemonApp() {
+	const [pokemon, setPokemon] = useState<PokemonData>()
 
-  const handlePingClickAxios = () => {
-    const name = "Charmeleon";
-    const url = "https://graphql-pokemon2.vercel.app/";
-    const pokemonQuery = `
+	const handlePingClickAxios = () => {
+		const name = 'Charmeleon'
+		const url = 'https://graphql-pokemon2.vercel.app/'
+		const pokemonQuery = `
         query PokemonInfo($name: String) {
           pokemon(name: $name) {
             id
@@ -48,47 +49,48 @@ const PokemonApp = () => {
             }
           }
         }
-      `;
+      `
 
-    type AxiosResponse = {
-      data?: {
-        data?: {
-          pokemon: Omit<PokemonData, "fetchedAt">;
-        };
-      };
-      errors?: Array<{ message: string }>;
-    };
+		type AxiosResponse = {
+			data?: {
+				data?: {
+					pokemon: Omit<PokemonData, 'fetchedAt'>
+				}
+			}
+			errors?: Array<{ message: string }>
+		}
 
-    axios
-      .get(url, {
-        params: {
-          query: pokemonQuery,
-          variables: { name: name.toLowerCase() },
-        },
-      })
-      .then((response: AxiosResponse) => {
-        const pokemon = response.data?.data?.pokemon;
-        if (!pokemon) {
-          throw new Error("No Pokemon named: " + name);
-        } else {
-          const pokemonWithDate = Object.assign(pokemon, {
-            fetchedAt: formatDate(new Date()),
-          });
-          console.log(pokemon.name);
-          setPokemon(pokemonWithDate);
-        }
-      })
-      .catch((error: any) => {
-        console.log(error);
-      });
-  };
-  return (
-    <Box sx={{ marginTop: "70px" }}>
-      <Button onClick={handlePingClickAxios}>Axios</Button>
-      {pokemon?.name}
-      <img src={pokemon?.image} alt="" />
-    </Box>
-  );
-};
+		axios
+			.get(url, {
+				params: {
+					query: pokemonQuery,
+					variables: { name: name.toLowerCase() },
+				},
+			})
+			.then((response: AxiosResponse) => {
+				const poke = response.data?.data?.pokemon
+				if (!poke) {
+					throw new Error(`No Pokemon named: ${name}`)
+				} else {
+					const pokemonWithDate = Object.assign(poke, {
+						fetchedAt: formatDate(new Date()),
+					})
 
-export default PokemonApp;
+					setPokemon(pokemonWithDate)
+				}
+			})
+			.catch((error: any) => {
+				// eslint-disable-next-line no-console
+				console.log(error)
+			})
+	}
+	return (
+		<Box sx={{ marginTop: '70px' }}>
+			<Button onClick={handlePingClickAxios}>Axios</Button>
+			{pokemon?.name}
+			<img src={pokemon?.image} alt='' />
+		</Box>
+	)
+}
+
+export default PokemonApp
