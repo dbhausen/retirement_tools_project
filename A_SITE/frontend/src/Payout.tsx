@@ -7,15 +7,25 @@ import {
 	GridColDef,
 	GridRowsProp,
 	GridToolbar,
+	GridToolbarContainer,
+	GridToolbarExport,
 } from '@mui/x-data-grid'
 import { Payment } from '@mui/icons-material'
 
 // const displayFixed = (n: number) => `$${n.toFixed(2)}`
 const displayFixed = (n: number) =>
 	`$${n.toLocaleString('en-us', {
-		minimumFractionDigits: 2,
-		maximumFractionDigits: 2,
+		minimumFractionDigits: 0,
+		maximumFractionDigits: 0,
 	})}`
+
+function CustomToolbar() {
+	return (
+		<GridToolbarContainer>
+			<GridToolbarExport />
+		</GridToolbarContainer>
+	)
+}
 
 const Payout = () => {
 	const { annuityConfig } = useContext(AnnuityContext)
@@ -39,28 +49,49 @@ const Payout = () => {
 	const rows: GridRowsProp = formattedPayments
 
 	const columns: GridColDef[] = [
-		{ field: 'year', headerName: 'Year', width: 55 },
-		{ field: 'spouse1Age', headerName: 'Age', width: 55 },
-		{ field: 'payment', headerName: 'Payment', width: 150 },
-		{ field: 'discountedAmt', headerName: 'Discounted', width: 150 },
-		{ field: 'actuarialAmt', headerName: 'Actuarial', width: 150 },
+		{
+			field: 'spouse1Age',
+			headerName: 'Age',
+			width: 55,
+			align: 'center',
+			sortable: false,
+		},
+		{
+			field: 'payment',
+			headerName: 'Payment',
+			width: 90,
+			align: 'right',
+			sortable: false,
+		},
+		{
+			field: 'discountedAmt',
+			headerName: 'Discount',
+			width: 90,
+			align: 'right',
+			sortable: false,
+		},
+		{
+			field: 'actuarialAmt',
+			headerName: 'Actuarial',
+			width: 90,
+			align: 'right',
+			sortable: false,
+		},
 	]
 
 	return (
-		<Box sx={{ marginTop: '70px', height: 600, width: '100%' }}>
+		<Box sx={{ marginTop: '70px', height: 455, width: '100%' }}>
 			<DataGrid
 				rows={rows}
 				columns={columns}
-				localeText={{
-					toolbarDensity: 'Size',
-					toolbarDensityLabel: 'Size',
-					toolbarDensityCompact: 'Small',
-					toolbarDensityStandard: 'Medium',
-					toolbarDensityComfortable: 'Large',
-				}}
 				components={{
-					Toolbar: GridToolbar,
+					Toolbar: CustomToolbar,
 				}}
+				density='compact'
+				headerHeight={40}
+				hideFooter={true}
+				disableSelectionOnClick={true}
+				disableColumnMenu={true}
 			/>
 		</Box>
 	)
