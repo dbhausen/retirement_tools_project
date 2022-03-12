@@ -1,45 +1,46 @@
-import { Grid, Link, Typography } from '@mui/material'
+import { Box, Grid, Link, Typography } from '@mui/material'
+import { CoupleContext, displayPercent } from 'CoupleContext'
+import { useContext } from 'react'
 
 import { COLORS, COLORS2, MyChart } from './SurvivalPie'
 
-const displayPercent = (percent: number) => `${(percent * 100).toFixed(2)}%`
+// const displayPercent = (percent: number) => `${(percent * 100).toFixed(2)}%`
 
-interface IProps {
-	survivalData: any
-	targetAge: number
-	us: any
-}
-// https://www.ssa.gov/oact/STATS/table4c6.html
-
-function CoupleStats(props: IProps) {
-	const { survivalData, targetAge, us } = props
+function CoupleStats() {
+	const { couple } = useContext(CoupleContext)
 	return (
-		<Grid container direction='column'>
-			<Grid
-				container
-				direction='row'
-				alignItems='flex-start'
-				alignContent='space-between'
-			>
-				<Grid id='pie-chart' item xs={6}>
-					<MyChart data={survivalData} />
+		<Box>
+			<Grid container direction='row'>
+				<Grid id='pie-chart' item xs={6} sm={5} md={4}>
+					<MyChart />
 				</Grid>
-				<Grid id='stat-chart' item xs sx={{ marginTop: '25px' }}>
+				<Grid
+					id='stat-chart'
+					item
+					xs
+					sx={{ marginRight: '5px', marginTop: '25px' }}
+				>
 					<Grid
 						container
 						direction='row'
 						bgcolor={COLORS[1]}
-						alignItems='flex-start'
+						alignItems='flex-end'
 					>
-						<Grid item xs={8} sm={8} md={10} lg={8} xl={8}>
+						<Grid item xs={8} sm={8} md={8} lg={8} xl={8}>
 							<Typography variant='body2' color='white'>
-								{`One ${targetAge.toString()}:`}
+								{`One ${couple.targetAge.toString()}:`}
 							</Typography>
 						</Grid>
-						<Grid item xs={4} sm={1} md={1} lg={1} xl={1}>
-							<Typography variant='body2' textAlign='right' color='white'>
+						<Grid item xs={4} sm={2} md={1} lg={1} xl={1}>
+							<Typography
+								variant='body2'
+								textAlign='right'
+								color='white'
+							>
 								{displayPercent(
-									us.getProbabilityOfExactlyOneReachingTargetAge(targetAge)
+									couple.getProbabilityOfExactlyOneReachingTargetAge(
+										couple.targetAge
+									)
 								)}
 							</Typography>
 						</Grid>
@@ -50,15 +51,21 @@ function CoupleStats(props: IProps) {
 						alignItems='flex-end'
 						bgcolor={COLORS[2]}
 					>
-						<Grid item xs={8} sm={8} md={10} lg={8} xl={8}>
+						<Grid item xs={8} sm={8} md={8} lg={8} xl={8}>
 							<Typography variant='body2' color='white'>
-								{`Both ${targetAge.toString()}:`}
+								{`Both ${couple.targetAge.toString()}:`}
 							</Typography>
 						</Grid>
-						<Grid item xs={4} sm={1} md={1} lg={1} xl={1}>
-							<Typography variant='body2' textAlign='right' color='white'>
+						<Grid item xs={4} sm={2} md={1} lg={1} xl={1}>
+							<Typography
+								variant='body2'
+								textAlign='right'
+								color='white'
+							>
 								{displayPercent(
-									us.getProbabilityOfBothReachingTargetAge(targetAge)
+									couple.getProbabilityOfBothReachingTargetAge(
+										couple.targetAge
+									)
 								)}
 							</Typography>
 						</Grid>
@@ -67,17 +74,23 @@ function CoupleStats(props: IProps) {
 						container
 						direction='row'
 						bgcolor={COLORS2[1]}
-						alignItems='flex-start'
+						alignItems='flex-end'
 					>
-						<Grid item xs={8} sm={8} md={10} lg={8} xl={8}>
+						<Grid item xs={8} sm={8} md={8} lg={8} xl={8}>
 							<Typography color='white' variant='body2'>
-								{`At least one ${targetAge.toString()}:`}
+								{`At least one ${couple.targetAge.toString()}:`}
 							</Typography>
 						</Grid>
-						<Grid item xs={4} sm={1} md={1} lg={1} xl={1}>
-							<Typography variant='body2' color='white' textAlign='right'>
+						<Grid item xs={4} sm={2} md={1} lg={1} xl={1}>
+							<Typography
+								variant='body2'
+								color='white'
+								textAlign='right'
+							>
 								{displayPercent(
-									us.getProbabilityOfAtLeastOneReachingTargetAge(targetAge)
+									couple.getProbabilityOfAtLeastOneReachingTargetAge(
+										couple.targetAge
+									)
 								)}
 							</Typography>
 						</Grid>
@@ -86,38 +99,43 @@ function CoupleStats(props: IProps) {
 						container
 						direction='row'
 						bgcolor={COLORS[0]}
-						alignItems='flex-start'
+						alignItems='flex-end'
 					>
-						<Grid item xs={8} sm={8} md={10} lg={8} xl={8}>
+						<Grid item xs={8} sm={8} md={8} lg={8} xl={8}>
 							<Typography variant='body2' color='white'>
-								{`Neither ${targetAge.toString()}:`}
+								{`Neither ${couple.targetAge.toString()}:`}
 							</Typography>
 						</Grid>
 
 						<Grid item xs={4} sm={2} md={1} lg={1} xl={1}>
-							<Typography variant='body2' color='white' textAlign='right'>
+							<Typography
+								variant='body2'
+								color='white'
+								textAlign='right'
+							>
 								{displayPercent(
-									us.getProbabilityOfNeitherReachingTargetAge(targetAge)
+									couple.getProbabilityOfNeitherReachingTargetAge(
+										couple.targetAge
+									)
 								)}
 							</Typography>
 						</Grid>
 					</Grid>
 				</Grid>
 			</Grid>
-			<Grid item>
-				<Typography variant='caption'>
-					{'Results are Based on the '}
-					<Link
-						sx={{ fontStyle: 'italic', fontWeight: 'bold' }}
-						href='https://www.ssa.gov/oact/STATS/table4c6.html'
-						target='_blank'
-						rel='noopener'
-					>
-						Social Security Actuarial Life Table.
-					</Link>
-				</Typography>
-			</Grid>
-		</Grid>
+
+			<Typography variant='caption'>
+				{'Results are Based on the '}
+				<Link
+					sx={{ fontStyle: 'italic', fontWeight: 'bold' }}
+					href='https://www.ssa.gov/oact/STATS/table4c6.html'
+					target='_blank'
+					rel='noopener'
+				>
+					Social Security Actuarial Life Table.
+				</Link>
+			</Typography>
+		</Box>
 	)
 }
 

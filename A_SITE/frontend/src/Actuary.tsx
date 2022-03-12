@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext } from 'react'
 
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
@@ -11,45 +11,18 @@ import CoupleStats from 'CoupleStats'
 import { CoupleContext } from 'CoupleContext'
 import { AnnuityContext, defaultAnnuityConfig } from 'AnnuityContext'
 
-const data02 = [
-	{ name: 'Neither', value: 90 },
-	{ name: 'One', value: 25 },
-	{ name: 'Both', value: 15 },
-]
+import { Couple, Person } from 'life'
+// eslint-disable-next-line no-unused-vars
+import ActuaryHelp from 'ActuaryHelp'
 
 function Actuary() {
 	const { couple, setCouple } = useContext(CoupleContext)
 	const { annuityConfig, setAnnuityConfig } = useContext(AnnuityContext)
 
-	// const [couple.person1.age, setcouple.person1.age] = useState<number>(couple.person1.age)
-	// const [couple.person1.sex, setcouple.person1.sex] = useState<string>(couple.person1.sex)
-
-	// const [couple.person2.age, setcouple.person2.age] = useState<number>(couple.person2.age)
-	// const [couple.person2.sex, setcouple.person2.sex] = useState<string>(couple.person2.sex)
-
-	const [survivalData, setSurvivalData] = useState(data02)
-
-	const upDateSurvivalData = (age: number) => {
-		const newSurvivalData = [
-			{
-				name: 'Neither',
-				value: couple.getProbabilityOfNeitherReachingTargetAge(age),
-			},
-			{
-				name: 'One',
-				value: couple.getProbabilityOfExactlyOneReachingTargetAge(age),
-			},
-			{
-				name: 'Both',
-				value: couple.getProbabilityOfBothReachingTargetAge(age),
-			},
-		]
-
-		setSurvivalData(newSurvivalData)
+	const clearCalculatedData = () => {
 		setAnnuityConfig({
 			...annuityConfig,
 			isCalculated: defaultAnnuityConfig.isCalculated,
-			costOfLivingAdjustment: defaultAnnuityConfig.costOfLivingAdjustment,
 			totalAjustedValue: defaultAnnuityConfig.totalAjustedValue,
 			totalPaymentsReceived: defaultAnnuityConfig.totalPaymentsReceived,
 			valueOfGuarantee: defaultAnnuityConfig.valueOfGuarantee,
@@ -62,15 +35,16 @@ function Actuary() {
 		newValue: number | number[]
 	) => {
 		const age = newValue as number
-		couple.targetAge = age
-		setCouple(couple)
-		upDateSurvivalData(age)
+		const copyCouple = new Couple({
+			...couple,
+			targetAge: age,
+		})
+
+		setCouple(copyCouple)
 	}
-	// event: React.SyntheticEvent | Event,
-	// value: number | Array<number>
 
 	const handleSliderChangeCommitted = (): void => {
-		upDateSurvivalData(couple.targetAge)
+		clearCalculatedData()
 	}
 
 	const handleAge1SliderChange = (
@@ -78,12 +52,13 @@ function Actuary() {
 		newValue: number | number[]
 	) => {
 		const age = newValue as number
+		const person1 = new Person({ ...couple.person1, age })
+		const copyCouple = new Couple({
+			...couple,
+			person1,
+		})
 
-		couple.person1.setAge(age)
-		setCouple(couple)
-		upDateSurvivalData(couple.targetAge)
-
-		// setcouple.person1.age(age)
+		setCouple(copyCouple)
 	}
 
 	const handleAge2SliderChange = (
@@ -91,25 +66,45 @@ function Actuary() {
 		newValue: number | number[]
 	) => {
 		const age = newValue as number
+		const person2 = new Person({ ...couple.person2, age })
 
-		couple.person2.setAge(age)
-		setCouple(couple)
-		upDateSurvivalData(couple.targetAge)
+		const copyCouple = new Couple({
+			...couple,
+			person2,
+		})
+
+		setCouple(copyCouple)
 	}
 
 	const handleSexChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		if (event.target.name === 'spouse1') {
-			couple.person1.sex = event.target.value
+			const person1 = new Person({
+				...couple.person1,
+				sex: event.target.value,
+			})
+			const copyCouple = new Couple({
+				...couple,
+				person1,
+			})
+			setCouple(copyCouple)
 		} else {
-			couple.person2.sex = event.target.value
+			const person2 = new Person({
+				...couple.person2,
+				sex: event.target.value,
+			})
+			const copyCouple = new Couple({
+				...couple,
+				person2,
+			})
+			setCouple(copyCouple)
 		}
-		setCouple(couple)
-		upDateSurvivalData(couple.targetAge)
+
+		clearCalculatedData()
 	}
 
 	return (
 		<Grid id='page' container direction='row' sx={{ marginTop: '70px' }}>
-			<Grid id='left-side' item xs={12} sm={12} md={7} lg={6} xl={6}>
+			<Grid id='left-side' item xs={12} sm={12} md={6} lg={5} xl={4}>
 				<Grid container direction='column'>
 					<Grid id='spouses' item>
 						<Grid
@@ -206,7 +201,7 @@ function Actuary() {
 					</Grid>
 					<Grid id='target-desc'>
 						<Typography variant='body2' fontWeight='bold'>
-							Step 3: (Optional) Set taget longevity
+							Step 3: (Optional) Set target longevity
 						</Typography>
 					</Grid>
 					<Grid id='target' item>
@@ -235,35 +230,31 @@ function Actuary() {
 					</Grid>
 					<Grid id='target-desc'>
 						<Typography variant='body2' fontWeight='bold'>
-							Step 4: View odds of out-living your assets
+							Step 4: View odds of living pastyour target
 						</Typography>
 					</Grid>
 
-					<Grid id='couple' item>
-						<Grid container direction='row'>
-							<Grid id='couple-stats' item xs>
-								<CoupleStats
-									us={couple}
-									targetAge={couple.targetAge}
-									survivalData={survivalData}
-								/>
-							</Grid>
-						</Grid>
+					<Grid id='couple-stats' item xs>
+						<CoupleStats />
 					</Grid>
 				</Grid>
 			</Grid>
-			<Grid id='right-side-charts' item xs={12} sm={12} md={5} lg={6} xl={6}>
+			<Grid id='right-side-charts' item xs>
 				<Box
 					sx={{
-						width: '100%',
-						//   height: 400,
-						backgroundColor: 'primary.dark',
-						'&:hover': {
-							backgroundColor: 'primary.main',
-							opacity: [0.9, 0.8, 0.7],
+						display: {
+							xl: 'block',
+							lg: 'block',
+							md: 'block',
+							sm: 'block',
+							xs: 'none',
 						},
+						width: '100%',
+						height: 400,
 					}}
-				/>
+				>
+					<ActuaryHelp />
+				</Box>
 			</Grid>
 		</Grid>
 	)

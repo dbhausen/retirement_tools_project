@@ -10,17 +10,15 @@ import {
 	Typography,
 } from '@mui/material'
 import { useContext } from 'react'
-import { CoupleContext } from 'CoupleContext'
+import { CoupleContext, displayCurrency } from 'CoupleContext'
 import { AnnuityContext, defaultAnnuityConfig } from 'AnnuityContext'
-
-const displayPercent = (percent: number) => `${(percent * 100).toFixed(0)}%`
-const displayFixed = (n: number) => `$${n.toFixed(2)}`
+import AnnuityHelp from 'AnnuityHelp'
 
 const Annuity = () => {
 	const { couple } = useContext(CoupleContext)
 	const { annuityConfig, setAnnuityConfig } = useContext(AnnuityContext)
 
-	const calculateValue = (): any => {
+	const calculateValue = (withGurantee: boolean): any => {
 		const startAge = couple.getAgeOfYoungest() + 1
 		let spouse1Age = couple.person1.age
 		let spouse2Age = couple.person2.age
@@ -88,7 +86,7 @@ const Annuity = () => {
 
 		for (let index = 0; index < payments.length; index += 1) {
 			const element = payments[index]
-			if (annuityConfig.guatantee[0]) {
+			if (withGurantee) {
 				unRepaid =
 					unRepaid > element.payment ? unRepaid - element.payment : 0
 				const spouse1Dead = couple.person1.getProbabilityOfDeathByAge(
@@ -121,24 +119,24 @@ const Annuity = () => {
 			payments,
 		}
 	}
+	const handleClick = () => {
+		setAnnuityConfig({
+			...annuityConfig,
+			...calculateValue(annuityConfig.guatantee[0]),
+		})
+	}
 
 	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		if (event.target.name === 'guatantee') {
 			setAnnuityConfig({
 				...annuityConfig,
-				isCalculated: defaultAnnuityConfig.isCalculated,
-				costOfLivingAdjustment: defaultAnnuityConfig.costOfLivingAdjustment,
-				totalAjustedValue: defaultAnnuityConfig.totalAjustedValue,
-				totalPaymentsReceived: defaultAnnuityConfig.totalPaymentsReceived,
-				valueOfGuarantee: defaultAnnuityConfig.valueOfGuarantee,
-				payments: defaultAnnuityConfig.payments,
+				...calculateValue(event.target.checked),
 				[event.target.name]: [event.target.checked, event.target.checked],
 			})
 		} else {
 			setAnnuityConfig({
 				...annuityConfig,
 				isCalculated: defaultAnnuityConfig.isCalculated,
-				costOfLivingAdjustment: defaultAnnuityConfig.costOfLivingAdjustment,
 				totalAjustedValue: defaultAnnuityConfig.totalAjustedValue,
 				totalPaymentsReceived: defaultAnnuityConfig.totalPaymentsReceived,
 				valueOfGuarantee: defaultAnnuityConfig.valueOfGuarantee,
@@ -148,156 +146,138 @@ const Annuity = () => {
 		}
 	}
 
-	const handleClick = () => {
-		setAnnuityConfig({
-			...annuityConfig,
-			...calculateValue(),
-		})
-	}
-
 	return (
-		<Grid
-			container
-			direction='column'
-			sx={{
-				marginTop: '70px',
-				'& > :not(style)': {
-					m: 1,
-				},
-			}}
-		>
-			<Grid item>
-				<Box sx={{ p: 1, border: '1px solid grey', borderRadius: 1 }}>
-					<Grid container direction='column'>
-						<Grid>
-							<Typography variant='caption'>
-								{`${couple.person1.sex}, Age ${
-									couple.person1.age
-								} (Estimated life span  ${couple.person1.getLifeExpectancy()})`}
-							</Typography>
+		<Grid id='page' container direction='row' sx={{ marginTop: '70px' }}>
+			<Grid id='left-side' item xs={12} sm={12} md={6} lg={5} xl={4}>
+				<Grid
+					container
+					direction='column'
+					sx={{
+						'& > :not(style)': {
+							m: 1,
+						},
+					}}
+				>
+					<Grid id='calculatedResults'>
+						<Grid container direction='row'>
+							<Grid item xs={7}>
+								Value of Payments
+							</Grid>
+							<Grid item xs textAlign='right'>
+								{displayCurrency(annuityConfig.totalAjustedValue)}
+							</Grid>
 						</Grid>
-						<Grid>
-							<Typography variant='caption'>
-								{` ${couple.person2.sex}, Age ${
-									couple.person2.age
-								} (Estimated life span  ${couple.person2.getLifeExpectancy()})`}
-							</Typography>
+						<Grid container direction='row'>
+							<Grid item xs={7}>
+								Value of Gurantee
+							</Grid>
+							<Grid item xs textAlign='right'>
+								{displayCurrency(annuityConfig.valueOfGuarantee)}
+							</Grid>
 						</Grid>
-						<Grid>
-							<Typography variant='caption'>
-								{`Odds of at leat one reaching age ${
-									couple.targetAge
-								} are ${displayPercent(
-									couple.getProbabilityOfAtLeastOneReachingTargetAge(
-										couple.targetAge
-									)
-								)}`}
-							</Typography>
+						<Grid container direction='row'>
+							<Grid item xs={7}>
+								Total Value
+							</Grid>
+							<Grid item xs textAlign='right'>
+								{displayCurrency(
+									annuityConfig.valueOfGuarantee +
+										annuityConfig.totalAjustedValue
+								)}
+							</Grid>
 						</Grid>
 					</Grid>
+
+					<NumberTextField
+						label='Annual Annuity Amount'
+						name='annuityAmount'
+						prefix='$'
+						thousandSeparator
+						decimalScale={0}
+						fixedDecimalScale={true}
+						value={annuityConfig.annuityAmount}
+						onChange={handleChange}
+						variant='standard'
+						allowNegative={false}
+					/>
+
+					<Grid item>
+						<Grid container direction='row'>
+							<Grid item xs>
+								<PercentTextField
+									label='Cost-Of-Living Adjustment'
+									name='costOfLivingAdjustment'
+									decimalScale={2}
+									fixedDecimalScale={true}
+									value={annuityConfig.costOfLivingAdjustment}
+									onChange={handleChange}
+									variant='standard'
+									allowNegative={false}
+								/>
+							</Grid>
+							<Grid item xs={6}>
+								<PercentTextField
+									InputLabelProps={{ style: { fontSize: 17 } }}
+									label='Risk-Free Rate Of Return'
+									name='discountRate'
+									decimalScale={2}
+									fixedDecimalScale={true}
+									value={annuityConfig.discountRate}
+									onChange={handleChange}
+									variant='standard'
+									allowNegative={false}
+								/>
+							</Grid>
+						</Grid>
+					</Grid>
+					<FormControlLabel
+						label={
+							<Typography variant='body2' color='textSecondary'>
+								Guaranteed Return Of Purchase Price
+							</Typography>
+						}
+						control={
+							<Checkbox
+								name='guatantee'
+								checked={
+									annuityConfig.guatantee[0] &&
+									annuityConfig.guatantee[1]
+								}
+								indeterminate={
+									annuityConfig.guatantee[0] !==
+									annuityConfig.guatantee[1]
+								}
+								onChange={handleChange}
+							/>
+						}
+					/>
+					<Button
+						sx={{ width: '50%', alignSelf: 'center' }}
+						size='small'
+						variant='contained'
+						onClick={handleClick}
+					>
+						Calculate Value
+					</Button>
+				</Grid>
+			</Grid>
+			<Grid id='right-side-charts' item xs>
+				<Box
+					sx={{
+						display: {
+							xl: 'block',
+							lg: 'block',
+							md: 'block',
+							sm: 'block',
+							xs: 'none',
+						},
+						width: '100%',
+						height: 400,
+					}}
+				>
+					<AnnuityHelp />
 				</Box>
 			</Grid>
-			<NumberTextField
-				label='Annual Annuity Amount'
-				name='annuityAmount'
-				prefix='$'
-				thousandSeparator
-				decimalScale={0}
-				fixedDecimalScale={true}
-				value={annuityConfig.annuityAmount}
-				onChange={handleChange}
-				variant='standard'
-				allowNegative={false}
-			/>
-
-			<Grid item>
-				<Grid container direction='row'>
-					<Grid item xs={6}>
-						<PercentTextField
-							InputLabelProps={{ style: { fontSize: 17 } }}
-							label='Risk free rate of return'
-							name='discountRate'
-							decimalScale={2}
-							fixedDecimalScale={true}
-							value={annuityConfig.discountRate}
-							onChange={handleChange}
-							variant='standard'
-							allowNegative={false}
-						/>
-					</Grid>
-					<Grid item xs>
-						<PercentTextField
-							label='Cost Of Living Adjustment'
-							name='costOfLivingAdjustment'
-							decimalScale={2}
-							fixedDecimalScale={true}
-							value={annuityConfig.costOfLivingAdjustment}
-							onChange={handleChange}
-							variant='standard'
-							allowNegative={false}
-						/>
-					</Grid>
-				</Grid>
-			</Grid>
-			<FormControlLabel
-				sx={{ fontStyle: 'italic' }}
-				label='Guranteed of return of payment'
-				control={
-					<Checkbox
-						name='guatantee'
-						checked={
-							annuityConfig.guatantee[0] && annuityConfig.guatantee[1]
-						}
-						indeterminate={
-							annuityConfig.guatantee[0] !== annuityConfig.guatantee[1]
-						}
-						onChange={handleChange}
-					/>
-				}
-			/>
-			<Button size='small' variant='contained' onClick={handleClick}>
-				Calculate Value
-			</Button>
-			{annuityConfig.isCalculated ? (
-				<Grid id='calculatedResults'>
-					<Grid container direction='row'>
-						<Grid item xs={7}>
-							Total Payments received by age: {couple.targetAge}
-						</Grid>
-
-						<Grid xs textAlign='right'>
-							{displayFixed(annuityConfig.totalPaymentsReceived)}
-						</Grid>
-					</Grid>
-					<Grid container direction='row'>
-						<Grid item xs={7}>
-							Total Adjusted Value of payments
-						</Grid>
-						<Grid xs textAlign='right'>
-							{displayFixed(annuityConfig.totalAjustedValue)}
-						</Grid>
-					</Grid>
-					<Grid container direction='row'>
-						<Grid item xs={7}>
-							Value of Gurantee
-						</Grid>
-						<Grid xs textAlign='right'>
-							{displayFixed(annuityConfig.valueOfGuarantee)}
-						</Grid>
-					</Grid>
-					<Grid container direction='row'>
-						<Grid item xs={7}>
-							Total Value
-						</Grid>
-						<Grid item xs textAlign='right'>
-							{displayFixed(
-								annuityConfig.valueOfGuarantee +
-									annuityConfig.totalAjustedValue
-							)}
-						</Grid>
-					</Grid>
-				</Grid>
-			) : null}
 		</Grid>
 	)
 }

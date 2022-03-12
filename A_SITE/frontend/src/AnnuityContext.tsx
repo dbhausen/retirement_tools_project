@@ -1,4 +1,4 @@
-import React, { createContext } from 'react'
+import React, { createContext, useMemo, useState } from 'react'
 
 interface IAnnuityConfig {
 	annuityAmount: string
@@ -27,6 +27,7 @@ interface IFormattedPayments {
 	year: number
 	spouse1Age: number
 	spouse2Age: number
+	age: string
 	payment: string
 	discountedAmt: string
 	actuarialAmt: string
@@ -68,5 +69,23 @@ const AnnuityContext = createContext<IAnnuityContext>({
 	setAnnuityConfig: () => {},
 })
 
-export { AnnuityContext, defaultAnnuityConfig }
+const AnnuityContextProvider = ({ children }: any) => {
+	const [annuityConfig, setAnnuityConfig] =
+		useState<IAnnuityConfig>(defaultAnnuityConfig)
+	const contextValue = useMemo(
+		() => ({
+			annuityConfig,
+			setAnnuityConfig,
+		}),
+		[annuityConfig, setAnnuityConfig]
+	)
+	return (
+		// the Provider gives access to the context to its children
+		<AnnuityContext.Provider value={contextValue}>
+			{children}
+		</AnnuityContext.Provider>
+	)
+}
+
+export { AnnuityContext, defaultAnnuityConfig, AnnuityContextProvider }
 export type { IAnnuityConfig, IFormattedPayments }

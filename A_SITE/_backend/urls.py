@@ -9,5 +9,5 @@ urlpatterns = [
     path("snip/", include("snippets.urls")),
     path("admin/", admin.site.urls),
     path("api-auth/", include("rest_framework.urls")),
-    path("a/", TemplateView.as_view(template_name="index.html")),
+    path("/", TemplateView.as_view(template_name="index.html")),
 ]

@@ -1,5 +1,3 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable react/jsx-no-constructed-context-values */
 import Box from '@mui/material/Box'
 import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
@@ -11,14 +9,77 @@ import {
 	useLocation,
 	BrowserRouter as Router,
 } from 'react-router-dom'
-import { AppBar, Toolbar } from '@mui/material'
+import { AppBar, Grid, styled, Toolbar } from '@mui/material'
 import Payout from 'Payout'
 import Actuary from 'Actuary'
 import Annuity from 'Annuity'
 import SizeId from 'SizeId'
-import { CoupleContext, defaultCouple } from 'CoupleContext'
-import { AnnuityContext, defaultAnnuityConfig } from 'AnnuityContext'
-import { useState } from 'react'
+import { CoupleContextProvider } from 'CoupleContext'
+import { AnnuityContextProvider } from 'AnnuityContext'
+import { UserContextProvider } from 'UserContext'
+import { blue } from '@mui/material/colors'
+
+const StyledToolbar = styled(Toolbar)(({ theme }) => ({
+	alignItems: 'flex-start',
+	paddingTop: theme.spacing(1),
+	paddingBottom: theme.spacing(2),
+
+	// Override media queries injected by theme.mixins.toolbar
+	'@media all': {
+		minHeight: 20,
+		maxHeight: 31,
+	},
+}))
+interface StyledTabProps {
+	label: any
+	value: string
+	to: string
+	component: any
+	disabled?: boolean
+}
+
+const AntTabs = styled(Tabs)({
+	borderBottom: '1px solid primary',
+	'& .MuiTabs-indicator': {
+		backgroundColor: 'primary',
+	},
+})
+
+const AntTab = styled((props: StyledTabProps) => (
+	<Tab disableRipple={false} {...props} />
+))(({ theme }) => ({
+	textTransform: 'capitalize',
+	minWidth: 0,
+	[theme.breakpoints.up('sm')]: {
+		minWidth: 0,
+	},
+	fontWeight: theme.typography.fontWeightLight,
+	marginRight: theme.spacing(1),
+	color: '#1A237E',
+	backgroundColor: 'secondary',
+	paddingTop: 0,
+	paddingBottom: 0,
+
+	fontSizeAdjust: 'from-font',
+
+	'&:hover': {
+		color: '#1A237E',
+		fontWeight: theme.typography.fontWeightMedium,
+		opacity: 1,
+	},
+	'&.Mui-selected': {
+		color: 'primary',
+		fontWeight: theme.typography.fontWeightMedium,
+		backgroundColor: blue[500],
+		borderBottom: '1px solid secondary',
+	},
+	'&.Mui-focusVisible': {
+		backgroundColor: '#d1eaff',
+	},
+	'&.Mui-disabled': {
+		color: '#546E7A',
+	},
+}))
 
 function useRouteMatch(patterns: readonly string[]) {
 	const { pathname } = useLocation()
@@ -44,54 +105,65 @@ function MyTabs() {
 
 	return (
 		<AppBar color='secondary'>
-			<Toolbar>
-				<Tabs value={currentTab}>
-					<Tab label='Your Stats' value='/' to='/' component={Link} />
-
-					<Tab
-						label='Annuity'
+			<StyledToolbar>
+				<AntTabs variant='fullWidth' value={currentTab}>
+					<AntTab
+						label={
+							<Grid container direction='column'>
+								<Grid>Personal</Grid>
+								<Grid>Stats</Grid>
+							</Grid>
+						}
+						value='/'
+						to='/'
+						component={Link}
+					/>
+					<AntTab
+						label={
+							<Grid container direction='column'>
+								<Grid>Annuity</Grid>
+								<Grid>Options</Grid>
+							</Grid>
+						}
 						value='/Annuity'
 						to='/Annuity'
 						component={Link}
 					/>
-					<Tab
-						label='Payout'
+					<AntTab
+						label={
+							<Grid container direction='column'>
+								<Grid>Payout</Grid>
+								<Grid>Table</Grid>
+							</Grid>
+						}
 						value='/Payout'
 						to='/Payout'
 						component={Link}
 					/>
-				</Tabs>
-			</Toolbar>
+				</AntTabs>
+			</StyledToolbar>
 			<SizeId />
 		</AppBar>
 	)
 }
 
-const App = () => {
-	const [couple, setCouple] = useState(defaultCouple)
-	const [annuityConfig, setAnnuityConfig] = useState(defaultAnnuityConfig)
-
-	return (
-		<CoupleContext.Provider
-			value={{
-				couple,
-				setCouple,
-			}}
-		>
-			<AnnuityContext.Provider value={{ annuityConfig, setAnnuityConfig }}>
+const App = () => (
+	<UserContextProvider>
+		<CoupleContextProvider>
+			<AnnuityContextProvider>
 				<Router>
 					<Box sx={{ width: '100%' }}>
 						<MyTabs />
 						<Routes>
 							<Route path='*' element={<Actuary />} />
-							<Route path='/Payout' element={<Payout />} />
 							<Route path='/Annuity' element={<Annuity />} />
+							<Route path='/Payout' element={<Payout />} />
 						</Routes>
 					</Box>
 				</Router>
-			</AnnuityContext.Provider>
-		</CoupleContext.Provider>
-	)
-}
+			</AnnuityContextProvider>
+		</CoupleContextProvider>
+	</UserContextProvider>
+)
 
 export default App

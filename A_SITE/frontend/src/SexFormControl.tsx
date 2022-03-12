@@ -1,4 +1,5 @@
 import { FormControl, FormControlLabel, Radio, RadioGroup } from '@mui/material'
+import { FEMALE, MALE } from 'life'
 
 interface IProps {
 	name: string
@@ -19,7 +20,7 @@ export default function SexFormControl(props: IProps) {
 				onChange={handleChange}
 			>
 				<FormControlLabel
-					value='Female'
+					value={FEMALE}
 					control={
 						<Radio
 							sx={{
@@ -29,10 +30,10 @@ export default function SexFormControl(props: IProps) {
 							}}
 						/>
 					}
-					label='Female'
+					label={FEMALE}
 				/>
 				<FormControlLabel
-					value='Male'
+					value={MALE}
 					control={
 						<Radio
 							sx={{
@@ -42,7 +43,7 @@ export default function SexFormControl(props: IProps) {
 							}}
 						/>
 					}
-					label='Male'
+					label={MALE}
 				/>
 			</RadioGroup>
 		</FormControl>

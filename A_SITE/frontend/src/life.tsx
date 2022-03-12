@@ -135,31 +135,46 @@ const LIFE = [
 
 interface IPerson {
 	name: string
-	dateOfBirth: Date
+	age: number
 	sex: string
+}
+
+/*
+			{
+				name: 'Neither',
+				value: couple.getProbabilityOfNeitherReachingTargetAge(age),
+			},
+			{
+				name: 'One',
+				value: couple.getProbabilityOfExactlyOneReachingTargetAge(age),
+			},
+			{
+				name: 'Both',
+				value: couple.getProbabilityOfBothReachingTargetAge(age),
+			},
+		]
+*/
+
+interface ISurvival {
+	neither: number
+	one: number
+	both: number
 }
 
 abstract class AbstractPerson {
 	name: string
-
-	dateOfBirth: Date
 
 	sex: string
 
 	age: number
 
 	constructor(props: IPerson) {
-		const now = new Date()
 		this.name = props.name
-		this.dateOfBirth = props.dateOfBirth
 		this.sex = props.sex
-		this.age = now.getFullYear() - this.dateOfBirth.getFullYear()
+		this.age = props.age
 	}
 
 	abstract getName(): string
-
-	// eslint-disable-next-line no-unused-vars
-	abstract setAge(newAge: number): void
 
 	abstract getLifeExpectancy(): number
 	// Returns the expected age to be reached by person of this age and sex.
@@ -180,16 +195,6 @@ abstract class AbstractPerson {
 class Person extends AbstractPerson {
 	getName = (): string => this.name
 
-	setAge(newAge: number): void {
-		let goodAge = newAge > 117 ? 117 : newAge
-		goodAge = goodAge < 0 ? 0 : goodAge
-
-		this.age = goodAge
-
-		const now = new Date()
-		this.dateOfBirth.setFullYear(now.getFullYear() - this.age)
-	}
-
 	getLifeExpectancy = (): number => {
 		// Returns the expected age to be reached by person of this age and sex.
 		if (this.sex === MALE) {
@@ -199,27 +204,22 @@ class Person extends AbstractPerson {
 	}
 
 	getProbabilityOfDeathAtAge(targetAge: number): number {
-		if (this.sex === MALE) {
+		if (targetAge > 119) return 0.9
+		if (targetAge < 0) return 0
+		if (this.sex === MALE)
 			return LIFE[targetAge][MALE_CHANCE_OF_DEATH_THIS_YEAR]
-		}
 		return LIFE[targetAge][FEMALE_CHANCE_OF_DEATH_THIS_YEAR]
 	}
 
 	getProbabilityOfDeathByAge = (targetAge: number): number => {
 		// Return the probability that this individual will die by target age.
+		if (targetAge > 117) return 1
+		if (targetAge < 0) return 0
+		if (targetAge < this.age) return 0
 
-		if (targetAge < this.age) {
-			return 0
-		}
+		const livesColumn =
+			this.sex === FEMALE ? FEMALE_NUMBER_OF_LIVES : MALE_NUMBER_OF_LIVES
 
-		if (targetAge > 117) {
-			return 1
-		}
-
-		let livesColumn = MALE_NUMBER_OF_LIVES
-		if (this.sex === FEMALE) {
-			livesColumn = FEMALE_NUMBER_OF_LIVES
-		}
 		const startLives = LIFE[this.age][livesColumn]
 		const endLives = LIFE[targetAge][livesColumn]
 
@@ -247,7 +247,7 @@ abstract class AbstractCouple {
 	constructor(props: ICouple) {
 		this.person1 = props.person1
 		this.person2 = props.person2
-		this.targetAge = 90
+		this.targetAge = props.targetAge
 	}
 
 	abstract getName(): string
@@ -255,6 +255,8 @@ abstract class AbstractCouple {
 	abstract getAgeOfYoungest(): number
 
 	abstract getAgeOfOldest(): number
+
+	abstract getSurvivalData(): ISurvival
 
 	abstract getProbabilityOfAtLeastOneReachingTargetAge(
 	// eslint-disable-next-line no-unused-vars
@@ -278,6 +280,14 @@ abstract class AbstractCouple {
 }
 
 class Couple extends AbstractCouple {
+	getSurvivalData(): ISurvival {
+		return {
+			neither: this.getProbabilityOfNeitherReachingTargetAge(this.targetAge),
+			one: this.getProbabilityOfExactlyOneReachingTargetAge(this.targetAge),
+			both: this.getProbabilityOfBothReachingTargetAge(this.targetAge),
+		}
+	}
+
 	getName(): string {
 		return `${this.person1.getName()} & ${this.person2.getName()}`
 	}
@@ -321,4 +331,4 @@ class Couple extends AbstractCouple {
 		this.getProbabilityOfNeitherReachingTargetAge(targetAge)
 }
 
-export { Couple, Person }
+export { Couple, Person, MALE, FEMALE }

@@ -2,15 +2,15 @@ import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import './index.css'
 import { ThemeProvider } from '@mui/material/styles'
-import App from './App'
+import AnnuityApp from './App'
 import theme from './MyTheme'
 
-function Appp() {
+function App() {
 	return (
 		<ThemeProvider theme={theme}>
-			<App />
+			<AnnuityApp />
 		</ThemeProvider>
 	)
 }
 
-ReactDOM.render(<Appp />, document.getElementById('root'))
+ReactDOM.render(<App />, document.getElementById('root'))
