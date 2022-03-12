@@ -56,22 +56,23 @@ const columns: readonly Column[] = [
 	{
 		id: 'payment',
 		label: (
-			<Typography sx={{ writingMode: 'vertical-rl' }}>
-				<Grid sx={{ width: 30 }}>
+			<Typography sx={{ writingMode: 'horizontal-tb' }}>
+				<Grid>
 					<Grid>COLA</Grid>
 					<Grid>Ajusted</Grid>
+					<Grid>Payment</Grid>
 				</Grid>
 			</Typography>
 		),
-		width: 30,
-		alignHeading: 'center',
+		width: 60,
+		alignHeading: 'right',
 		alignData: 'right',
 		format: (value: number) => displayCurrency(value),
 	},
 	{
 		id: 'discountedAmt',
 		label: (
-			<Typography sx={{ writingMode: 'vertical-rl' }}>
+			<Typography sx={{ writingMode: 'horizontal-tb' }}>
 				<Grid>
 					<Grid>Discounted</Grid>
 					<Grid>Value</Grid>
@@ -79,14 +80,14 @@ const columns: readonly Column[] = [
 			</Typography>
 		),
 		width: 40,
-		alignHeading: 'center',
+		alignHeading: 'right',
 		alignData: 'right',
 		format: (value: number) => displayCurrency(value),
 	},
 	{
 		id: 'actuarialAmt',
 		label: (
-			<Typography sx={{ writingMode: 'vertical-rl' }}>
+			<Typography sx={{ writingMode: 'horizontal-tb' }}>
 				<Grid>
 					<Grid>Actuarial</Grid>
 					<Grid>Value</Grid>
@@ -94,7 +95,7 @@ const columns: readonly Column[] = [
 			</Typography>
 		),
 		width: 40,
-		alignHeading: 'center',
+		alignHeading: 'right',
 		alignData: 'right',
 		format: (value: number) => displayCurrency(value),
 	},

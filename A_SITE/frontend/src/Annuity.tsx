@@ -92,9 +92,11 @@ const Annuity = () => {
 				const spouse1Dead = couple.person1.getProbabilityOfDeathByAge(
 					element.spouse1Age
 				)
+				const spouse1Alive = 1 - spouse1Dead
 				const spouse2Dead = couple.person2.getProbabilityOfDeathByAge(
 					element.spouse2Age
 				)
+				const spouse2Alive = 1 - spouse2Dead
 				const spouse1Dies = couple.person1.getProbabilityOfDeathAtAge(
 					element.spouse1Age
 				)
@@ -103,7 +105,8 @@ const Annuity = () => {
 				)
 				// Probability that the last surviving spouse dies in a particular year
 				const lastDies =
-					spouse2Dead * spouse1Dies + spouse1Dead * spouse2Dies
+					spouse1Alive * spouse2Dead * spouse1Dies +
+					spouse2Alive * spouse1Dead * spouse2Dies
 
 				// Unrepaid balance discounted for time and odds of it being paid in this year
 				valueOfGuarantee += (unRepaid * lastDies) / element.discounter
@@ -130,7 +133,11 @@ const Annuity = () => {
 		if (event.target.name === 'guatantee') {
 			setAnnuityConfig({
 				...annuityConfig,
-				...calculateValue(event.target.checked),
+				isCalculated: defaultAnnuityConfig.isCalculated,
+				totalAjustedValue: defaultAnnuityConfig.totalAjustedValue,
+				totalPaymentsReceived: defaultAnnuityConfig.totalPaymentsReceived,
+				valueOfGuarantee: defaultAnnuityConfig.valueOfGuarantee,
+				payments: defaultAnnuityConfig.payments,
 				[event.target.name]: [event.target.checked, event.target.checked],
 			})
 		} else {
@@ -149,15 +156,7 @@ const Annuity = () => {
 	return (
 		<Grid id='page' container direction='row' sx={{ marginTop: '70px' }}>
 			<Grid id='left-side' item xs={12} sm={12} md={6} lg={5} xl={4}>
-				<Grid
-					container
-					direction='column'
-					sx={{
-						'& > :not(style)': {
-							m: 1,
-						},
-					}}
-				>
+				<Grid container direction='column'>
 					<Grid id='calculatedResults'>
 						<Grid container direction='row'>
 							<Grid item xs={7}>
@@ -187,7 +186,6 @@ const Annuity = () => {
 							</Grid>
 						</Grid>
 					</Grid>
-
 					<NumberTextField
 						label='Annual Annuity Amount'
 						name='annuityAmount'
@@ -200,36 +198,27 @@ const Annuity = () => {
 						variant='standard'
 						allowNegative={false}
 					/>
-
-					<Grid item>
-						<Grid container direction='row'>
-							<Grid item xs>
-								<PercentTextField
-									label='Cost-Of-Living Adjustment'
-									name='costOfLivingAdjustment'
-									decimalScale={2}
-									fixedDecimalScale={true}
-									value={annuityConfig.costOfLivingAdjustment}
-									onChange={handleChange}
-									variant='standard'
-									allowNegative={false}
-								/>
-							</Grid>
-							<Grid item xs={6}>
-								<PercentTextField
-									InputLabelProps={{ style: { fontSize: 17 } }}
-									label='Risk-Free Rate Of Return'
-									name='discountRate'
-									decimalScale={2}
-									fixedDecimalScale={true}
-									value={annuityConfig.discountRate}
-									onChange={handleChange}
-									variant='standard'
-									allowNegative={false}
-								/>
-							</Grid>
-						</Grid>
-					</Grid>
+					<PercentTextField
+						label='Cost-Of-Living Adjustment'
+						name='costOfLivingAdjustment'
+						decimalScale={2}
+						fixedDecimalScale={true}
+						value={annuityConfig.costOfLivingAdjustment}
+						onChange={handleChange}
+						variant='standard'
+						allowNegative={false}
+					/>
+					<PercentTextField
+						InputLabelProps={{ style: { fontSize: 17 } }}
+						label='Risk-Free Rate Of Return'
+						name='discountRate'
+						decimalScale={2}
+						fixedDecimalScale={true}
+						value={annuityConfig.discountRate}
+						onChange={handleChange}
+						variant='standard'
+						allowNegative={false}
+					/>
 					<FormControlLabel
 						label={
 							<Typography variant='body2' color='textSecondary'>
