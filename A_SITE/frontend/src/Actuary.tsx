@@ -111,13 +111,10 @@ function Actuary() {
 							container
 							direction='row'
 							justifyContent='flex-start'
-							spacing={0.25}
+							spacing={0.0}
 						>
 							<Grid id='spouse1' item xs={12} sm={12} lg={6}>
 								<Box sx={{}}>
-									<Typography variant='body2' fontWeight='bold'>
-										Step 1: Set sex and age of first spouse
-									</Typography>
 									<Grid
 										container
 										direction='row'
@@ -126,6 +123,7 @@ function Actuary() {
 									>
 										<Grid item>
 											<SexFormControl
+												label='Spouse one'
 												value={couple.person1.sex}
 												onChange={handleSexChange}
 												name='spouse1'
@@ -152,7 +150,7 @@ function Actuary() {
 											/>
 										</Grid>
 										<Grid item xs={3}>
-											<Typography variant='body2' fontWeight='bold'>
+											<Typography variant='body2'>
 												Age: {couple.person1.age}
 											</Typography>
 										</Grid>
@@ -161,10 +159,8 @@ function Actuary() {
 							</Grid>
 							<Grid id='spouse2' item xs>
 								<Box sx={{}}>
-									<Typography variant='body2' fontWeight='bold'>
-										Step 2: Set sex and age of second spouse
-									</Typography>
 									<SexFormControl
+										label='Spouse two:'
 										value={couple.person2.sex}
 										onChange={handleSexChange}
 										name='spouse2'
@@ -190,7 +186,7 @@ function Actuary() {
 										</Grid>
 
 										<Grid item xs={3}>
-											<Typography variant='body2' fontWeight='bold'>
+											<Typography variant='body2'>
 												Age: {couple.person2.age}
 											</Typography>
 										</Grid>
@@ -199,9 +195,13 @@ function Actuary() {
 							</Grid>
 						</Grid>
 					</Grid>
+
+					<Grid id='couple-stats' item xs>
+						<CoupleStats />
+					</Grid>
 					<Grid id='target-desc'>
-						<Typography variant='body2' fontWeight='bold'>
-							Step 3: (Optional) Set target longevity
+						<Typography variant='body2'>
+							(Optional) Set target longevity
 						</Typography>
 					</Grid>
 					<Grid id='target' item>
@@ -222,20 +222,11 @@ function Actuary() {
 								/>
 							</Grid>
 							<Grid item xs={3} sx={{}}>
-								<Typography variant='body2' fontWeight='bold'>
+								<Typography variant='body2'>
 									Age: {couple.targetAge}
 								</Typography>
 							</Grid>
 						</Grid>
-					</Grid>
-					<Grid id='target-desc'>
-						<Typography variant='body2' fontWeight='bold'>
-							Step 4: View odds of living pastyour target
-						</Typography>
-					</Grid>
-
-					<Grid id='couple-stats' item xs>
-						<CoupleStats />
 					</Grid>
 				</Grid>
 			</Grid>

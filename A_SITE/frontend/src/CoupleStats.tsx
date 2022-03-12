@@ -1,4 +1,4 @@
-import { Box, Grid, Link, Typography } from '@mui/material'
+import { Box, Grid, Typography } from '@mui/material'
 import { CoupleContext, displayPercent } from 'CoupleContext'
 import { useContext } from 'react'
 
@@ -123,18 +123,6 @@ function CoupleStats() {
 					</Grid>
 				</Grid>
 			</Grid>
-
-			<Typography variant='caption'>
-				{'Results are Based on the '}
-				<Link
-					sx={{ fontStyle: 'italic', fontWeight: 'bold' }}
-					href='https://www.ssa.gov/oact/STATS/table4c6.html'
-					target='_blank'
-					rel='noopener'
-				>
-					Social Security Actuarial Life Table.
-				</Link>
-			</Typography>
 		</Box>
 	)
 }
