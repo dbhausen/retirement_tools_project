@@ -162,7 +162,7 @@ function Actuary() {
 						label='Married'
 					/>
 					{couple.married ? (
-						<Box height={70}>
+						<Box height={75}>
 							<Grid id='spouse2' sx={{ padding: 0 }}>
 								<SexFormControl
 									label='Spouse:'
@@ -206,7 +206,7 @@ function Actuary() {
 							</Grid>
 						</Box>
 					) : (
-						<Box height={70} />
+						<Box height={75} />
 					)}
 
 					<Grid id='couple-stats' item xs>
