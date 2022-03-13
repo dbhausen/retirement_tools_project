@@ -119,7 +119,7 @@ const Payout = () => {
 							lg: 'block',
 							md: 'block',
 							sm: 'block',
-							xs: 'none',
+							xs: 'block',
 						},
 						width: '100%',
 					}}

@@ -159,7 +159,7 @@ function Actuary() {
 								onChange={handleMarriedChanged}
 							/>
 						}
-						label='Married'
+						label='Married (joint survivorship)'
 					/>
 					{couple.married ? (
 						<Box height={75}>
@@ -251,7 +251,7 @@ function Actuary() {
 							lg: 'block',
 							md: 'block',
 							sm: 'block',
-							xs: 'none',
+							xs: 'block',
 						},
 						width: '100%',
 						height: 400,

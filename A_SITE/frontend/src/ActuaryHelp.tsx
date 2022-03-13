@@ -25,13 +25,13 @@ const ActuaryHelp = () => (
 		</Grid>
 		<Grid>
 			<Typography gutterBottom>
-				The age and sex of you and your spouse is the primary factor
-				determining the value of an annuity income stream with joint
-				survivorship. The longer you are likely to receive the income the
-				more it is worth. The age and sex of you and your spouse is
-				converted by this tool into the probabilities of being alive at any
-				given age. The probabilities are expressed as percentages and the
-				calculations are based on the{' '}
+				The primary factor determining the value of an annuity income stream
+				is your age and sex (and, if married, that of your spouse). The
+				longer you are likely to receive the income the more it is worth.
+				The age and sex of you and your spouse is converted by this tool
+				into the probabilities of being alive at any given age. The
+				probabilities are expressed as percentages and the calculations are
+				based on the{' '}
 				<Link
 					sx={{ fontStyle: 'italic', fontWeight: 'bold' }}
 					href='https://www.ssa.gov/oact/STATS/table4c6.html'
@@ -51,14 +51,8 @@ const ActuaryHelp = () => (
 					<li>Health</li>
 					<li>Smoking Habits</li>
 					<li>Genetics</li>
+					<li>Gender Identity</li>
 				</ul>
-			</Typography>
-		</Grid>
-		<Grid>
-			<Typography gutterBottom variant='caption'>
-				Note: If you are single, you can set the age of the second spouse to
-				100 and get accurate results but most of this tool is geared toward
-				married couples
 			</Typography>
 		</Grid>
 	</Grid>

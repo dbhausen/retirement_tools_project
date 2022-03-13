@@ -20,7 +20,9 @@ const Annuity = () => {
 	const { annuityConfig, setAnnuityConfig } = useContext(AnnuityContext)
 
 	const calculateValue = (withGurantee: boolean, deferral: number): any => {
-		const startAge = couple.getAgeOfYoungest() + 1
+		const startAge = couple.married
+			? couple.getAgeOfYoungest() + 1
+			: couple.person1.age + 1
 		let spouse1Age = couple.person1.age
 		let spouse2Age = couple.person2.age
 		const now = new Date()
@@ -286,7 +288,7 @@ const Annuity = () => {
 							lg: 'block',
 							md: 'block',
 							sm: 'block',
-							xs: 'none',
+							xs: 'block',
 						},
 						width: '100%',
 						height: 400,
