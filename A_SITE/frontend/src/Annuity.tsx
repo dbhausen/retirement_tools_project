@@ -97,16 +97,21 @@ const Annuity = () => {
 					element.spouse1Age
 				)
 				const spouse1Alive = 1 - spouse1Dead
-				const spouse2Dead = couple.person2.getProbabilityOfDeathByAge(
+				let spouse2Dead = couple.person2.getProbabilityOfDeathByAge(
 					element.spouse2Age
 				)
-				const spouse2Alive = 1 - spouse2Dead
+				let spouse2Alive = 1 - spouse2Dead
 				const spouse1Dies = couple.person1.getProbabilityOfDeathAtAge(
 					element.spouse1Age
 				)
 				const spouse2Dies = couple.person2.getProbabilityOfDeathAtAge(
 					element.spouse2Age
 				)
+				if (!couple.married) {
+					spouse2Dead = 1
+					spouse2Alive = 0
+				}
+
 				// Probability that the last surviving spouse dies in a particular year
 				const lastDies =
 					spouse1Alive * spouse2Dead * spouse1Dies +

@@ -308,24 +308,34 @@ class Couple extends AbstractCouple {
 			: this.person2.age
 	}
 
-	getProbabilityOfAtLeastOneReachingTargetAge = (targetAge: number): number =>
+	getProbabilityOfAtLeastOneReachingTargetAge = (
+		targetAge: number
+	): number => {
 		// Returns the probability that at least one of this couple will reach target age.//
-
-		1 -
-		this.person1.getProbabilityOfDeathByAge(targetAge) *
-			this.person2.getProbabilityOfDeathByAge(targetAge)
+		const p2 = this.married
+			? this.person2.getProbabilityOfDeathByAge(targetAge)
+			: 1
+		return 1 - this.person1.getProbabilityOfDeathByAge(targetAge) * p2
+	}
 
 	getProbabilityOfNeitherReachingTargetAge = (targetAge: number): number =>
 		// Returns the probability that neither one of this couple will reach target age.//
-
-		this.person1.getProbabilityOfDeathByAge(targetAge) *
-		this.person2.getProbabilityOfDeathByAge(targetAge)
+		{
+			const p2 = this.married
+				? this.person2.getProbabilityOfDeathByAge(targetAge)
+				: 1
+			return this.person1.getProbabilityOfDeathByAge(targetAge) * p2
+		}
 
 	getProbabilityOfBothReachingTargetAge = (targetAge: number): number =>
 		// Returns the probability that both of this couple will reach target age.
+		{
+			const p2 = this.married
+				? this.person2.getProbabilityOfLivingToAge(targetAge)
+				: 0
 
-		this.person1.getProbabilityOfLivingToAge(targetAge) *
-		this.person2.getProbabilityOfLivingToAge(targetAge)
+			return this.person1.getProbabilityOfLivingToAge(targetAge) * p2
+		}
 
 	getProbabilityOfExactlyOneReachingTargetAge = (targetAge: number): number =>
 		// Returns the probability that exactly one of this couple will reach target age.//

@@ -85,6 +85,7 @@ function Actuary() {
 			married: Boolean(event.target.checked),
 		})
 		setCouple(copyCouple)
+		clearCalculatedData()
 	}
 
 	const handleSexChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -160,46 +161,53 @@ function Actuary() {
 						}
 						label='Married'
 					/>
-
-					<Grid id='spouse2' sx={{ padding: 0 }}>
-						<SexFormControl
-							label='Spouse:'
-							disabled={!couple.married}
-							value={couple.person2.sex}
-							onChange={handleSexChange}
-							name='spouse2'
-						/>
-
-						<Grid container spacing={2} alignItems='center'>
-							<Grid item xs>
-								<Slider
+					{couple.married ? (
+						<Box height={70}>
+							<Grid id='spouse2' sx={{ padding: 0 }}>
+								<SexFormControl
+									label='Spouse:'
 									disabled={!couple.married}
-									max={100}
-									min={20}
-									valueLabelDisplay='auto'
-									value={
-										typeof couple.person2.age === 'number'
-											? couple.person2.age
-											: 0
-									}
-									onChange={handleAge2SliderChange}
-									onChangeCommitted={handleSliderChangeCommitted}
-									aria-labelledby='input-slider'
+									value={couple.person2.sex}
+									onChange={handleSexChange}
+									name='spouse2'
 								/>
-							</Grid>
 
-							<Grid item xs={3}>
-								<Typography
-									variant='body2'
-									color={
-										!couple.married ? 'text.disabled' : 'text.primary'
-									}
-								>
-									Age: {couple.person2.age}
-								</Typography>
+								<Grid container spacing={2} alignItems='center'>
+									<Grid item xs>
+										<Slider
+											disabled={!couple.married}
+											max={100}
+											min={20}
+											valueLabelDisplay='auto'
+											value={
+												typeof couple.person2.age === 'number'
+													? couple.person2.age
+													: 0
+											}
+											onChange={handleAge2SliderChange}
+											onChangeCommitted={handleSliderChangeCommitted}
+											aria-labelledby='input-slider'
+										/>
+									</Grid>
+
+									<Grid item xs={3}>
+										<Typography
+											variant='body2'
+											color={
+												!couple.married
+													? 'text.disabled'
+													: 'text.primary'
+											}
+										>
+											Age: {couple.person2.age}
+										</Typography>
+									</Grid>
+								</Grid>
 							</Grid>
-						</Grid>
-					</Grid>
+						</Box>
+					) : (
+						<Box height={70} />
+					)}
 
 					<Grid id='couple-stats' item xs>
 						<CoupleStats />

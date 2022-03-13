@@ -32,7 +32,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }))
 
 interface Column {
-	id: 'ages' | 'payment' | 'discountedAmt' | 'actuarialAmt'
+	id: 'year' | 'payment' | 'discountedAmt' | 'actuarialAmt'
 	label: any
 	width?: number
 	alignHeading?: 'right' | 'center' | 'left'
@@ -43,10 +43,10 @@ interface Column {
 
 const columns: readonly Column[] = [
 	{
-		id: 'ages',
+		id: 'year',
 		label: (
 			<Typography sx={{ writingMode: 'horizontal-tb', width: 20 }}>
-				Ages
+				Year
 			</Typography>
 		),
 		width: 20,
@@ -102,21 +102,19 @@ const columns: readonly Column[] = [
 ]
 
 interface Data {
-	ages: string
+	year: string
 	payment: number
 	discountedAmt: number
 	actuarialAmt: number
 }
 
 function createData(
-	spouse1Age: number,
-	spouse2Age: number,
+	year: string,
 	payment: number,
 	discountedAmt: number,
 	actuarialAmt: number
 ): Data {
-	const ages = `${spouse1Age.toFixed(0)}&${spouse2Age.toFixed(0)}`
-	return { ages, payment, discountedAmt, actuarialAmt }
+	return { year, payment, discountedAmt, actuarialAmt }
 }
 
 export default function StickyHeadTable() {
@@ -125,8 +123,7 @@ export default function StickyHeadTable() {
 	annuityConfig.payments.forEach(payment =>
 		rows.push(
 			createData(
-				payment.spouse1Age,
-				payment.spouse2Age,
+				payment.year.toFixed(0),
 				payment.payment,
 				payment.discountedAmt,
 				payment.actuarialAmt
@@ -159,7 +156,7 @@ export default function StickyHeadTable() {
 					</TableHead>
 					<TableBody>
 						{rows.map(row => (
-							<StyledTableRow hover tabIndex={-1} key={row.ages}>
+							<StyledTableRow hover tabIndex={-1} key={row.year}>
 								{columns.map(column => {
 									const value = row[column.id]
 									return (
