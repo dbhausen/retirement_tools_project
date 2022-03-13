@@ -23,9 +23,11 @@ const Payout = () => {
 			index < couple.targetAge - couple.person1.age;
 			index += 1
 		) {
-			const element = annuityConfig.payments[index]
-			totalExpectedPayments += element.payment
-			discountedTotalPayments += element.discountedAmt
+			if (annuityConfig.payments[index]) {
+				const element = annuityConfig.payments[index]
+				totalExpectedPayments += element.payment
+				discountedTotalPayments += element.discountedAmt
+			}
 		}
 	}
 

@@ -235,6 +235,7 @@ interface ICouple {
 	person1: Person
 	person2: Person
 	targetAge: number
+	married: boolean
 }
 
 abstract class AbstractCouple {
@@ -244,10 +245,13 @@ abstract class AbstractCouple {
 
 	targetAge: number
 
+	married: boolean
+
 	constructor(props: ICouple) {
 		this.person1 = props.person1
 		this.person2 = props.person2
 		this.targetAge = props.targetAge
+		this.married = props.married
 	}
 
 	abstract getName(): string

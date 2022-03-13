@@ -43,6 +43,7 @@ const spouse2 = new Person({
 const defaultCouple = new Couple({
 	person1: spouse1,
 	person2: spouse2,
+	married: true,
 	targetAge: 90,
 })
 

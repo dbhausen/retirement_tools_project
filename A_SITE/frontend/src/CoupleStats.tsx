@@ -14,114 +14,175 @@ function CoupleStats() {
 				<Grid id='pie-chart' item xs={6} sm={5} md={4}>
 					<MyChart />
 				</Grid>
-				<Grid
-					id='stat-chart'
-					item
-					xs
-					sx={{ marginRight: '5px', marginTop: '25px' }}
-				>
+				{couple.married ? (
 					<Grid
-						container
-						direction='row'
-						bgcolor={COLORS[1]}
-						alignItems='flex-end'
+						id='stat-chart'
+						item
+						xs
+						sx={{ marginRight: '5px', marginTop: '25px' }}
 					>
-						<Grid item xs={8} sm={8} md={8} lg={8} xl={8}>
-							<Typography variant='body2' color='white'>
-								{`One ${couple.targetAge.toString()}:`}
-							</Typography>
+						<Grid
+							container
+							direction='row'
+							bgcolor={COLORS[1]}
+							alignItems='flex-end'
+						>
+							<Grid item xs={8} sm={8} md={8} lg={8} xl={8}>
+								<Typography variant='body2' color='white'>
+									{`One ${couple.targetAge.toString()}:`}
+								</Typography>
+							</Grid>
+							<Grid item xs={4} sm={2} md={1} lg={1} xl={1}>
+								<Typography
+									variant='body2'
+									textAlign='right'
+									color='white'
+								>
+									{displayPercent(
+										couple.getProbabilityOfExactlyOneReachingTargetAge(
+											couple.targetAge
+										)
+									)}
+								</Typography>
+							</Grid>
 						</Grid>
-						<Grid item xs={4} sm={2} md={1} lg={1} xl={1}>
-							<Typography
-								variant='body2'
-								textAlign='right'
-								color='white'
-							>
-								{displayPercent(
-									couple.getProbabilityOfExactlyOneReachingTargetAge(
-										couple.targetAge
-									)
-								)}
-							</Typography>
+						<Grid
+							container
+							direction='row'
+							alignItems='flex-end'
+							bgcolor={COLORS[2]}
+						>
+							<Grid item xs={8} sm={8} md={8} lg={8} xl={8}>
+								<Typography variant='body2' color='white'>
+									{`Both ${couple.targetAge.toString()}:`}
+								</Typography>
+							</Grid>
+							<Grid item xs={4} sm={2} md={1} lg={1} xl={1}>
+								<Typography
+									variant='body2'
+									textAlign='right'
+									color='white'
+								>
+									{displayPercent(
+										couple.getProbabilityOfBothReachingTargetAge(
+											couple.targetAge
+										)
+									)}
+								</Typography>
+							</Grid>
 						</Grid>
-					</Grid>
-					<Grid
-						container
-						direction='row'
-						alignItems='flex-end'
-						bgcolor={COLORS[2]}
-					>
-						<Grid item xs={8} sm={8} md={8} lg={8} xl={8}>
-							<Typography variant='body2' color='white'>
-								{`Both ${couple.targetAge.toString()}:`}
-							</Typography>
+						<Grid
+							container
+							direction='row'
+							bgcolor={COLORS2[1]}
+							alignItems='flex-end'
+						>
+							<Grid item xs={8} sm={8} md={8} lg={8} xl={8}>
+								<Typography color='white' variant='body2'>
+									At least one
+								</Typography>
+							</Grid>
+							<Grid item xs={4} sm={2} md={1} lg={1} xl={1}>
+								<Typography
+									variant='body2'
+									color='white'
+									textAlign='right'
+								>
+									{displayPercent(
+										couple.getProbabilityOfAtLeastOneReachingTargetAge(
+											couple.targetAge
+										)
+									)}
+								</Typography>
+							</Grid>
 						</Grid>
-						<Grid item xs={4} sm={2} md={1} lg={1} xl={1}>
-							<Typography
-								variant='body2'
-								textAlign='right'
-								color='white'
-							>
-								{displayPercent(
-									couple.getProbabilityOfBothReachingTargetAge(
-										couple.targetAge
-									)
-								)}
-							</Typography>
-						</Grid>
-					</Grid>
-					<Grid
-						container
-						direction='row'
-						bgcolor={COLORS2[1]}
-						alignItems='flex-end'
-					>
-						<Grid item xs={8} sm={8} md={8} lg={8} xl={8}>
-							<Typography color='white' variant='body2'>
-								{`At least one ${couple.targetAge.toString()}:`}
-							</Typography>
-						</Grid>
-						<Grid item xs={4} sm={2} md={1} lg={1} xl={1}>
-							<Typography
-								variant='body2'
-								color='white'
-								textAlign='right'
-							>
-								{displayPercent(
-									couple.getProbabilityOfAtLeastOneReachingTargetAge(
-										couple.targetAge
-									)
-								)}
-							</Typography>
-						</Grid>
-					</Grid>
-					<Grid
-						container
-						direction='row'
-						bgcolor={COLORS[0]}
-						alignItems='flex-end'
-					>
-						<Grid item xs={8} sm={8} md={8} lg={8} xl={8}>
-							<Typography variant='body2' color='white'>
-								{`Neither ${couple.targetAge.toString()}:`}
-							</Typography>
-						</Grid>
+						<Grid
+							container
+							direction='row'
+							bgcolor={COLORS[0]}
+							alignItems='flex-end'
+						>
+							<Grid item xs={8} sm={8} md={8} lg={8} xl={8}>
+								<Typography variant='body2' color='white'>
+									{`Neither ${couple.targetAge.toString()}:`}
+								</Typography>
+							</Grid>
 
-						<Grid item xs={4} sm={2} md={1} lg={1} xl={1}>
-							<Typography
-								variant='body2'
-								color='white'
-								textAlign='right'
-							>
-								{displayPercent(
-									couple.getProbabilityOfNeitherReachingTargetAge(
-										couple.targetAge
-									)
-								)}
-							</Typography>
+							<Grid item xs={4} sm={2} md={1} lg={1} xl={1}>
+								<Typography
+									variant='body2'
+									color='white'
+									textAlign='right'
+								>
+									{displayPercent(
+										couple.getProbabilityOfNeitherReachingTargetAge(
+											couple.targetAge
+										)
+									)}
+								</Typography>
+							</Grid>
 						</Grid>
 					</Grid>
-				</Grid>
+				) : (
+					<Grid
+						id='stat-chart'
+						item
+						xs
+						sx={{ marginRight: '5px', marginTop: '25px' }}
+					>
+						<Grid
+							container
+							direction='row'
+							bgcolor={COLORS2[1]}
+							alignItems='flex-end'
+						>
+							<Grid item xs={8} sm={8} md={8} lg={8} xl={8}>
+								<Typography color='white' variant='body2'>
+									{`Alive at ${couple.targetAge.toString()}:`}
+								</Typography>
+							</Grid>
+							<Grid item xs={4} sm={2} md={1} lg={1} xl={1}>
+								<Typography
+									variant='body2'
+									color='white'
+									textAlign='right'
+								>
+									{displayPercent(
+										couple.getProbabilityOfAtLeastOneReachingTargetAge(
+											couple.targetAge
+										)
+									)}
+								</Typography>
+							</Grid>
+						</Grid>
+						<Grid
+							container
+							direction='row'
+							bgcolor={COLORS[0]}
+							alignItems='flex-end'
+						>
+							<Grid item xs={8} sm={8} md={8} lg={8} xl={8}>
+								<Typography variant='body2' color='white'>
+									Not alive
+								</Typography>
+							</Grid>
+
+							<Grid item xs={4} sm={2} md={1} lg={1} xl={1}>
+								<Typography
+									variant='body2'
+									color='white'
+									textAlign='right'
+								>
+									{displayPercent(
+										couple.getProbabilityOfNeitherReachingTargetAge(
+											couple.targetAge
+										)
+									)}
+								</Typography>
+							</Grid>
+						</Grid>
+					</Grid>
+				)}
 			</Grid>
 		</Box>
 	)

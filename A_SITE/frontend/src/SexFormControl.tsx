@@ -12,11 +12,13 @@ interface IProps {
 	label: string
 	value: string
 	onChange: any
+	disabled: boolean
 }
 
 export default function SexFormControl(props: IProps) {
-	const { name, value, onChange, label } = props
+	const { name, value, onChange, label, disabled } = props
 	const handleChange = onChange
+	const textColor = disabled ? 'text.disabled' : 'text.primary'
 	return (
 		<FormControl>
 			<RadioGroup
@@ -26,8 +28,18 @@ export default function SexFormControl(props: IProps) {
 				value={value}
 				onChange={handleChange}
 			>
-				<Typography sx={{ padding: 1 }}>{label}</Typography>
+				<Typography
+					sx={{
+						padding: 1,
+
+						color: textColor,
+					}}
+				>
+					{label}
+				</Typography>
 				<FormControlLabel
+					sx={{}}
+					disabled={disabled}
 					value={FEMALE}
 					control={
 						<Radio
@@ -41,6 +53,7 @@ export default function SexFormControl(props: IProps) {
 					label={FEMALE}
 				/>
 				<FormControlLabel
+					disabled={disabled}
 					value={MALE}
 					control={
 						<Radio

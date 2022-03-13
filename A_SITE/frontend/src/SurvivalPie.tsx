@@ -1,4 +1,7 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable prefer-const */
 import { CoupleContext } from 'CoupleContext'
+import { Couple } from 'life'
 import { useContext } from 'react'
 import { PieChart, Pie, Cell } from 'recharts'
 
@@ -30,10 +33,35 @@ const renderCustomizedLabel = ({
 		</text>
 	)
 }
+const renderCustomizedLabelSingle = ({
+	cx,
+	cy,
+	midAngle,
+	innerRadius,
+	outerRadius,
+	percent,
+}: any) => <text />
 
 function MyChart() {
 	const { couple } = useContext(CoupleContext)
 	const surData = couple.getSurvivalData()
+	const renderSingle = !couple.married
+		? renderCustomizedLabel
+		: renderCustomizedLabelSingle
+
+	let insideInner = 3
+	let insideOuter = 46
+	let outsideInner = 48
+	let outsideOuter = 56
+
+	if (!couple.married) {
+		insideInner = 0
+		insideOuter = 0
+		outsideInner = 3
+		outsideOuter = 56
+	}
+	const cx = 65
+	const cy = 52
 
 	const data = [
 		{ name: 'Neither', value: surData.neither },
@@ -46,16 +74,16 @@ function MyChart() {
 		{ name: 'Either', value: surData.one + surData.both },
 	]
 	return (
-		<PieChart height={140} width={140}>
+		<PieChart height={120} width={140}>
 			<Pie
 				data={data}
 				isAnimationActive={false}
 				dataKey='value'
-				cx={65}
-				cy={65}
+				cx={cx}
+				cy={cy}
 				label={renderCustomizedLabel}
-				innerRadius={3}
-				outerRadius={52}
+				innerRadius={insideInner}
+				outerRadius={insideOuter}
 				paddingAngle={2}
 				fill='#8884d8'
 			>
@@ -71,10 +99,11 @@ function MyChart() {
 				data={data02}
 				isAnimationActive={false}
 				dataKey='value'
-				cx={65}
-				cy={65}
-				innerRadius={55}
-				outerRadius={66}
+				cx={cx}
+				cy={cy}
+				label={renderSingle}
+				innerRadius={outsideInner}
+				outerRadius={outsideOuter}
 				paddingAngle={2}
 				fill='#8884d8'
 			>

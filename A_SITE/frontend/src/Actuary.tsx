@@ -14,6 +14,7 @@ import { AnnuityContext, defaultAnnuityConfig } from 'AnnuityContext'
 import { Couple, Person } from 'life'
 // eslint-disable-next-line no-unused-vars
 import ActuaryHelp from 'ActuaryHelp'
+import { FormControlLabel, Switch } from '@mui/material'
 
 function Actuary() {
 	const { couple, setCouple } = useContext(CoupleContext)
@@ -76,6 +77,16 @@ function Actuary() {
 		setCouple(copyCouple)
 	}
 
+	const handleMarriedChanged = (
+		event: React.ChangeEvent<HTMLInputElement>
+	) => {
+		const copyCouple = new Couple({
+			...couple,
+			married: Boolean(event.target.checked),
+		})
+		setCouple(copyCouple)
+	}
+
 	const handleSexChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		if (event.target.name === 'spouse1') {
 			const person1 = new Person({
@@ -106,92 +117,86 @@ function Actuary() {
 		<Grid id='page' container direction='row' sx={{ marginTop: '70px' }}>
 			<Grid id='left-side' item xs={12} sm={12} md={6} lg={5} xl={4}>
 				<Grid container direction='column'>
-					<Grid id='spouses' item>
-						<Grid
-							container
-							direction='row'
-							justifyContent='flex-start'
-							spacing={0.0}
-						>
-							<Grid id='spouse1' item xs={12} sm={12} lg={6}>
-								<Box sx={{}}>
-									<Grid
-										container
-										direction='row'
-										justifyContent='flex-start'
-										spacing={2}
-									>
-										<Grid item>
-											<SexFormControl
-												label='Spouse one'
-												value={couple.person1.sex}
-												onChange={handleSexChange}
-												name='spouse1'
-											/>
-										</Grid>
-									</Grid>
-									<Grid container spacing={2} alignItems='center'>
-										<Grid item xs>
-											<Slider
-												max={100}
-												min={20}
-												name='spouse1'
-												valueLabelDisplay='auto'
-												value={
-													typeof couple.person1.age === 'number'
-														? couple.person1.age
-														: 0
-												}
-												onChange={handleAge1SliderChange}
-												onChangeCommitted={
-													handleSliderChangeCommitted
-												}
-												aria-labelledby='input-slider'
-											/>
-										</Grid>
-										<Grid item xs={3}>
-											<Typography variant='body2'>
-												Age: {couple.person1.age}
-											</Typography>
-										</Grid>
-									</Grid>
-								</Box>
+					<Grid id='spouse1' sx={{ padding: 0 }}>
+						<SexFormControl
+							label='Self:'
+							disabled={false}
+							value={couple.person1.sex}
+							onChange={handleSexChange}
+							name='spouse1'
+						/>
+
+						<Grid container spacing={2} alignItems='center'>
+							<Grid item xs>
+								<Slider
+									max={100}
+									min={20}
+									name='spouse1'
+									valueLabelDisplay='auto'
+									value={
+										typeof couple.person1.age === 'number'
+											? couple.person1.age
+											: 0
+									}
+									onChange={handleAge1SliderChange}
+									onChangeCommitted={handleSliderChangeCommitted}
+									aria-labelledby='input-slider'
+								/>
 							</Grid>
-							<Grid id='spouse2' item xs>
-								<Box sx={{}}>
-									<SexFormControl
-										label='Spouse two:'
-										value={couple.person2.sex}
-										onChange={handleSexChange}
-										name='spouse2'
-									/>
+							<Grid item xs={3}>
+								<Typography variant='body2'>
+									Age: {couple.person1.age}
+								</Typography>
+							</Grid>
+						</Grid>
+					</Grid>
 
-									<Grid container spacing={2} alignItems='center'>
-										<Grid item xs>
-											<Slider
-												max={100}
-												min={20}
-												valueLabelDisplay='auto'
-												value={
-													typeof couple.person2.age === 'number'
-														? couple.person2.age
-														: 0
-												}
-												onChange={handleAge2SliderChange}
-												onChangeCommitted={
-													handleSliderChangeCommitted
-												}
-												aria-labelledby='input-slider'
-											/>
-										</Grid>
+					<FormControlLabel
+						control={
+							<Switch
+								checked={couple.married}
+								onChange={handleMarriedChanged}
+							/>
+						}
+						label='Married'
+					/>
 
-										<Grid item xs={3}>
-											<Typography variant='body2'>
-												Age: {couple.person2.age}
-											</Typography>
-										</Grid>
-									</Grid>
-								</Box>
+					<Grid id='spouse2' sx={{ padding: 0 }}>
+						<SexFormControl
+							label='Spouse:'
+							disabled={!couple.married}
+							value={couple.person2.sex}
+							onChange={handleSexChange}
+							name='spouse2'
+						/>
+
+						<Grid container spacing={2} alignItems='center'>
+							<Grid item xs>
+								<Slider
+									disabled={!couple.married}
+									max={100}
+									min={20}
+									valueLabelDisplay='auto'
+									value={
+										typeof couple.person2.age === 'number'
+											? couple.person2.age
+											: 0
+									}
+									onChange={handleAge2SliderChange}
+									onChangeCommitted={handleSliderChangeCommitted}
+									aria-labelledby='input-slider'
+								/>
+							</Grid>
+
+							<Grid item xs={3}>
+								<Typography
+									variant='body2'
+									color={
+										!couple.married ? 'text.disabled' : 'text.primary'
+									}
+								>
+									Age: {couple.person2.age}
+								</Typography>
 							</Grid>
 						</Grid>
 					</Grid>

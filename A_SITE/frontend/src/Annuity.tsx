@@ -13,12 +13,13 @@ import { useContext } from 'react'
 import { CoupleContext, displayCurrency } from 'CoupleContext'
 import { AnnuityContext, defaultAnnuityConfig } from 'AnnuityContext'
 import AnnuityHelp from 'AnnuityHelp'
+import DeferFormControl from 'DeferralFormControl'
 
 const Annuity = () => {
 	const { couple } = useContext(CoupleContext)
 	const { annuityConfig, setAnnuityConfig } = useContext(AnnuityContext)
 
-	const calculateValue = (withGurantee: boolean): any => {
+	const calculateValue = (withGurantee: boolean, deferral: number): any => {
 		const startAge = couple.getAgeOfYoungest() + 1
 		let spouse1Age = couple.person1.age
 		let spouse2Age = couple.person2.age
@@ -37,8 +38,10 @@ const Annuity = () => {
 		let totalAjustedValue = amt
 		let valueOfGuarantee = 0
 		let id = 0
-		const payments = [
-			{
+		const payments = []
+
+		if (startAge >= deferral) {
+			payments.push({
 				id,
 				year,
 				spouse1Age,
@@ -48,8 +51,8 @@ const Annuity = () => {
 				actuarialAmt,
 				discounter,
 				valueOfGuarantee,
-			},
-		]
+			})
+		}
 
 		for (let age = startAge; age < 117; age += 1) {
 			spouse1Age += 1
@@ -64,20 +67,21 @@ const Annuity = () => {
 			actuarialAmt = discountedAmt * mortalityDiscount
 			escalator *= colaRate + 1
 			discounter *= discountRate + 1
-			if (age < couple.targetAge) totalPaymentsReceived += escalatedAmt
-			totalAjustedValue += actuarialAmt
-
-			payments.push({
-				id,
-				year,
-				spouse1Age,
-				spouse2Age,
-				payment: escalatedAmt,
-				discountedAmt,
-				actuarialAmt,
-				discounter,
-				valueOfGuarantee,
-			})
+			if (age >= deferral) {
+				if (age < couple.targetAge) totalPaymentsReceived += escalatedAmt
+				totalAjustedValue += actuarialAmt
+				payments.push({
+					id,
+					year,
+					spouse1Age,
+					spouse2Age,
+					payment: escalatedAmt,
+					discountedAmt,
+					actuarialAmt,
+					discounter,
+					valueOfGuarantee,
+				})
+			}
 		}
 		// valueOfGuarantee is based on possibly receicing a portion of the
 		// totalAdjustedValue back as a lump sum in some future period
@@ -125,7 +129,7 @@ const Annuity = () => {
 	const handleClick = () => {
 		setAnnuityConfig({
 			...annuityConfig,
-			...calculateValue(annuityConfig.guatantee[0]),
+			...calculateValue(annuityConfig.guatantee[0], annuityConfig.deferral),
 		})
 	}
 
@@ -151,6 +155,19 @@ const Annuity = () => {
 				[event.target.name]: event.target.value,
 			})
 		}
+	}
+	const handleDeferralChange = (
+		event: React.ChangeEvent<HTMLInputElement>
+	) => {
+		setAnnuityConfig({
+			...annuityConfig,
+			isCalculated: defaultAnnuityConfig.isCalculated,
+			totalAjustedValue: defaultAnnuityConfig.totalAjustedValue,
+			totalPaymentsReceived: defaultAnnuityConfig.totalPaymentsReceived,
+			valueOfGuarantee: defaultAnnuityConfig.valueOfGuarantee,
+			payments: defaultAnnuityConfig.payments,
+			deferral: Number(event.target.value),
+		})
 	}
 
 	return (
@@ -239,6 +256,12 @@ const Annuity = () => {
 								onChange={handleChange}
 							/>
 						}
+					/>
+					<DeferFormControl
+						label='Defer:'
+						name='defer'
+						onChange={handleDeferralChange}
+						value={annuityConfig.deferral}
 					/>
 					<Button
 						sx={{ width: '50%', alignSelf: 'center' }}

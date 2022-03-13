@@ -9,6 +9,7 @@ interface IAnnuityConfig {
 	valueOfGuarantee: number
 	totalPaymentsReceived: number
 	totalAjustedValue: number
+	deferral: number
 	payments: {
 		id: number
 		year: number
@@ -44,6 +45,7 @@ const defaultAnnuityConfig: IAnnuityConfig = {
 	valueOfGuarantee: 0,
 	totalPaymentsReceived: 0,
 	totalAjustedValue: 0,
+	deferral: 0,
 	payments: [
 		{
 			id: 0,
