@@ -79,14 +79,14 @@ const Payout = () => {
 									lg: 'block',
 									md: 'block',
 									sm: 'block',
-									xs: 'none',
+									xs: 'block',
 								},
 								width: '100%',
 								paddingTop: '15px',
 							}}
 						>
 							<Typography gutterBottom>
-								The <strong>Value of Payments</strong> is sum of the{' '}
+								The <strong>Total Value</strong> is sum of the{' '}
 								<strong>Actuarial</strong> amounts:{' '}
 								<strong>
 									{displayCurrency(annuityConfig.totalAjustedValue)}
@@ -97,9 +97,7 @@ const Payout = () => {
 							</Typography>
 							<Typography gutterBottom>
 								If you (or your spouse) live to {couple.targetAge}, as
-								you expect, you will have received{' '}
-								{couple.targetAge - couple.person1.age} years of
-								payments totaling{' '}
+								you expect, you will have received payments totaling{' '}
 								{displayCurrency(totalExpectedPayments)}. These future
 								payments have a present value of{' '}
 								{displayCurrency(discountedTotalPayments)}. Obviously,

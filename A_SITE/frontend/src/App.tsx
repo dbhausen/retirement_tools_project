@@ -121,8 +121,8 @@ function MyTabs() {
 					<AntTab
 						label={
 							<Grid container direction='column'>
+								<Grid>Calculate</Grid>
 								<Grid>Annuity</Grid>
-								<Grid>Options</Grid>
 							</Grid>
 						}
 						value='/Annuity'
