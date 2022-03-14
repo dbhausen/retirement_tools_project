@@ -89,7 +89,7 @@ const Payout = () => {
 								The <strong>Total Value</strong> is sum of the{' '}
 								<strong>Actuarial</strong> amounts:{' '}
 								<strong>
-									{displayCurrency(annuityConfig.totalAjustedValue)}
+									{displayCurrency(annuityConfig.totalAdjustedValue)}
 								</strong>
 								{'. '}
 								The value is not based on how long you think you will

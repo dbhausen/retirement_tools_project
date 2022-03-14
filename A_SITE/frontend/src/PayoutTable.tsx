@@ -59,7 +59,7 @@ const columns: readonly Column[] = [
 			<Typography sx={{ writingMode: 'horizontal-tb' }}>
 				<Grid>
 					<Grid>COLA</Grid>
-					<Grid>Ajusted</Grid>
+					<Grid>Adjusted</Grid>
 					<Grid>Payment</Grid>
 				</Grid>
 			</Typography>

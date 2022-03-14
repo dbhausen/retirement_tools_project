@@ -37,7 +37,7 @@ const Annuity = () => {
 		let discountedAmt = amt
 		let actuarialAmt = amt
 		let totalPaymentsReceived = amt
-		let totalAjustedValue = amt
+		let totalAdjustedValue = amt
 		let valueOfGuarantee = 0
 		let id = 0
 		const payments = []
@@ -71,7 +71,7 @@ const Annuity = () => {
 			discounter *= discountRate + 1
 			if (age >= deferral) {
 				if (age < couple.targetAge) totalPaymentsReceived += escalatedAmt
-				totalAjustedValue += actuarialAmt
+				totalAdjustedValue += actuarialAmt
 				payments.push({
 					id,
 					year,
@@ -88,7 +88,7 @@ const Annuity = () => {
 		// valueOfGuarantee is based on possibly receicing a portion of the
 		// totalAdjustedValue back as a lump sum in some future period
 		// in real life this would be based on the cost not the value
-		let unRepaid = totalAjustedValue
+		let unRepaid = totalAdjustedValue
 
 		for (let index = 0; index < payments.length; index += 1) {
 			const element = payments[index]
@@ -129,7 +129,7 @@ const Annuity = () => {
 			isCalculated: true,
 			valueOfGuarantee,
 			totalPaymentsReceived,
-			totalAjustedValue,
+			totalAdjustedValue,
 			payments,
 		}
 	}
@@ -145,7 +145,7 @@ const Annuity = () => {
 			setAnnuityConfig({
 				...annuityConfig,
 				isCalculated: defaultAnnuityConfig.isCalculated,
-				totalAjustedValue: defaultAnnuityConfig.totalAjustedValue,
+				totalAdjustedValue: defaultAnnuityConfig.totalAdjustedValue,
 				totalPaymentsReceived: defaultAnnuityConfig.totalPaymentsReceived,
 				valueOfGuarantee: defaultAnnuityConfig.valueOfGuarantee,
 				payments: defaultAnnuityConfig.payments,
@@ -155,7 +155,7 @@ const Annuity = () => {
 			setAnnuityConfig({
 				...annuityConfig,
 				isCalculated: defaultAnnuityConfig.isCalculated,
-				totalAjustedValue: defaultAnnuityConfig.totalAjustedValue,
+				totalAdjustedValue: defaultAnnuityConfig.totalAdjustedValue,
 				totalPaymentsReceived: defaultAnnuityConfig.totalPaymentsReceived,
 				valueOfGuarantee: defaultAnnuityConfig.valueOfGuarantee,
 				payments: defaultAnnuityConfig.payments,
@@ -169,7 +169,7 @@ const Annuity = () => {
 		setAnnuityConfig({
 			...annuityConfig,
 			isCalculated: defaultAnnuityConfig.isCalculated,
-			totalAjustedValue: defaultAnnuityConfig.totalAjustedValue,
+			totalAdjustedValue: defaultAnnuityConfig.totalAdjustedValue,
 			totalPaymentsReceived: defaultAnnuityConfig.totalPaymentsReceived,
 			valueOfGuarantee: defaultAnnuityConfig.valueOfGuarantee,
 			payments: defaultAnnuityConfig.payments,
@@ -187,7 +187,7 @@ const Annuity = () => {
 								Value of Payments
 							</Grid>
 							<Grid item xs textAlign='right'>
-								{displayCurrency(annuityConfig.totalAjustedValue)}
+								{displayCurrency(annuityConfig.totalAdjustedValue)}
 							</Grid>
 						</Grid>
 						<Grid container direction='row'>
@@ -205,7 +205,7 @@ const Annuity = () => {
 							<Grid item xs textAlign='right'>
 								{displayCurrency(
 									annuityConfig.valueOfGuarantee +
-										annuityConfig.totalAjustedValue
+										annuityConfig.totalAdjustedValue
 								)}
 							</Grid>
 						</Grid>

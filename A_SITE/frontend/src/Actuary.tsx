@@ -24,7 +24,7 @@ function Actuary() {
 		setAnnuityConfig({
 			...annuityConfig,
 			isCalculated: defaultAnnuityConfig.isCalculated,
-			totalAjustedValue: defaultAnnuityConfig.totalAjustedValue,
+			totalAdjustedValue: defaultAnnuityConfig.totalAdjustedValue,
 			totalPaymentsReceived: defaultAnnuityConfig.totalPaymentsReceived,
 			valueOfGuarantee: defaultAnnuityConfig.valueOfGuarantee,
 			payments: defaultAnnuityConfig.payments,

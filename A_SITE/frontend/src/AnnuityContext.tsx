@@ -8,7 +8,7 @@ interface IAnnuityConfig {
 	isCalculated: boolean
 	valueOfGuarantee: number
 	totalPaymentsReceived: number
-	totalAjustedValue: number
+	totalAdjustedValue: number
 	deferral: number
 	payments: {
 		id: number
@@ -44,7 +44,7 @@ const defaultAnnuityConfig: IAnnuityConfig = {
 	isCalculated: false,
 	valueOfGuarantee: 0,
 	totalPaymentsReceived: 0,
-	totalAjustedValue: 0,
+	totalAdjustedValue: 0,
 	deferral: 0,
 	payments: [
 		{
