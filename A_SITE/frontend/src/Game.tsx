@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-handler-names */
 /* eslint-disable no-unused-vars */
 import React, { useContext, useState } from 'react'
 import Button from '@mui/material/Button'
@@ -167,7 +168,6 @@ export default function Game() {
 			<div className='game-info'>
 				<div>{status}</div>
 				<ol>{moves}</ol>
-				<div>{couple.getAgeOfOldest()}</div>
 			</div>
 		</Box>
 	)

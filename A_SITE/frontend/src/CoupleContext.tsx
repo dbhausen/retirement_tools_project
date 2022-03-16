@@ -1,5 +1,6 @@
-import { Couple, FEMALE, MALE, Person } from 'life'
+import { Couple, FEMALE, MALE, Person } from 'Couple'
 import React, { createContext, useMemo, useState } from 'react'
+import { useIsFirstRender, useLocalStorage } from 'usehooks-ts'
 
 const fixed1 = new Intl.NumberFormat('en-us', {
 	minimumFractionDigits: 1,
@@ -50,21 +51,36 @@ const defaultCouple = new Couple({
 interface ICoupleContext {
 	couple: Couple
 	setCouple: React.Dispatch<React.SetStateAction<Couple>>
+	storedCouple: Couple
+	setStoredCouple: React.Dispatch<React.SetStateAction<Couple>>
 }
 
 const CoupleContext = createContext<ICoupleContext>({
 	couple: defaultCouple,
 	setCouple: () => {},
+	storedCouple: defaultCouple,
+	setStoredCouple: () => {},
 })
 
 const CoupleContextProvider = ({ children }: any) => {
+	const [storedCouple, setStoredCouple] = useLocalStorage<Couple>(
+		'couple',
+		defaultCouple
+	)
 	const [couple, setCouple] = useState<Couple>(defaultCouple)
+
+	if (useIsFirstRender()) {
+		setCouple(storedCouple)
+	}
+
 	const contextValue = useMemo(
 		() => ({
 			couple,
 			setCouple,
+			storedCouple,
+			setStoredCouple,
 		}),
-		[couple, setCouple]
+		[couple, setCouple, storedCouple, setStoredCouple]
 	)
 	return (
 		// the Provider gives access to the context to its children

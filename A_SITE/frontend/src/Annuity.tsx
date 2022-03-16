@@ -14,14 +14,16 @@ import { CoupleContext, displayCurrency } from 'CoupleContext'
 import { AnnuityContext, defaultAnnuityConfig } from 'AnnuityContext'
 import AnnuityHelp from 'AnnuityHelp'
 import DeferFormControl from 'DeferralFormControl'
+import { Couple, Person } from 'Couple'
 
 const Annuity = () => {
 	const { couple } = useContext(CoupleContext)
-	const { annuityConfig, setAnnuityConfig } = useContext(AnnuityContext)
+	const { annuityConfig, setAnnuityConfig, setStoredAnnuityConfig } =
+		useContext(AnnuityContext)
 
 	const calculateValue = (withGurantee: boolean, deferral: number): any => {
 		const startAge = couple.married
-			? couple.getAgeOfYoungest() + 1
+			? Couple.getAgeOfYoungest(couple) + 1
 			: couple.person1.age + 1
 		let spouse1Age = couple.person1.age
 		let spouse2Age = couple.person2.age
@@ -65,7 +67,7 @@ const Annuity = () => {
 			escalatedAmt = escalator * amt
 			discountedAmt = escalatedAmt / discounter
 			const mortalityDiscount =
-				couple.getProbabilityOfAtLeastOneReachingTargetAge(age)
+				Couple.getProbabilityOfAtLeastOneReachingTargetAge(couple, age)
 			actuarialAmt = discountedAmt * mortalityDiscount
 			escalator *= colaRate + 1
 			discounter *= discountRate + 1
@@ -95,18 +97,22 @@ const Annuity = () => {
 			if (withGurantee) {
 				unRepaid =
 					unRepaid > element.payment ? unRepaid - element.payment : 0
-				const spouse1Dead = couple.person1.getProbabilityOfDeathByAge(
+				const spouse1Dead = Person.getProbabilityOfDeathByAge(
+					couple.person1,
 					element.spouse1Age
 				)
 				const spouse1Alive = 1 - spouse1Dead
-				let spouse2Dead = couple.person2.getProbabilityOfDeathByAge(
+				let spouse2Dead = Person.getProbabilityOfDeathByAge(
+					couple.person2,
 					element.spouse2Age
 				)
 				let spouse2Alive = 1 - spouse2Dead
-				const spouse1Dies = couple.person1.getProbabilityOfDeathAtAge(
+				const spouse1Dies = Person.getProbabilityOfDeathAtAge(
+					couple.person1,
 					element.spouse1Age
 				)
-				const spouse2Dies = couple.person2.getProbabilityOfDeathAtAge(
+				const spouse2Dies = Person.getProbabilityOfDeathAtAge(
+					couple.person2,
 					element.spouse2Age
 				)
 				if (!couple.married) {
@@ -138,6 +144,7 @@ const Annuity = () => {
 			...annuityConfig,
 			...calculateValue(annuityConfig.guatantee[0], annuityConfig.deferral),
 		})
+		setStoredAnnuityConfig(annuityConfig)
 	}
 
 	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {

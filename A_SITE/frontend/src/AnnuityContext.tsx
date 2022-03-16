@@ -1,4 +1,5 @@
 import React, { createContext, useMemo, useState } from 'react'
+import { useIsFirstRender, useLocalStorage } from 'usehooks-ts'
 
 interface IAnnuityConfig {
 	annuityAmount: string
@@ -64,22 +65,41 @@ const defaultAnnuityConfig: IAnnuityConfig = {
 interface IAnnuityContext {
 	annuityConfig: IAnnuityConfig
 	setAnnuityConfig: React.Dispatch<React.SetStateAction<IAnnuityConfig>>
+	storedAnnuityConfig: IAnnuityConfig
+	setStoredAnnuityConfig: React.Dispatch<React.SetStateAction<IAnnuityConfig>>
 }
 
 const AnnuityContext = createContext<IAnnuityContext>({
 	annuityConfig: defaultAnnuityConfig,
 	setAnnuityConfig: () => {},
+	storedAnnuityConfig: defaultAnnuityConfig,
+	setStoredAnnuityConfig: () => {},
 })
 
 const AnnuityContextProvider = ({ children }: any) => {
 	const [annuityConfig, setAnnuityConfig] =
 		useState<IAnnuityConfig>(defaultAnnuityConfig)
+
+	const [storedAnnuityConfig, setStoredAnnuityConfig] =
+		useLocalStorage<IAnnuityConfig>('annuity-config', defaultAnnuityConfig)
+
+	if (useIsFirstRender()) {
+		setAnnuityConfig(storedAnnuityConfig)
+	}
+
 	const contextValue = useMemo(
 		() => ({
 			annuityConfig,
 			setAnnuityConfig,
+			storedAnnuityConfig,
+			setStoredAnnuityConfig,
 		}),
-		[annuityConfig, setAnnuityConfig]
+		[
+			annuityConfig,
+			setAnnuityConfig,
+			storedAnnuityConfig,
+			setStoredAnnuityConfig,
+		]
 	)
 	return (
 		// the Provider gives access to the context to its children

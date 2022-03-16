@@ -1,5 +1,6 @@
 import { Grid, Typography } from '@mui/material'
 import { AnnuityContext } from 'AnnuityContext'
+import { Couple } from 'Couple'
 import {
 	CoupleContext,
 	displayCurrency,
@@ -34,7 +35,8 @@ const PayoutHelp = () => {
 		spouse1Age = displayFixed(annuityConfig.payments[rowNumber].spouse1Age)
 		spouse2Age = displayFixed(annuityConfig.payments[rowNumber].spouse2Age)
 		either = displayPercent3(
-			couple.getProbabilityOfAtLeastOneReachingTargetAge(
+			Couple.getProbabilityOfAtLeastOneReachingTargetAge(
+				couple,
 				annuityConfig.payments[rowNumber].spouse1Age
 			)
 		)

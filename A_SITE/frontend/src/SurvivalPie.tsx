@@ -1,7 +1,8 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable prefer-const */
+import { Couple } from 'Couple'
 import { CoupleContext } from 'CoupleContext'
-import { Couple } from 'life'
+
 import { useContext } from 'react'
 import { PieChart, Pie, Cell } from 'recharts'
 
@@ -44,7 +45,7 @@ const renderCustomizedLabelSingle = ({
 
 function MyChart() {
 	const { couple } = useContext(CoupleContext)
-	const surData = couple.getSurvivalData()
+	const surData = Couple.getSurvivalData(couple)
 	const renderSingle = !couple.married
 		? renderCustomizedLabel
 		: renderCustomizedLabelSingle

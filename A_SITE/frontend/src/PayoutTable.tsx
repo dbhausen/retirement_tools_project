@@ -56,7 +56,7 @@ const columns: readonly Column[] = [
 	{
 		id: 'payment',
 		label: (
-			<Typography sx={{ writingMode: 'horizontal-tb' }}>
+			<Typography component='div' sx={{ writingMode: 'horizontal-tb' }}>
 				<Grid>
 					<Grid>COLA</Grid>
 					<Grid>Adjusted</Grid>
@@ -72,7 +72,7 @@ const columns: readonly Column[] = [
 	{
 		id: 'discountedAmt',
 		label: (
-			<Typography sx={{ writingMode: 'horizontal-tb' }}>
+			<Typography component='div' sx={{ writingMode: 'horizontal-tb' }}>
 				<Grid>
 					<Grid>Discounted</Grid>
 					<Grid>Value</Grid>
@@ -87,7 +87,7 @@ const columns: readonly Column[] = [
 	{
 		id: 'actuarialAmt',
 		label: (
-			<Typography sx={{ writingMode: 'horizontal-tb' }}>
+			<Typography component='div' sx={{ writingMode: 'horizontal-tb' }}>
 				<Grid>
 					<Grid>Actuarial</Grid>
 					<Grid>Value</Grid>

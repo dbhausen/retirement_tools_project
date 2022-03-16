@@ -1,4 +1,5 @@
 import { Box, Grid, Typography } from '@mui/material'
+import { Couple } from 'Couple'
 import { CoupleContext, displayPercent } from 'CoupleContext'
 import { useContext } from 'react'
 
@@ -39,7 +40,8 @@ function CoupleStats() {
 									color='white'
 								>
 									{displayPercent(
-										couple.getProbabilityOfExactlyOneReachingTargetAge(
+										Couple.getProbabilityOfExactlyOneReachingTargetAge(
+											couple,
 											couple.targetAge
 										)
 									)}
@@ -64,7 +66,8 @@ function CoupleStats() {
 									color='white'
 								>
 									{displayPercent(
-										couple.getProbabilityOfBothReachingTargetAge(
+										Couple.getProbabilityOfBothReachingTargetAge(
+											couple,
 											couple.targetAge
 										)
 									)}
@@ -89,7 +92,8 @@ function CoupleStats() {
 									textAlign='right'
 								>
 									{displayPercent(
-										couple.getProbabilityOfAtLeastOneReachingTargetAge(
+										Couple.getProbabilityOfAtLeastOneReachingTargetAge(
+											couple,
 											couple.targetAge
 										)
 									)}
@@ -115,7 +119,8 @@ function CoupleStats() {
 									textAlign='right'
 								>
 									{displayPercent(
-										couple.getProbabilityOfNeitherReachingTargetAge(
+										Couple.getProbabilityOfNeitherReachingTargetAge(
+											couple,
 											couple.targetAge
 										)
 									)}
@@ -148,7 +153,8 @@ function CoupleStats() {
 									textAlign='right'
 								>
 									{displayPercent(
-										couple.getProbabilityOfAtLeastOneReachingTargetAge(
+										Couple.getProbabilityOfAtLeastOneReachingTargetAge(
+											couple,
 											couple.targetAge
 										)
 									)}
@@ -174,7 +180,8 @@ function CoupleStats() {
 									textAlign='right'
 								>
 									{displayPercent(
-										couple.getProbabilityOfNeitherReachingTargetAge(
+										Couple.getProbabilityOfNeitherReachingTargetAge(
+											couple,
 											couple.targetAge
 										)
 									)}

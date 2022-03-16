@@ -11,7 +11,7 @@ import CoupleStats from 'CoupleStats'
 import { CoupleContext } from 'CoupleContext'
 import { AnnuityContext, defaultAnnuityConfig } from 'AnnuityContext'
 
-import { Couple, Person } from 'life'
+import { Couple, Person } from 'Couple'
 // eslint-disable-next-line no-unused-vars
 import ActuaryHelp from 'ActuaryHelp'
 import { FormControlLabel, Switch } from '@mui/material'

@@ -14,10 +14,11 @@ import Payout from 'Payout'
 import Actuary from 'Actuary'
 import Annuity from 'Annuity'
 import SizeId from 'SizeId'
-import { CoupleContextProvider } from 'CoupleContext'
+import { CoupleContext, CoupleContextProvider } from 'CoupleContext'
 import { AnnuityContextProvider } from 'AnnuityContext'
 import { UserContextProvider } from 'UserContext'
 import { blue } from '@mui/material/colors'
+import { useContext } from 'react'
 
 const StyledToolbar = styled(Toolbar)(({ theme }) => ({
 	alignItems: 'flex-start',
@@ -102,11 +103,20 @@ function MyTabs() {
 	// Then the order should be ['users/add', 'users/edit', 'users'].
 	const routeMatch = useRouteMatch(['/Annuity', '/Payout', '/'])
 	const currentTab = routeMatch?.pattern?.path
+	const { couple, setStoredCouple } = useContext(CoupleContext)
+
+	const handleTabChange = () => {
+		setStoredCouple(couple)
+	}
 
 	return (
 		<AppBar color='secondary'>
 			<StyledToolbar>
-				<AntTabs variant='fullWidth' value={currentTab}>
+				<AntTabs
+					variant='fullWidth'
+					value={currentTab}
+					onChange={handleTabChange}
+				>
 					<AntTab
 						label={
 							<Grid container direction='column'>
