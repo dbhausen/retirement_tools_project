@@ -226,15 +226,23 @@ class Couple implements ICouple {
 		this.married = props.married
 	}
 
-	static getAgeOfOldest = (couple: ICouple): number =>
-		couple.person1.age > couple.person2.age
-			? couple.person1.age
-			: couple.person2.age
+	static getAgeOfOldest = (couple: ICouple): number => {
+		if (!couple.married) return couple.person1.age
 
-	static getAgeOfYoungest = (couple: ICouple): number =>
-		couple.person1.age < couple.person2.age
+		return couple.person1.age > couple.person2.age
 			? couple.person1.age
 			: couple.person2.age
+	}
+
+	static getAgeOfYoungest = (couple: ICouple): number => {
+		if (!couple.married) return couple.person1.age
+		return couple.person1.age < couple.person2.age
+			? couple.person1.age
+			: couple.person2.age
+	}
+
+	static getBirthYearOfYoungest = (couple: ICouple): number =>
+		new Date().getFullYear() - Couple.getAgeOfYoungest(couple)
 
 	static getProbabilityOfAtLeastOneReachingTargetAge = (
 		couple: ICouple,

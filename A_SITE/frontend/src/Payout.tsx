@@ -5,6 +5,7 @@ import { CoupleContext, displayCurrency } from 'CoupleContext'
 import { UserContext } from 'UserContext'
 import PayoutHelp from 'PayoutHelp'
 import PayoutTable from 'PayoutTable'
+import { Couple } from 'Couple'
 
 const Payout = () => {
 	const { annuityConfig } = useContext(AnnuityContext)
@@ -17,21 +18,14 @@ const Payout = () => {
 	let discountedTotalPayments = 0
 	const formattedPayments: IFormattedPayments[] = []
 
-	if (annuityConfig.isCalculated) {
-		for (
-			let index = 0;
-			index < couple.targetAge - couple.person1.age;
-			index += 1
-		) {
-			if (annuityConfig.payments[index]) {
-				const element = annuityConfig.payments[index]
-				totalExpectedPayments += element.payment
-				discountedTotalPayments += element.discountedAmt
-			}
-		}
-	}
+	const birthYearOfYoungest = Couple.getBirthYearOfYoungest(couple)
 
-	annuityConfig.payments.forEach(payment =>
+	annuityConfig.payments.forEach(payment => {
+		if (payment.year <= birthYearOfYoungest + couple.targetAge) {
+			totalExpectedPayments += payment.payment
+			discountedTotalPayments += payment.discountedAmt
+		}
+
 		formattedPayments.push({
 			id: payment.id,
 			year: payment.year,
@@ -46,7 +40,7 @@ const Payout = () => {
 			discounter: payment.discounter.toString(),
 			valueOfGuarantee: displayCurrency(payment.valueOfGuarantee),
 		})
-	)
+	})
 
 	return (
 		<Grid id='page' container direction='row' sx={{ marginTop: '70px' }}>
