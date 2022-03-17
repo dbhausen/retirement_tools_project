@@ -95,15 +95,27 @@ const Payout = () => {
 								The value is not based on how long you think you will
 								live. It is based on the actuarial tables.
 							</Typography>
-							<Typography gutterBottom>
-								If you (or your spouse) live to {couple.targetAge}, as
-								you expect, you will have received payments totaling{' '}
-								{displayCurrency(totalExpectedPayments)}. These future
-								payments have a present value of{' '}
-								{displayCurrency(discountedTotalPayments)}. Obviously,
-								it is better to live longer if you are going to buy an
-								annuity.
-							</Typography>
+							{couple.married ? (
+								<Typography gutterBottom>
+									If you (or your spouse) live to {couple.targetAge},
+									as you expect, you will have received payments
+									totaling {displayCurrency(totalExpectedPayments)}.
+									These future payments have a present value of{' '}
+									{displayCurrency(discountedTotalPayments)}.
+									Obviously, it is better to live longer if you are
+									going to buy an annuity.
+								</Typography>
+							) : (
+								<Typography gutterBottom>
+									If you live to {couple.targetAge}, as you expect, you
+									will have received payments totaling{' '}
+									{displayCurrency(totalExpectedPayments)}. These
+									future payments have a present value of{' '}
+									{displayCurrency(discountedTotalPayments)}.
+									Obviously, it is better to live longer if you are
+									going to buy an annuity.
+								</Typography>
+							)}
 						</Grid>
 					) : null}
 				</Grid>

@@ -77,11 +77,18 @@ const PayoutHelp = () => {
 				<Typography component='div' gutterBottom>
 					For example, scroll down to the year {year}
 					<ul>
-						<li>
-							<strong>Year:</strong> <strong>{year}</strong> The ages of
-							the spouses, if alive in {year}, will be {spouse1Age} and{' '}
-							{spouse2Age}.
-						</li>
+						{couple.married ? (
+							<li>
+								<strong>Year:</strong> <strong>{year}</strong> The ages
+								of the spouses, if alive in {year}, will be {spouse1Age}{' '}
+								and {spouse2Age}.
+							</li>
+						) : (
+							<li>
+								<strong>Year:</strong> <strong>{year}</strong> Your age,
+								if alive in {year}, will be {spouse1Age}.
+							</li>
+						)}
 						<li>
 							<strong>COLA Adjusted Payment:</strong>{' '}
 							<strong>{payment}</strong> is your original annuity amount

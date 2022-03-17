@@ -10,6 +10,7 @@ import { Grid, styled, Typography } from '@mui/material'
 import { AnnuityContext } from 'AnnuityContext'
 import { useContext } from 'react'
 import { displayCurrency } from 'CoupleContext'
+import { blue } from '@mui/material/colors'
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
 	[`&.${tableCellClasses.head}`]: {
@@ -132,10 +133,17 @@ export default function StickyHeadTable() {
 	)
 
 	return (
-		<Paper sx={{ width: '100%', overflow: 'hidden' }}>
-			<TableContainer sx={{ maxHeight: 440 }}>
+		<Paper sx={{ width: '300', overflow: 'hidden' }}>
+			<TableContainer
+				sx={{
+					width: 300,
+					border: '6px solid',
+					borderColor: blue[300],
+					maxHeight: 440,
+				}}
+			>
 				<Table stickyHeader aria-label='sticky table'>
-					<TableHead>
+					<TableHead sx={{ bgcolor: blue }}>
 						<TableRow>
 							{columns.map(column => (
 								<TableCell
@@ -143,6 +151,7 @@ export default function StickyHeadTable() {
 									align={column.alignHeading}
 									style={{
 										width: column.width,
+										backgroundColor: blue[300],
 										paddingLeft: 1,
 										paddingRight: 1,
 										paddingTop: 5,

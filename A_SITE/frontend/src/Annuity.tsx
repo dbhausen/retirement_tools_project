@@ -185,31 +185,31 @@ const Annuity = () => {
 	}
 
 	return (
-		<Grid id='page' container direction='row' sx={{ marginTop: '70px' }}>
+		<Grid id='page' container direction='row' sx={{ marginTop: '80px' }}>
 			<Grid id='left-side' item xs={12} sm={12} md={6} lg={5} xl={4}>
 				<Grid container direction='column'>
-					<Grid id='calculatedResults'>
+					<Grid id='calculatedResults' sx={{ height: 65 }}>
 						<Grid container direction='row'>
-							<Grid item xs={7}>
+							<Grid item xs={6}>
 								Value of Payments
 							</Grid>
-							<Grid item xs textAlign='right'>
+							<Grid item xs={3} textAlign='right'>
 								{displayCurrency(annuityConfig.totalAdjustedValue)}
 							</Grid>
 						</Grid>
 						<Grid container direction='row'>
-							<Grid item xs={7}>
+							<Grid item xs={6}>
 								Value of Gurantee
 							</Grid>
-							<Grid item xs textAlign='right'>
+							<Grid item xs={3} textAlign='right'>
 								{displayCurrency(annuityConfig.valueOfGuarantee)}
 							</Grid>
 						</Grid>
 						<Grid container direction='row'>
-							<Grid item xs={7}>
+							<Grid item xs={6}>
 								Total Value
 							</Grid>
-							<Grid item xs textAlign='right'>
+							<Grid item xs={3} textAlign='right'>
 								{displayCurrency(
 									annuityConfig.valueOfGuarantee +
 										annuityConfig.totalAdjustedValue

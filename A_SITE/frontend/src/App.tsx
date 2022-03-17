@@ -22,7 +22,7 @@ import { useContext } from 'react'
 
 const StyledToolbar = styled(Toolbar)(({ theme }) => ({
 	alignItems: 'flex-start',
-	paddingTop: theme.spacing(1),
+	paddingTop: theme.spacing(3),
 	paddingBottom: theme.spacing(2),
 
 	// Override media queries injected by theme.mixins.toolbar
@@ -59,7 +59,7 @@ const AntTab = styled((props: StyledTabProps) => (
 	color: '#1A237E',
 	backgroundColor: 'secondary',
 	paddingTop: 0,
-	paddingBottom: 0,
+	paddingBottom: 1,
 
 	fontSizeAdjust: 'from-font',
 
@@ -108,9 +108,23 @@ function MyTabs() {
 	const handleTabChange = () => {
 		setStoredCouple(couple)
 	}
+	const TitleWrapper = styled('div')(({ theme }) => ({
+		padding: theme.spacing(0, 10),
+		top: 1,
+		zIndex: 9,
+		position: 'absolute',
+		color: 'black',
+		fontWeight: 'bolder',
+		fontStyle: 'italic',
+		pointerEvents: 'none',
+		display: 'flex',
+		alignItems: 'left',
+		justifyContent: 'left',
+	}))
 
 	return (
 		<AppBar color='secondary'>
+			<TitleWrapper>Annuity Calculator</TitleWrapper>
 			<StyledToolbar>
 				<AntTabs
 					variant='fullWidth'
