@@ -114,6 +114,7 @@ function MyTabs() {
 	const { handleToggle, theme } = useContext(ThemeModeContext)
 
 	const handleTabChange = () => {
+		window.scrollTo(0, 0)
 		setStoredCouple(couple)
 	}
 	const TitleWrapper = styled('div')(() => ({
