@@ -7,6 +7,7 @@ import {
 	Checkbox,
 	FormControlLabel,
 	Grid,
+	Paper,
 	Typography,
 } from '@mui/material'
 import { useContext } from 'react'
@@ -55,6 +56,7 @@ const Annuity = () => {
 				actuarialAmt,
 				discounter,
 				valueOfGuarantee,
+				style: 'normal',
 			})
 		}
 
@@ -84,6 +86,7 @@ const Annuity = () => {
 					actuarialAmt,
 					discounter,
 					valueOfGuarantee,
+					style: 'normal',
 				})
 			}
 		}
@@ -185,126 +188,132 @@ const Annuity = () => {
 	}
 
 	return (
-		<Grid id='page' container direction='row' sx={{ marginTop: '80px' }}>
-			<Grid id='left-side' item xs={12} sm={12} md={6} lg={5} xl={4}>
-				<Grid container direction='column'>
-					<Grid id='calculatedResults' sx={{ height: 65 }}>
-						<Grid container direction='row'>
-							<Grid item xs={6}>
-								Value of Payments
+		<Paper>
+			<Grid id='page' container direction='row'>
+				<Grid id='left-side' item xs={12} sm={12} md={6} lg={5} xl={4}>
+					<Grid container direction='column' sx={{ paddingLeft: '10px' }}>
+						<Typography variant='caption'>
+							<Grid id='calculatedResults' sx={{ height: 70 }}>
+								<Grid container direction='row'>
+									<Grid item xs={6}>
+										Value of Payments
+									</Grid>
+									<Grid item xs={3} textAlign='right'>
+										{displayCurrency(
+											annuityConfig.totalAdjustedValue
+										)}
+									</Grid>
+								</Grid>
+								<Grid container direction='row'>
+									<Grid item xs={6}>
+										Value of Gurantee
+									</Grid>
+									<Grid item xs={3} textAlign='right'>
+										{displayCurrency(annuityConfig.valueOfGuarantee)}
+									</Grid>
+								</Grid>
+								<Grid container direction='row'>
+									<Grid item xs={6}>
+										Total Value
+									</Grid>
+									<Grid item xs={3} textAlign='right'>
+										{displayCurrency(
+											annuityConfig.valueOfGuarantee +
+												annuityConfig.totalAdjustedValue
+										)}
+									</Grid>
+								</Grid>
 							</Grid>
-							<Grid item xs={3} textAlign='right'>
-								{displayCurrency(annuityConfig.totalAdjustedValue)}
-							</Grid>
-						</Grid>
-						<Grid container direction='row'>
-							<Grid item xs={6}>
-								Value of Gurantee
-							</Grid>
-							<Grid item xs={3} textAlign='right'>
-								{displayCurrency(annuityConfig.valueOfGuarantee)}
-							</Grid>
-						</Grid>
-						<Grid container direction='row'>
-							<Grid item xs={6}>
-								Total Value
-							</Grid>
-							<Grid item xs={3} textAlign='right'>
-								{displayCurrency(
-									annuityConfig.valueOfGuarantee +
-										annuityConfig.totalAdjustedValue
-								)}
-							</Grid>
-						</Grid>
+						</Typography>
+						<NumberTextField
+							label='Annual Annuity Amount'
+							name='annuityAmount'
+							prefix='$'
+							thousandSeparator
+							decimalScale={0}
+							fixedDecimalScale={true}
+							value={annuityConfig.annuityAmount}
+							onChange={handleChange}
+							variant='standard'
+							allowNegative={false}
+						/>
+						<PercentTextField
+							label='Cost-Of-Living Adjustment'
+							name='costOfLivingAdjustment'
+							decimalScale={2}
+							fixedDecimalScale={true}
+							value={annuityConfig.costOfLivingAdjustment}
+							onChange={handleChange}
+							variant='standard'
+							allowNegative={false}
+						/>
+						<PercentTextField
+							InputLabelProps={{ style: { fontSize: 17 } }}
+							label='Risk-Free Rate Of Return'
+							name='discountRate'
+							decimalScale={2}
+							fixedDecimalScale={true}
+							value={annuityConfig.discountRate}
+							onChange={handleChange}
+							variant='standard'
+							allowNegative={false}
+						/>
+						<FormControlLabel
+							label={
+								<Typography variant='body2' color='textSecondary'>
+									Guaranteed Return Of Purchase Price
+								</Typography>
+							}
+							control={
+								<Checkbox
+									name='guatantee'
+									checked={
+										annuityConfig.guatantee[0] &&
+										annuityConfig.guatantee[1]
+									}
+									indeterminate={
+										annuityConfig.guatantee[0] !==
+										annuityConfig.guatantee[1]
+									}
+									onChange={handleChange}
+								/>
+							}
+						/>
+						<DeferFormControl
+							label='Defer:'
+							name='defer'
+							onChange={handleDeferralChange}
+							value={annuityConfig.deferral}
+						/>
+						<Button
+							sx={{ width: '50%', alignSelf: 'center' }}
+							size='small'
+							variant='contained'
+							onClick={handleClick}
+						>
+							Calculate Value
+						</Button>
 					</Grid>
-					<NumberTextField
-						label='Annual Annuity Amount'
-						name='annuityAmount'
-						prefix='$'
-						thousandSeparator
-						decimalScale={0}
-						fixedDecimalScale={true}
-						value={annuityConfig.annuityAmount}
-						onChange={handleChange}
-						variant='standard'
-						allowNegative={false}
-					/>
-					<PercentTextField
-						label='Cost-Of-Living Adjustment'
-						name='costOfLivingAdjustment'
-						decimalScale={2}
-						fixedDecimalScale={true}
-						value={annuityConfig.costOfLivingAdjustment}
-						onChange={handleChange}
-						variant='standard'
-						allowNegative={false}
-					/>
-					<PercentTextField
-						InputLabelProps={{ style: { fontSize: 17 } }}
-						label='Risk-Free Rate Of Return'
-						name='discountRate'
-						decimalScale={2}
-						fixedDecimalScale={true}
-						value={annuityConfig.discountRate}
-						onChange={handleChange}
-						variant='standard'
-						allowNegative={false}
-					/>
-					<FormControlLabel
-						label={
-							<Typography variant='body2' color='textSecondary'>
-								Guaranteed Return Of Purchase Price
-							</Typography>
-						}
-						control={
-							<Checkbox
-								name='guatantee'
-								checked={
-									annuityConfig.guatantee[0] &&
-									annuityConfig.guatantee[1]
-								}
-								indeterminate={
-									annuityConfig.guatantee[0] !==
-									annuityConfig.guatantee[1]
-								}
-								onChange={handleChange}
-							/>
-						}
-					/>
-					<DeferFormControl
-						label='Defer:'
-						name='defer'
-						onChange={handleDeferralChange}
-						value={annuityConfig.deferral}
-					/>
-					<Button
-						sx={{ width: '50%', alignSelf: 'center' }}
-						size='small'
-						variant='contained'
-						onClick={handleClick}
+				</Grid>
+				<Grid id='right-side-charts' item xs>
+					<Box
+						sx={{
+							display: {
+								xl: 'block',
+								lg: 'block',
+								md: 'block',
+								sm: 'block',
+								xs: 'block',
+							},
+							width: '100%',
+							height: 400,
+						}}
 					>
-						Calculate Value
-					</Button>
+						<AnnuityHelp />
+					</Box>
 				</Grid>
 			</Grid>
-			<Grid id='right-side-charts' item xs>
-				<Box
-					sx={{
-						display: {
-							xl: 'block',
-							lg: 'block',
-							md: 'block',
-							sm: 'block',
-							xs: 'block',
-						},
-						width: '100%',
-						height: 400,
-					}}
-				>
-					<AnnuityHelp />
-				</Box>
-			</Grid>
-		</Grid>
+		</Paper>
 	)
 }
 

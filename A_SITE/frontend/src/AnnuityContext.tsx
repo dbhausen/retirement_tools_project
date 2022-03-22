@@ -24,19 +24,6 @@ interface IAnnuityConfig {
 	}[]
 }
 
-interface IFormattedPayments {
-	id: number
-	year: number
-	spouse1Age: number
-	spouse2Age: number
-	age: string
-	payment: string
-	discountedAmt: string
-	actuarialAmt: string
-	discounter: string
-	valueOfGuarantee: string
-}
-
 const defaultAnnuityConfig: IAnnuityConfig = {
 	annuityAmount: '10000',
 	discountRate: '1.79',
@@ -110,4 +97,4 @@ const AnnuityContextProvider = ({ children }: any) => {
 }
 
 export { AnnuityContext, defaultAnnuityConfig, AnnuityContextProvider }
-export type { IAnnuityConfig, IFormattedPayments }
+export type { IAnnuityConfig }

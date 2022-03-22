@@ -24,10 +24,8 @@ interface IUserContext {
 
 // create context
 const UserContext = createContext<IUserContext | null>(null)
-//  const UserContext = createContext<IUser | null>({ name: '', isLoggedIn: false })
 
 const UserContextProvider = ({ children }: any) => {
-	// the value that will be given to the context
 	const [user, setUser] = useState<IUser>({
 		name: 'Anonymous',
 		isLoggedIn: false,

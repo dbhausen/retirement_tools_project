@@ -1,5 +1,5 @@
-import { Box, Grid, Typography } from '@mui/material'
-import { AnnuityContext, IFormattedPayments } from 'AnnuityContext'
+import { Box, Grid, Paper, Typography } from '@mui/material'
+import { AnnuityContext } from 'AnnuityContext'
 import { useContext } from 'react'
 import { CoupleContext, displayCurrency } from 'CoupleContext'
 import { UserContext } from 'UserContext'
@@ -16,7 +16,7 @@ const Payout = () => {
 
 	let totalExpectedPayments = 0
 	let discountedTotalPayments = 0
-	const formattedPayments: IFormattedPayments[] = []
+	// const formattedPayments: IFormattedPayments[] = []
 
 	const birthYearOfYoungest = Couple.getBirthYearOfYoungest(couple)
 
@@ -25,25 +25,10 @@ const Payout = () => {
 			totalExpectedPayments += payment.payment
 			discountedTotalPayments += payment.discountedAmt
 		}
-
-		formattedPayments.push({
-			id: payment.id,
-			year: payment.year,
-			spouse1Age: payment.spouse1Age,
-			spouse2Age: payment.spouse2Age,
-			age: `${payment.spouse1Age.toFixed(0)}/${payment.spouse2Age.toFixed(
-				0
-			)}`,
-			payment: displayCurrency(payment.payment),
-			discountedAmt: displayCurrency(payment.discountedAmt),
-			actuarialAmt: displayCurrency(payment.actuarialAmt),
-			discounter: payment.discounter.toString(),
-			valueOfGuarantee: displayCurrency(payment.valueOfGuarantee),
-		})
 	})
 
 	return (
-		<Grid id='page' container direction='row' sx={{ marginTop: '70px' }}>
+		<Grid id='page' container direction='row'>
 			<Grid id='left-side' item xs={12} sm={12} md={6} lg={5} xl={4}>
 				<Grid container direction='column'>
 					<Grid>
@@ -51,7 +36,7 @@ const Payout = () => {
 							<Box
 								sx={{
 									height: 455,
-									marginLeft: '-10px',
+									//	marginLeft: '-10px',
 									maxWidth: '400px',
 									minWidth: '350px',
 								}}
@@ -66,7 +51,7 @@ const Payout = () => {
 						)}
 					</Grid>
 					{annuityConfig.isCalculated ? (
-						<Grid
+						<Paper
 							sx={{
 								display: {
 									xl: 'block',
@@ -75,8 +60,8 @@ const Payout = () => {
 									sm: 'block',
 									xs: 'block',
 								},
-								width: '100%',
-								paddingTop: '15px',
+								//		width: '100%',
+								padding: '15px',
 							}}
 						>
 							<Typography gutterBottom>
@@ -110,7 +95,7 @@ const Payout = () => {
 									going to buy an annuity.
 								</Typography>
 							)}
-						</Grid>
+						</Paper>
 					) : null}
 				</Grid>
 			</Grid>

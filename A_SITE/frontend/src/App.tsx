@@ -1,4 +1,3 @@
-import Box from '@mui/material/Box'
 import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
 import {
@@ -9,7 +8,15 @@ import {
 	useLocation,
 	BrowserRouter as Router,
 } from 'react-router-dom'
-import { AppBar, Grid, styled, Toolbar } from '@mui/material'
+import {
+	AppBar,
+	Box,
+	Grid,
+	IconButton,
+	styled,
+	Toolbar,
+	Typography,
+} from '@mui/material'
 import Payout from 'Payout'
 import Actuary from 'Actuary'
 import Annuity from 'Annuity'
@@ -17,13 +24,17 @@ import SizeId from 'SizeId'
 import { CoupleContext, CoupleContextProvider } from 'CoupleContext'
 import { AnnuityContextProvider } from 'AnnuityContext'
 import { UserContextProvider } from 'UserContext'
-import { blue } from '@mui/material/colors'
 import { useContext } from 'react'
 
-const StyledToolbar = styled(Toolbar)(({ theme }) => ({
+import {
+	ThemeModeContextProvider,
+	ThemeModeContext,
+} from 'styles/ThemeModeContext'
+import Brightness7Icon from '@mui/icons-material/Brightness7'
+import Brightness4Icon from '@mui/icons-material/Brightness4'
+
+const StyledToolbar = styled(Toolbar)(() => ({
 	alignItems: 'flex-start',
-	paddingTop: theme.spacing(3),
-	paddingBottom: theme.spacing(2),
 
 	// Override media queries injected by theme.mixins.toolbar
 	'@media all': {
@@ -40,9 +51,10 @@ interface StyledTabProps {
 }
 
 const AntTabs = styled(Tabs)({
+	marginTop: 25,
 	borderBottom: '1px solid primary',
 	'& .MuiTabs-indicator': {
-		backgroundColor: 'primary',
+		//	backgroundColor: 'secondary',
 	},
 })
 
@@ -51,28 +63,23 @@ const AntTab = styled((props: StyledTabProps) => (
 ))(({ theme }) => ({
 	textTransform: 'capitalize',
 	minWidth: 0,
-	[theme.breakpoints.up('sm')]: {
-		minWidth: 0,
-	},
-	fontWeight: theme.typography.fontWeightLight,
-	marginRight: theme.spacing(1),
-	color: '#1A237E',
-	backgroundColor: 'secondary',
+
+	// color: '#1A237E',
+	// backgroundColor: 'secondary',
 	paddingTop: 0,
 	paddingBottom: 1,
 
 	fontSizeAdjust: 'from-font',
 
 	'&:hover': {
-		color: '#1A237E',
-		fontWeight: theme.typography.fontWeightMedium,
-		opacity: 1,
+		color: 'secondary',
+
+		opacity: 10,
 	},
 	'&.Mui-selected': {
-		color: 'primary',
-		fontWeight: theme.typography.fontWeightMedium,
-		backgroundColor: blue[500],
-		borderBottom: '1px solid secondary',
+		color: theme.palette.secondary.main,
+		// backgroundColor: 'secondary.dark',
+		borderBottom: '5px solid secondary.light',
 	},
 	'&.Mui-focusVisible': {
 		backgroundColor: '#d1eaff',
@@ -104,18 +111,18 @@ function MyTabs() {
 	const routeMatch = useRouteMatch(['/Annuity', '/Payout', '/'])
 	const currentTab = routeMatch?.pattern?.path
 	const { couple, setStoredCouple } = useContext(CoupleContext)
+	const { handleToggle, theme } = useContext(ThemeModeContext)
 
 	const handleTabChange = () => {
 		setStoredCouple(couple)
 	}
-	const TitleWrapper = styled('div')(({ theme }) => ({
-		padding: theme.spacing(0, 10),
+	const TitleWrapper = styled('div')(() => ({
 		top: 1,
+		paddingLeft: 75,
 		zIndex: 9,
 		position: 'absolute',
-		color: 'black',
-		fontWeight: 'bolder',
-		fontStyle: 'italic',
+		color: theme.palette.getContrastText(theme.palette.background.paper),
+
 		pointerEvents: 'none',
 		display: 'flex',
 		alignItems: 'left',
@@ -123,70 +130,85 @@ function MyTabs() {
 	}))
 
 	return (
-		<AppBar color='secondary'>
-			<TitleWrapper>Annuity Calculator</TitleWrapper>
-			<StyledToolbar>
-				<AntTabs
-					variant='fullWidth'
-					value={currentTab}
-					onChange={handleTabChange}
-				>
-					<AntTab
-						label={
-							<Grid container direction='column'>
-								<Grid>Personal</Grid>
-								<Grid>Stats</Grid>
-							</Grid>
-						}
-						value='/'
-						to='/'
-						component={Link}
-					/>
-					<AntTab
-						label={
-							<Grid container direction='column'>
-								<Grid>Calculate</Grid>
-								<Grid>Annuity</Grid>
-							</Grid>
-						}
-						value='/Annuity'
-						to='/Annuity'
-						component={Link}
-					/>
-					<AntTab
-						label={
-							<Grid container direction='column'>
-								<Grid>Payout</Grid>
-								<Grid>Table</Grid>
-							</Grid>
-						}
-						value='/Payout'
-						to='/Payout'
-						component={Link}
-					/>
-				</AntTabs>
-			</StyledToolbar>
-			<SizeId />
-		</AppBar>
+		<Box sx={{ paddingTop: '75px', paddingLeft: '100px' }}>
+			<AppBar enableColorOnDark={true} sx={{ height: 71 }}>
+				<TitleWrapper>
+					<Typography variant='h5'>Annuity Calculator</Typography>
+				</TitleWrapper>
+				<StyledToolbar>
+					<AntTabs
+						variant='fullWidth'
+						value={currentTab}
+						onChange={handleTabChange}
+					>
+						<AntTab
+							label={
+								<Grid container direction='column'>
+									<Grid>Personal</Grid>
+									<Grid>Stats</Grid>
+								</Grid>
+							}
+							value='/'
+							to='/'
+							component={Link}
+						/>
+						<AntTab
+							label={
+								<Grid container direction='column'>
+									<Grid>Calculate</Grid>
+									<Grid>Annuity</Grid>
+								</Grid>
+							}
+							value='/Annuity'
+							to='/Annuity'
+							component={Link}
+						/>
+						<AntTab
+							label={
+								<Grid container direction='column'>
+									<Grid>Payout</Grid>
+									<Grid>Table</Grid>
+								</Grid>
+							}
+							value='/Payout'
+							to='/Payout'
+							component={Link}
+						/>
+					</AntTabs>
+					<IconButton
+						sx={{ ml: 1 }}
+						onClick={handleToggle}
+						color='inherit'
+					>
+						{theme.palette.mode === 'light' ? (
+							<Brightness4Icon />
+						) : (
+							<Brightness7Icon />
+						)}
+					</IconButton>
+				</StyledToolbar>
+				<SizeId />
+			</AppBar>
+		</Box>
 	)
 }
 
 const App = () => (
 	<UserContextProvider>
-		<CoupleContextProvider>
-			<AnnuityContextProvider>
-				<Router>
-					<Box sx={{ width: '100%' }}>
+		<ThemeModeContextProvider>
+			<CoupleContextProvider>
+				<AnnuityContextProvider>
+					<Router>
 						<MyTabs />
 						<Routes>
 							<Route path='*' element={<Actuary />} />
 							<Route path='/Annuity' element={<Annuity />} />
 							<Route path='/Payout' element={<Payout />} />
 						</Routes>
-					</Box>
-				</Router>
-			</AnnuityContextProvider>
-		</CoupleContextProvider>
+					</Router>
+				</AnnuityContextProvider>
+			</CoupleContextProvider>
+		</ThemeModeContextProvider>
 	</UserContextProvider>
 )
 

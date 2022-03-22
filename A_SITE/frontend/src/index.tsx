@@ -1,16 +1,11 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
-import './index.css'
-import { ThemeProvider } from '@mui/material/styles'
+import './styles/index.css'
+
 import AnnuityApp from './App'
-import theme from './MyTheme'
 
 function App() {
-	return (
-		<ThemeProvider theme={theme}>
-			<AnnuityApp />
-		</ThemeProvider>
-	)
+	return <AnnuityApp />
 }
 
 ReactDOM.render(<App />, document.getElementById('root'))

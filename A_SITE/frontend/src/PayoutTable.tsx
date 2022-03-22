@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import * as React from 'react'
 import Paper from '@mui/material/Paper'
 import Table from '@mui/material/Table'
@@ -6,16 +7,17 @@ import TableCell, { tableCellClasses } from '@mui/material/TableCell'
 import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
-import { Grid, styled, Typography } from '@mui/material'
+import { Grid, styled, TableFooter, Typography } from '@mui/material'
 import { AnnuityContext } from 'AnnuityContext'
 import { useContext } from 'react'
 import { displayCurrency } from 'CoupleContext'
-import { blue } from '@mui/material/colors'
+import { blue, green, red } from '@mui/material/colors'
+import { useTheme } from '@emotion/react'
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
 	[`&.${tableCellClasses.head}`]: {
-		backgroundColor: theme.palette.common.black,
-		color: theme.palette.common.white,
+		backgroundColor: theme.palette.secondary.main,
+		color: theme.palette.getContrastText(theme.palette.secondary.main),
 	},
 	[`&.${tableCellClasses.body}`]: {
 		fontSize: 12,
@@ -23,9 +25,29 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 }))
 
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
-	'&:nth-of-type(odd)': {
-		backgroundColor: theme.palette.action.hover,
+	'&.green:nth-of-type(odd)': {
+		backgroundColor: theme.palette.success.dark,
 	},
+	'&.green:nth-of-type(even)': {
+		backgroundColor: theme.palette.success.main,
+	},
+	'&.green:hover': {
+		backgroundColor: theme.palette.success.light,
+	},
+
+	'&.normal:nth-of-type(odd)': {
+		backgroundColor: theme.palette.error.light,
+		'&:hover': {
+			backgroundColor: theme.palette.error.dark,
+		},
+	},
+	'&.normal:nth-of-type(even)': {
+		backgroundColor: theme.palette.error.main,
+		'&:hover': {
+			backgroundColor: theme.palette.error.dark,
+		},
+	},
+
 	// hide last border
 	'&:last-child td, &:last-child th': {
 		border: 0,
@@ -107,65 +129,89 @@ interface Data {
 	payment: number
 	discountedAmt: number
 	actuarialAmt: number
+	style: string
 }
 
 function createData(
 	year: string,
 	payment: number,
 	discountedAmt: number,
-	actuarialAmt: number
+	actuarialAmt: number,
+	style: string
 ): Data {
-	return { year, payment, discountedAmt, actuarialAmt }
+	return { year, payment, discountedAmt, actuarialAmt, style }
 }
 
 export default function StickyHeadTable() {
 	const { annuityConfig } = useContext(AnnuityContext)
+	const theme = useTheme()
 	const rows: Data[] = []
-	annuityConfig.payments.forEach(payment =>
+	let totalPayments = 0
+	let breakevenYear = ''
+	let style = 'normal'
+	annuityConfig.payments.forEach(payment => {
+		totalPayments += payment.discountedAmt
+
+		if (totalPayments >= annuityConfig.totalAdjustedValue) {
+			style = 'green'
+			if (breakevenYear === '')
+				breakevenYear = `${payment.year.toFixed(
+					0
+				)}, age: ${payment.spouse1Age.toFixed(0)}`
+		}
 		rows.push(
 			createData(
 				payment.year.toFixed(0),
 				payment.payment,
 				payment.discountedAmt,
-				payment.actuarialAmt
+				payment.actuarialAmt,
+				style
 			)
 		)
-	)
+	})
 
 	return (
-		<Paper sx={{ width: '300', overflow: 'hidden' }}>
+		<Paper sx={{ width: '100%', overflow: 'hidden' }}>
 			<TableContainer
 				sx={{
 					width: 300,
-					border: '6px solid',
-					borderColor: blue[300],
+					borderLeft: '10px solid',
+					borderRight: '10px solid',
+					borderBottom: '10px solid',
+					//	margin: '10px',
+					borderColor: 'secondary.main',
 					maxHeight: 440,
 				}}
 			>
 				<Table stickyHeader aria-label='sticky table'>
-					<TableHead sx={{ bgcolor: blue }}>
+					<TableHead sx={{ backgroundColor: 'primary.main' }}>
 						<TableRow>
 							{columns.map(column => (
-								<TableCell
+								<StyledTableCell
 									key={column.id}
 									align={column.alignHeading}
 									style={{
 										width: column.width,
-										backgroundColor: blue[300],
+
 										paddingLeft: 1,
 										paddingRight: 1,
 										paddingTop: 5,
-										paddingBottom: 5,
+										paddingBottom: 2,
 									}}
 								>
 									{column.label}
-								</TableCell>
+								</StyledTableCell>
 							))}
 						</TableRow>
 					</TableHead>
 					<TableBody>
 						{rows.map(row => (
-							<StyledTableRow hover tabIndex={-1} key={row.year}>
+							<StyledTableRow
+								hover
+								className={row.style}
+								tabIndex={-1}
+								key={row.year}
+							>
 								{columns.map(column => {
 									const value = row[column.id]
 									return (
@@ -190,6 +236,10 @@ export default function StickyHeadTable() {
 						))}
 					</TableBody>
 				</Table>
+				<TableFooter>
+					{' '}
+					<TableRow>Breakeven: {breakevenYear}</TableRow>
+				</TableFooter>
 			</TableContainer>
 		</Paper>
 	)
