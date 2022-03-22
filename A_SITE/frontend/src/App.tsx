@@ -72,14 +72,14 @@ const AntTab = styled((props: StyledTabProps) => (
 	fontSizeAdjust: 'from-font',
 
 	'&:hover': {
-		color: 'secondary',
+		color: 'secondary.main  ',
 
 		opacity: 10,
 	},
 	'&.Mui-selected': {
 		color: theme.palette.secondary.main,
 		// backgroundColor: 'secondary.dark',
-		borderBottom: '5px solid secondary.light',
+		border: '5px solid secondary.light',
 	},
 	'&.Mui-focusVisible': {
 		backgroundColor: '#d1eaff',
@@ -132,7 +132,7 @@ function MyTabs() {
 
 	return (
 		<Box sx={{ paddingTop: '75px', paddingLeft: '100px' }}>
-			<AppBar enableColorOnDark={true} sx={{ height: 71 }}>
+			<AppBar enableColorOnDark={false} sx={{ height: 71 }}>
 				<TitleWrapper>
 					<Typography variant='h5'>Annuity Calculator</Typography>
 				</TitleWrapper>

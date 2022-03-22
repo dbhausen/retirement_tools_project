@@ -148,6 +148,7 @@ const Annuity = () => {
 			...calculateValue(annuityConfig.guatantee[0], annuityConfig.deferral),
 		})
 		setStoredAnnuityConfig(annuityConfig)
+		window.scrollTo(0, 0)
 	}
 
 	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {

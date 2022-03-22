@@ -16,8 +16,8 @@ import { useTheme } from '@emotion/react'
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
 	[`&.${tableCellClasses.head}`]: {
-		backgroundColor: theme.palette.secondary.main,
-		color: theme.palette.getContrastText(theme.palette.secondary.main),
+		backgroundColor: theme.palette.background.default,
+		color: theme.palette.getContrastText(theme.palette.background.default),
 	},
 	[`&.${tableCellClasses.body}`]: {
 		fontSize: 12,
@@ -179,12 +179,12 @@ export default function StickyHeadTable() {
 					borderRight: '10px solid',
 					borderBottom: '10px solid',
 					//	margin: '10px',
-					borderColor: 'secondary.main',
+					borderColor: 'background.default',
 					maxHeight: 440,
 				}}
 			>
 				<Table stickyHeader aria-label='sticky table'>
-					<TableHead sx={{ backgroundColor: 'primary.main' }}>
+					<TableHead>
 						<TableRow>
 							{columns.map(column => (
 								<StyledTableCell
@@ -192,7 +192,6 @@ export default function StickyHeadTable() {
 									align={column.alignHeading}
 									style={{
 										width: column.width,
-
 										paddingLeft: 1,
 										paddingRight: 1,
 										paddingTop: 5,

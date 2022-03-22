@@ -140,6 +140,7 @@ function Actuary() {
 									<Slider
 										max={100}
 										min={20}
+										size='small'
 										name='spouse1'
 										valueLabelDisplay='auto'
 										value={
@@ -163,6 +164,7 @@ function Actuary() {
 						<FormControlLabel
 							control={
 								<Switch
+									size='small'
 									checked={couple.married}
 									onChange={handleMarriedChanged}
 								/>
@@ -184,6 +186,7 @@ function Actuary() {
 									<Grid item xs>
 										<Slider
 											disabled={!couple.married}
+											size='small'
 											max={100}
 											min={20}
 											valueLabelDisplay='auto'
@@ -229,6 +232,7 @@ function Actuary() {
 										valueLabelDisplay='auto'
 										max={100}
 										min={20}
+										size='small'
 										value={
 											typeof couple.targetAge === 'number'
 												? couple.targetAge
