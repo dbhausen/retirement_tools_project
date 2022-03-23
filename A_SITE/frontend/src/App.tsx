@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
 import {
@@ -31,6 +32,8 @@ import {
 } from 'styles/ThemeModeContext'
 import Brightness7Icon from '@mui/icons-material/Brightness7'
 import Brightness4Icon from '@mui/icons-material/Brightness4'
+import { SocialDistanceOutlined } from '@mui/icons-material'
+import { green } from '@mui/material/colors'
 
 const StyledToolbar = styled(Toolbar)(() => ({
 	alignItems: 'flex-start',
@@ -49,13 +52,13 @@ interface StyledTabProps {
 	disabled?: boolean
 }
 
-const AntTabs = styled(Tabs)({
+const AntTabs = styled(Tabs)(({ theme }) => ({
 	marginTop: 25,
 	borderBottom: '1px solid primary',
 	'& .MuiTabs-indicator': {
-		//	backgroundColor: 'secondary',
+		//	backgroundColor: theme.palette.grey.A400,
 	},
-})
+}))
 
 const AntTab = styled((props: StyledTabProps) => (
 	<Tab disableRipple={false} {...props} />
@@ -63,28 +66,31 @@ const AntTab = styled((props: StyledTabProps) => (
 	textTransform: 'capitalize',
 	minWidth: 0,
 
-	// color: '#1A237E',
-	// backgroundColor: 'secondary',
-	paddingTop: 0,
-	paddingBottom: 1,
+	color: theme.palette.getContrastText(theme.palette.grey.A700),
+	backgroundColor: theme.palette.grey.A700,
 
-	fontSizeAdjust: 'from-font',
+	paddingTop: 1,
+	paddingBottom: 3,
+
+	// fontSizeAdjust: 'from-font',
+	'&.MuiTabs-indicator': {
+		color: theme.palette.background.paper,
+	},
 
 	'&:hover': {
-		color: 'secondary.main  ',
-
+		color: green[900],
 		opacity: 10,
 	},
 	'&.Mui-selected': {
 		color: theme.palette.secondary.main,
-		// backgroundColor: 'secondary.dark',
-		border: '5px solid secondary.light',
+		backgroundColor: theme.palette.grey.A700,
+		// border: '5px solid secondary.light',
 	},
 	'&.Mui-focusVisible': {
-		backgroundColor: '#d1eaff',
+		// backgroundColor: '#d1eaff',
 	},
 	'&.Mui-disabled': {
-		color: '#546E7A',
+		// color: '#546E7A',
 	},
 }))
 
@@ -131,7 +137,13 @@ function MyTabs() {
 
 	return (
 		<Box sx={{ paddingTop: '75px', paddingLeft: '100px' }}>
-			<AppBar enableColorOnDark={false} sx={{ height: 71 }}>
+			<AppBar
+				enableColorOnDark={true}
+				sx={{
+					backgroundColor: theme.palette.grey.A700,
+					height: 71,
+				}}
+			>
 				<TitleWrapper>
 					<Typography variant='h5'>Annuity Calculator</Typography>
 				</TitleWrapper>

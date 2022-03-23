@@ -11,7 +11,7 @@ export default createTheme({
 			main: indigo[400],
 		},
 		secondary: {
-			main: indigo[400],
+			main: indigo[300],
 		},
 
 		success: {
@@ -28,8 +28,12 @@ export default createTheme({
 			disabled: grey[800],
 		},
 		background: {
-			paper: grey[900],
-			default: grey[800],
+			paper: '#1D1D1D',
+			default: '#060606',
+		},
+		grey: {
+			A400: '#1D1D1D',
+			A700: '#060606',
 		},
 	},
 	components: {

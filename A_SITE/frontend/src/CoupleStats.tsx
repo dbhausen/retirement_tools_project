@@ -10,7 +10,7 @@ import { COLORS, COLORS2, MyChart } from './SurvivalPie'
 function CoupleStats() {
 	const { couple } = useContext(CoupleContext)
 	return (
-		<Box>
+		<Box sx={{ paddingRight: '30px' }}>
 			<Grid container direction='row'>
 				<Grid id='pie-chart' item xs={6} sm={5} md={4}>
 					<MyChart />
