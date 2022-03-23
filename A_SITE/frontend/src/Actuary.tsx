@@ -222,7 +222,7 @@ function Actuary() {
 						</Grid>
 						<Grid id='target-desc'>
 							<Typography variant='body2'>
-								(Optional) Set target longevity
+								(Optional) How long do you plan to live?
 							</Typography>
 						</Grid>
 						<Grid id='target' item>

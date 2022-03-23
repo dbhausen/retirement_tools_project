@@ -248,9 +248,10 @@ const Annuity = () => {
 							variant='standard'
 							allowNegative={false}
 						/>
+
 						<PercentTextField
 							InputLabelProps={{ style: { fontSize: 17 } }}
-							label='Risk-Free Rate Of Return'
+							label='Risk-Free Rate Of Return (see note)'
 							name='discountRate'
 							decimalScale={2}
 							fixedDecimalScale={true}
@@ -280,12 +281,14 @@ const Annuity = () => {
 								/>
 							}
 						/>
-						<DeferFormControl
-							label='Defer:'
-							name='defer'
-							onChange={handleDeferralChange}
-							value={annuityConfig.deferral}
-						/>
+						<Typography variant='caption' color='textSecondary'>
+							<DeferFormControl
+								label='Defer:'
+								name='defer'
+								onChange={handleDeferralChange}
+								value={annuityConfig.deferral}
+							/>
+						</Typography>
 						<Button
 							sx={{ width: '50%', alignSelf: 'center' }}
 							size='small'

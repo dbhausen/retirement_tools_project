@@ -23,7 +23,6 @@ import Annuity from 'Annuity'
 import SizeId from 'SizeId'
 import { CoupleContext, CoupleContextProvider } from 'CoupleContext'
 import { AnnuityContextProvider } from 'AnnuityContext'
-import { UserContextProvider } from 'UserContext'
 import { useContext } from 'react'
 
 import {
@@ -195,22 +194,20 @@ function MyTabs() {
 }
 
 const App = () => (
-	<UserContextProvider>
-		<ThemeModeContextProvider>
-			<CoupleContextProvider>
-				<AnnuityContextProvider>
-					<Router>
-						<MyTabs />
-						<Routes>
-							<Route path='*' element={<Actuary />} />
-							<Route path='/Annuity' element={<Annuity />} />
-							<Route path='/Payout' element={<Payout />} />
-						</Routes>
-					</Router>
-				</AnnuityContextProvider>
-			</CoupleContextProvider>
-		</ThemeModeContextProvider>
-	</UserContextProvider>
+	<ThemeModeContextProvider>
+		<CoupleContextProvider>
+			<AnnuityContextProvider>
+				<Router>
+					<MyTabs />
+					<Routes>
+						<Route path='*' element={<Actuary />} />
+						<Route path='/Annuity' element={<Annuity />} />
+						<Route path='/Payout' element={<Payout />} />
+					</Routes>
+				</Router>
+			</AnnuityContextProvider>
+		</CoupleContextProvider>
+	</ThemeModeContextProvider>
 )
 
 export default App

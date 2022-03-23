@@ -2,7 +2,7 @@ import { Box, Grid, Paper, Typography } from '@mui/material'
 import { AnnuityContext } from 'AnnuityContext'
 import { useContext } from 'react'
 import { CoupleContext, displayCurrency } from 'CoupleContext'
-import { UserContext } from 'UserContext'
+
 import PayoutHelp from 'PayoutHelp'
 import PayoutTable from 'PayoutTable'
 import { Couple } from 'Couple'
@@ -10,9 +10,6 @@ import { Couple } from 'Couple'
 const Payout = () => {
 	const { annuityConfig } = useContext(AnnuityContext)
 	const { couple } = useContext(CoupleContext)
-
-	const userContext = useContext(UserContext)
-	const user = userContext?.user
 
 	let totalExpectedPayments = 0
 	let discountedTotalPayments = 0
@@ -65,14 +62,14 @@ const Payout = () => {
 							}}
 						>
 							<Typography gutterBottom>
-								The <strong>Total Value</strong> of this anuity is sum
-								of the <strong>Actuarial</strong> amounts. In this case:{' '}
+								The <strong>Total Value</strong> of this anuity{' ( '}
 								<strong>
 									{displayCurrency(annuityConfig.totalAdjustedValue)}
 								</strong>
-								{'. '}
-								This value is not based on how long you think you will
-								live. It is based on the actuarial tables.
+								{' )'} is the sum of the{' '}
+								<strong>Actuarial Values </strong>. This value is not
+								based on how long you think you will live. It is based
+								on the actuarial tables.
 							</Typography>
 							{couple.married ? (
 								<Typography gutterBottom>
@@ -113,7 +110,6 @@ const Payout = () => {
 						width: '100%',
 					}}
 				>
-					{user?.name}
 					{annuityConfig.isCalculated ? <PayoutHelp /> : null}
 				</Box>
 			</Grid>

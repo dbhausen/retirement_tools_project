@@ -25,8 +25,8 @@ interface IAnnuityConfig {
 }
 
 const defaultAnnuityConfig: IAnnuityConfig = {
-	annuityAmount: '10000',
-	discountRate: '1.79',
+	annuityAmount: '20000',
+	discountRate: '2.60',
 	costOfLivingAdjustment: '2',
 	guatantee: [false, false],
 	isCalculated: false,
