@@ -40,7 +40,13 @@ export default createTheme({
 		MuiSlider: {
 			styleOverrides: {
 				root: {
-					'& .Mui-disabled.MuiSlider-thumb': {
+					'.Mui-disabled.MuiSlider-thumb': {
+						color: grey[800],
+					},
+					'&.Mui-disabled > .MuiSlider-track': {
+						color: grey[800],
+					},
+					'&.Mui-disabled > .MuiSlider-rail': {
 						color: grey[800],
 					},
 				},

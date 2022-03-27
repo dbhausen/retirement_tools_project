@@ -251,6 +251,11 @@ function Actuary() {
 							</Grid>
 						</Grid>
 					</Grid>
+					<Grid sx={{ height: 80, textAlign: 'center' }}>
+						<Typography variant='caption' gutterBottom>
+							(No data is sent. All the magic is on your browser.)
+						</Typography>
+					</Grid>
 				</Grid>
 				<Grid id='right-side-charts' item xs>
 					<Box
