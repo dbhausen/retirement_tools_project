@@ -27,8 +27,8 @@ export default createTheme({
 			default: grey[300],
 		},
 		grey: {
-			A400: blue[500],
-			A700: blue[600],
+			A400: blue[900],
+			A700: blue[300],
 		},
 	},
 })

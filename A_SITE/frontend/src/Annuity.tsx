@@ -283,7 +283,7 @@ const Annuity = () => {
 						/>
 						<Typography variant='caption' color='textSecondary'>
 							<DeferFormControl
-								label='Defer:'
+								label='Defer Until:'
 								name='defer'
 								onChange={handleDeferralChange}
 								value={annuityConfig.deferral}

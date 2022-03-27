@@ -50,7 +50,7 @@ export default function DeferFormControl(props: IProps) {
 							}}
 						/>
 					}
-					label='Until 65'
+					label='65'
 				/>
 				<FormControlLabel
 					value={70}
@@ -63,7 +63,7 @@ export default function DeferFormControl(props: IProps) {
 							}}
 						/>
 					}
-					label='Until 70'
+					label='70'
 				/>
 				<FormControlLabel
 					value={75}
@@ -76,7 +76,7 @@ export default function DeferFormControl(props: IProps) {
 							}}
 						/>
 					}
-					label='Until 75'
+					label='75'
 				/>
 				<FormControlLabel
 					value={80}
@@ -89,7 +89,7 @@ export default function DeferFormControl(props: IProps) {
 							}}
 						/>
 					}
-					label='Until 80'
+					label='80'
 				/>
 			</RadioGroup>
 		</FormControl>
