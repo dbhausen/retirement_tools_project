@@ -13,8 +13,14 @@ import {
 	AppBar,
 	Box,
 	Button,
+	Divider,
+	Drawer,
 	Grid,
 	IconButton,
+	List,
+	ListItem,
+	ListItemIcon,
+	ListItemText,
 	Skeleton,
 	styled,
 	SwipeableDrawer,
@@ -28,7 +34,6 @@ import SizeId from 'SizeId'
 import { CoupleContext, CoupleContextProvider } from 'CoupleContext'
 import { AnnuityContextProvider } from 'AnnuityContext'
 import { useContext, useState } from 'react'
-import MenuIcon from '@mui/icons-material/Menu'
 
 import {
 	ThemeModeContextProvider,
@@ -36,8 +41,10 @@ import {
 } from 'styles/ThemeModeContext'
 import Brightness7Icon from '@mui/icons-material/Brightness7'
 import Brightness4Icon from '@mui/icons-material/Brightness4'
+import MenuIcon from '@mui/icons-material/Menu'
+
 import { SocialDistanceOutlined } from '@mui/icons-material'
-import { blue, green, grey } from '@mui/material/colors'
+import { blue, green, grey, red } from '@mui/material/colors'
 
 const StyledToolbar = styled(Toolbar)(() => ({
 	alignItems: 'flex-start',
@@ -55,9 +62,9 @@ interface StyledTabProps {
 	component: any
 	disabled?: boolean
 }
-
+const drawerWidth = 240
 const AntTabs = styled(Tabs)(({ theme }) => ({
-	marginTop: 25,
+	marginTop: 3,
 	borderBottom: '1px solid primary',
 	'& .MuiTabs-indicator': {
 		//	backgroundColor: theme.palette.grey.A400,
@@ -75,7 +82,7 @@ const AntTab = styled((props: StyledTabProps) => (
 
 	paddingLeft: 5,
 	paddingRught: 5,
-	paddingTop: 1,
+	paddingTop: 0,
 	paddingBottom: 3,
 
 	// fontSizeAdjust: 'from-font',
@@ -136,13 +143,8 @@ function MyTabs() {
 	const routeMatch = useRouteMatch(['/Annuity', '/Payout', '/'])
 	const currentTab = routeMatch?.pattern?.path
 	const { couple, setStoredCouple } = useContext(CoupleContext)
-	const { handleToggle, theme } = useContext(ThemeModeContext)
-	const [open, setOpen] = useState(true)
-	const drawerBleeding = 10
-
-	const handleToggleDrawer = (newOpen: boolean) => () => {
-		setOpen(newOpen)
-	}
+	const { handleToggle, theme, mobileOpen, setMobileOpen } =
+		useContext(ThemeModeContext)
 
 	const handleTabChange = () => {
 		window.scrollTo(0, 0)
@@ -151,8 +153,10 @@ function MyTabs() {
 	const TitleWrapper = styled('div')(() => ({
 		top: 1,
 		paddingLeft: 75,
+		paddingBottom: 0,
+		// width: 150,
 		zIndex: 9,
-		position: 'absolute',
+		position: 'relative',
 		color: theme.palette.getContrastText(theme.palette.background.paper),
 		pointerEvents: 'none',
 		display: 'flex',
@@ -160,47 +164,12 @@ function MyTabs() {
 		justifyContent: 'left',
 	}))
 
+	const handleDrawerToggle = () => {
+		setMobileOpen(!mobileOpen)
+	}
+
 	return (
 		<Box sx={{ paddingTop: '75px', paddingLeft: '100px' }}>
-			<SwipeableDrawer
-				//		container={container}
-				anchor='left'
-				open={open}
-				onClose={handleToggleDrawer(false)}
-				onOpen={handleToggleDrawer(true)}
-				swipeAreaWidth={drawerBleeding}
-				disableSwipeToOpen={false}
-				ModalProps={{
-					keepMounted: true,
-				}}
-			>
-				<StyledBox
-					sx={{
-						position: 'absolute',
-						top: -drawerBleeding,
-						borderTopLeftRadius: 8,
-						borderTopRightRadius: 8,
-						visibility: 'visible',
-						paddingTop: 70,
-						right: 0,
-						left: 0,
-					}}
-				>
-					<Typography sx={{ p: 2, color: 'text.secondary' }}>
-						51 results
-					</Typography>
-				</StyledBox>
-				<StyledBox
-					sx={{
-						px: 2,
-						pb: 2,
-						height: '100%',
-						overflow: 'auto',
-					}}
-				>
-					<Skeleton variant='rectangular' height='100%' />
-				</StyledBox>
-			</SwipeableDrawer>
 			<AppBar
 				enableColorOnDark={false}
 				sx={{
@@ -208,9 +177,34 @@ function MyTabs() {
 				}}
 			>
 				<TitleWrapper>
+					<Box
+						sx={{
+							display: {
+								xs: 'none',
+								sm: 'none',
+								md: 'block',
+								width: drawerWidth - 21,
+
+								boxSizing: 'border-box',
+							},
+						}}
+					/>
 					<Typography variant='h5'>Annuity Calculator</Typography>
 				</TitleWrapper>
 				<StyledToolbar>
+					<Box
+						sx={{
+							display: {
+								xs: 'none',
+								sm: 'none',
+								md: 'block',
+								width: drawerWidth - 21,
+								height: 71,
+
+								boxSizing: 'border-box',
+							},
+						}}
+					/>
 					<AntTabs
 						variant='fullWidth'
 						value={currentTab}
@@ -251,7 +245,7 @@ function MyTabs() {
 						/>
 					</AntTabs>
 					<IconButton
-						sx={{ position: 'absolute', right: 10, ml: 1 }}
+						sx={{ position: 'absolute', right: 10, top: -25, ml: 1 }}
 						onClick={handleToggle}
 						color='inherit'
 					>
@@ -262,11 +256,20 @@ function MyTabs() {
 						)}
 					</IconButton>
 					<IconButton
-						sx={{ position: 'absolute', right: 10, top: 27, ml: 1 }}
+						sx={{
+							display: {
+								xs: 'block',
+								sm: 'block',
+								md: 'none',
+								position: 'absolute',
+								right: 10,
+								ml: 1,
+							},
+						}}
 						edge='start'
 						color='inherit'
 						aria-label='open drawer'
-						onClick={handleToggleDrawer(true)}
+						onClick={handleDrawerToggle}
 					>
 						<MenuIcon />
 					</IconButton>
@@ -278,20 +281,18 @@ function MyTabs() {
 }
 
 const App = () => (
-	<ThemeModeContextProvider>
-		<CoupleContextProvider>
-			<AnnuityContextProvider>
-				<Router>
-					<MyTabs />
-					<Routes>
-						<Route path='*' element={<Actuary />} />
-						<Route path='/Annuity' element={<Annuity />} />
-						<Route path='/Payout' element={<Payout />} />
-					</Routes>
-				</Router>
-			</AnnuityContextProvider>
-		</CoupleContextProvider>
-	</ThemeModeContextProvider>
+	<CoupleContextProvider>
+		<AnnuityContextProvider>
+			<Router>
+				<MyTabs />
+				<Routes>
+					<Route path='*' element={<Actuary />} />
+					<Route path='/Annuity' element={<Annuity />} />
+					<Route path='/Payout' element={<Payout />} />
+				</Routes>
+			</Router>
+		</AnnuityContextProvider>
+	</CoupleContextProvider>
 )
 
 export default App

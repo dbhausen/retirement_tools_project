@@ -62,7 +62,8 @@ const Payout = () => {
 							}}
 						>
 							<Typography gutterBottom>
-								The <strong>Total Value</strong> of this anuity{' ( '}
+								The <strong>Total Value</strong> of this anuity
+								{' ( '}
 								<strong>
 									{displayCurrency(annuityConfig.totalAdjustedValue)}
 								</strong>

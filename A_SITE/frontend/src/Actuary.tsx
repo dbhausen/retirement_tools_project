@@ -124,7 +124,7 @@ function Actuary() {
 	return (
 		<Paper sx={{ paddingLeft: '10px' }}>
 			<Grid id='page' container direction='row'>
-				<Grid id='left-side' item xs={12} sm={12} md={6} lg={5} xl={4}>
+				<Grid id='left-side' item xs={12} sm={11} md={9} lg={6} xl={4}>
 					<Grid container direction='column'>
 						<Grid id='spouse1' sx={{ padding: 0 }}>
 							<SexFormControl
@@ -257,7 +257,15 @@ function Actuary() {
 						</Typography>
 					</Grid>
 				</Grid>
-				<Grid id='right-side-charts' item xs>
+				<Grid
+					id='right-side-charts'
+					item
+					xs={12}
+					sm={12}
+					md={12}
+					lg={6}
+					xl={8}
+				>
 					<Box
 						sx={{
 							display: {

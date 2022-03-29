@@ -191,7 +191,7 @@ const Annuity = () => {
 	return (
 		<Paper>
 			<Grid id='page' container direction='row'>
-				<Grid id='left-side' item xs={12} sm={12} md={6} lg={5} xl={4}>
+				<Grid id='left-side' item xs={12} sm={8} md={6} lg={5} xl={4}>
 					<Grid container direction='column' sx={{ paddingLeft: '10px' }}>
 						<Typography variant='caption'>
 							<Grid id='calculatedResults' sx={{ height: 70 }}>
@@ -299,7 +299,15 @@ const Annuity = () => {
 						</Button>
 					</Grid>
 				</Grid>
-				<Grid id='right-side-charts' item xs>
+				<Grid
+					id='right-side-charts'
+					item
+					xs={12}
+					sm={12}
+					md={12}
+					lg={7}
+					xl={8}
+				>
 					<Box
 						sx={{
 							display: {
