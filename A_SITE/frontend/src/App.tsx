@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
 import {
@@ -9,42 +8,19 @@ import {
 	useLocation,
 	BrowserRouter as Router,
 } from 'react-router-dom'
-import {
-	AppBar,
-	Box,
-	Button,
-	Divider,
-	Drawer,
-	Grid,
-	IconButton,
-	List,
-	ListItem,
-	ListItemIcon,
-	ListItemText,
-	Skeleton,
-	styled,
-	SwipeableDrawer,
-	Toolbar,
-	Typography,
-} from '@mui/material'
+import { AppBar, Box, Grid, styled, Toolbar, Typography } from '@mui/material'
 import Payout from 'Payout'
 import Actuary from 'Actuary'
 import Annuity from 'Annuity'
 import SizeId from 'SizeId'
 import { CoupleContext, CoupleContextProvider } from 'CoupleContext'
 import { AnnuityContextProvider } from 'AnnuityContext'
-import { useContext, useState } from 'react'
+import { useContext } from 'react'
 
-import {
-	ThemeModeContextProvider,
-	ThemeModeContext,
-} from 'styles/ThemeModeContext'
-import Brightness7Icon from '@mui/icons-material/Brightness7'
-import Brightness4Icon from '@mui/icons-material/Brightness4'
-import MenuIcon from '@mui/icons-material/Menu'
+import { ThemeModeContext } from 'styles/ThemeModeContext'
 
-import { SocialDistanceOutlined } from '@mui/icons-material'
-import { blue, green, grey, red } from '@mui/material/colors'
+import { green } from '@mui/material/colors'
+import AppMenu from 'AppMenu'
 
 const StyledToolbar = styled(Toolbar)(() => ({
 	alignItems: 'flex-start',
@@ -63,7 +39,7 @@ interface StyledTabProps {
 	disabled?: boolean
 }
 const drawerWidth = 240
-const AntTabs = styled(Tabs)(({ theme }) => ({
+const AntTabs = styled(Tabs)(() => ({
 	marginTop: 3,
 	borderBottom: '1px solid primary',
 	'& .MuiTabs-indicator': {
@@ -120,20 +96,6 @@ function useRouteMatch(patterns: readonly string[]) {
 
 	return null
 }
-const StyledBox = styled(Box)(({ theme }) => ({
-	backgroundColor: theme.palette.mode === 'light' ? '#fff' : grey[800],
-}))
-
-const Puller = styled(Box)(({ theme }) => ({
-	width: 10,
-	height: 150,
-	backgroundColor: theme.palette.mode === 'light' ? grey[300] : grey[900],
-	borderRadius: 3,
-	position: 'absolute',
-	right: 8,
-
-	top: 'calc(50% - 15px)',
-}))
 
 function MyTabs() {
 	// You need to provide the routes in descendant order.
@@ -143,8 +105,7 @@ function MyTabs() {
 	const routeMatch = useRouteMatch(['/Annuity', '/Payout', '/'])
 	const currentTab = routeMatch?.pattern?.path
 	const { couple, setStoredCouple } = useContext(CoupleContext)
-	const { handleToggle, theme, mobileOpen, setMobileOpen } =
-		useContext(ThemeModeContext)
+	const { theme } = useContext(ThemeModeContext)
 
 	const handleTabChange = () => {
 		window.scrollTo(0, 0)
@@ -163,10 +124,6 @@ function MyTabs() {
 		alignItems: 'left',
 		justifyContent: 'left',
 	}))
-
-	const handleDrawerToggle = () => {
-		setMobileOpen(!mobileOpen)
-	}
 
 	return (
 		<Box sx={{ paddingTop: '75px', paddingLeft: '100px' }}>
@@ -244,37 +201,9 @@ function MyTabs() {
 							component={Link}
 						/>
 					</AntTabs>
-					<IconButton
-						sx={{ position: 'absolute', right: 10, top: -25, ml: 1 }}
-						onClick={handleToggle}
-						color='inherit'
-					>
-						{theme.palette.mode === 'light' ? (
-							<Brightness4Icon />
-						) : (
-							<Brightness7Icon />
-						)}
-					</IconButton>
-					<IconButton
-						sx={{
-							display: {
-								xs: 'block',
-								sm: 'block',
-								md: 'none',
-								position: 'absolute',
-								right: 10,
-								ml: 1,
-							},
-						}}
-						edge='start'
-						color='inherit'
-						aria-label='open drawer'
-						onClick={handleDrawerToggle}
-					>
-						<MenuIcon />
-					</IconButton>
 				</StyledToolbar>
 				<SizeId />
+				<AppMenu />
 			</AppBar>
 		</Box>
 	)

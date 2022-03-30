@@ -6,20 +6,23 @@ import {
 	Drawer,
 	Grid,
 	List,
-	ListItem,
+	ListItemButton,
 	ListItemIcon,
 	ListItemText,
 	Paper,
 	styled,
 	Toolbar,
 } from '@mui/material'
-import InboxIcon from '@mui/icons-material/MoveToInbox'
-import MailIcon from '@mui/icons-material/Mail'
+
+import CalculateIcon from '@mui/icons-material/Calculate'
+import HomeIcon from '@mui/icons-material/Home'
 import {
 	ThemeModeContext,
 	ThemeModeContextProvider,
 } from 'styles/ThemeModeContext'
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
+
+import Home from 'Home'
 import AnnuityApp from './App'
 
 const drawerWidth = 240
@@ -28,47 +31,43 @@ const StyledToolbar = styled(Toolbar)(({ theme }) => ({
 	alignItems: 'flex-start',
 	backgroundColor: theme.palette.grey.A700,
 	height: 71,
-
-	// Override media queries injected by theme.mixins.toolbar
-	//	'@media all': {
-	//		minHeight: 20,
-	//		maxHeight: 31,
-	// 	},
 }))
 
-const drawer = (
-	<div>
-		<StyledToolbar />
-		<Divider />
-		<List>
-			{['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-				<ListItem button key={text}>
-					<ListItemIcon>
-						{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-					</ListItemIcon>
-					<ListItemText primary={text} />
-				</ListItem>
-			))}
-		</List>
-		<Divider />
-		<List>
-			{['All mail', 'Trash', 'Spam'].map((text, index) => (
-				<ListItem button key={text}>
-					<ListItemIcon>
-						{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-					</ListItemIcon>
-					<ListItemText primary={text} />
-				</ListItem>
-			))}
-		</List>
-	</div>
-)
+const appList = [{ name: 'Home' }, { name: 'Annuity Calculator' }]
 
 function App() {
 	const { mobileOpen, setMobileOpen } = useContext(ThemeModeContext)
+	const [selectedApp, setSelectedApp] = useState<string>('Annuity Calculator')
 	const handleDrawerToggle = () => {
 		setMobileOpen(!mobileOpen)
 	}
+	const handleClick = (selected: any) => {
+		setSelectedApp(selected.app.name)
+	}
+
+	const drawer = (
+		<div>
+			<StyledToolbar />
+			<Divider />
+			<List>
+				{appList.map(app => (
+					<ListItemButton
+						key={app.name}
+						onClick={() => handleClick({ app })}
+					>
+						<ListItemIcon>
+							{app.name === 'Home' ? <HomeIcon /> : null}
+							{app.name === 'Annuity Calculator' ? (
+								<CalculateIcon />
+							) : null}
+						</ListItemIcon>
+						<ListItemText primary={app.name} />
+					</ListItemButton>
+				))}
+			</List>
+			<Divider />
+		</div>
+	)
 
 	return (
 		<Paper>
@@ -120,7 +119,8 @@ function App() {
 					{drawer}
 				</Drawer>
 				<Grid item xs>
-					<AnnuityApp />
+					{selectedApp === 'Annuity Calculator' ? <AnnuityApp /> : null}
+					{selectedApp === 'Home' ? <Home /> : null}
 				</Grid>
 			</Grid>
 		</Paper>
