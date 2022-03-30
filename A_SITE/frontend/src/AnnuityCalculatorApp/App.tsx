@@ -1,3 +1,4 @@
+import { useContext } from 'react'
 import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
 import {
@@ -9,18 +10,15 @@ import {
 	BrowserRouter as Router,
 } from 'react-router-dom'
 import { AppBar, Box, Grid, styled, Toolbar, Typography } from '@mui/material'
-import Payout from 'Payout'
-import Actuary from 'Actuary'
-import Annuity from 'Annuity'
-import SizeId from 'SizeId'
-import { CoupleContext, CoupleContextProvider } from 'CoupleContext'
-import { AnnuityContextProvider } from 'AnnuityContext'
-import { useContext } from 'react'
-
-import { ThemeModeContext } from 'styles/ThemeModeContext'
-
 import { green } from '@mui/material/colors'
-import AppMenu from 'AppMenu'
+import SizeId from 'SizeId'
+import { ThemeModeContext } from 'styles/ThemeModeContext'
+import Payout from './Payout'
+import Actuary from './Actuary'
+import Annuity from './Annuity'
+import { AnnuityContextProvider } from './AnnuityContext'
+import { CoupleContext, CoupleContextProvider } from './CoupleContext'
+import AppMenu from '../AppMenu'
 
 const StyledToolbar = styled(Toolbar)(() => ({
 	alignItems: 'flex-start',

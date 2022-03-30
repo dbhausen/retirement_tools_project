@@ -1,6 +1,6 @@
-import { Couple, FEMALE, MALE, Person } from 'Couple'
 import React, { createContext, useMemo, useState } from 'react'
 import { useIsFirstRender, useLocalStorage } from 'usehooks-ts'
+import { Couple, FEMALE, MALE, Person } from './Couple'
 
 const fixed1 = new Intl.NumberFormat('en-us', {
 	minimumFractionDigits: 1,

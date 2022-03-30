@@ -1,11 +1,9 @@
-import { Box, Grid, Typography } from '@mui/material'
-import { Couple } from 'Couple'
-import { CoupleContext, displayPercent } from 'CoupleContext'
 import { useContext } from 'react'
+import { Box, Grid, Typography } from '@mui/material'
+import { Couple } from './Couple'
+import { CoupleContext, displayPercent } from './CoupleContext'
 
 import { COLORS, COLORS2, MyChart } from './SurvivalPie'
-
-// const displayPercent = (percent: number) => `${(percent * 100).toFixed(2)}%`
 
 function CoupleStats() {
 	const { couple } = useContext(CoupleContext)

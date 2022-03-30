@@ -4,7 +4,6 @@ import React, { useContext, useState } from 'react'
 import Button from '@mui/material/Button'
 
 import { Box } from '@mui/material'
-import { CoupleContext } from 'CoupleContext'
 
 const calculateWinner = (squares: string[]) => {
 	const lines = [
@@ -82,7 +81,6 @@ type THistory = Array<{
 }>
 
 export default function Game() {
-	const { couple } = useContext(CoupleContext)
 	const [history, setHistory] = useState<THistory>([
 		{ squares: Array(9).fill(''), player: 'X', winner: null },
 	])

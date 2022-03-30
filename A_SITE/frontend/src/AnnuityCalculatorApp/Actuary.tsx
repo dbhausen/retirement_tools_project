@@ -1,18 +1,14 @@
 import React, { useContext } from 'react'
-
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
 import Typography from '@mui/material/Typography'
-
-import Slider from '@mui/material/Slider'
-
-import SexFormControl from 'SexFormControl'
-import CoupleStats from 'CoupleStats'
-import { CoupleContext } from 'CoupleContext'
-import { AnnuityContext, defaultAnnuityConfig } from 'AnnuityContext'
-
-import ActuaryHelp from 'ActuaryHelp'
 import { FormControlLabel, Paper, Switch } from '@mui/material'
+import Slider from '@mui/material/Slider'
+import SexFormControl from 'AnnuityCalculatorApp/SexFormControl'
+import CoupleStats from './CoupleStats'
+import { AnnuityContext, defaultAnnuityConfig } from './AnnuityContext'
+import ActuaryHelp from './ActuaryHelp'
+import { CoupleContext } from './CoupleContext'
 
 function Actuary() {
 	const { couple, setCouple, setStoredCouple } = useContext(CoupleContext)

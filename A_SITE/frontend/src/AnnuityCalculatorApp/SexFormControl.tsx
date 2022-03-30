@@ -5,7 +5,7 @@ import {
 	RadioGroup,
 	Typography,
 } from '@mui/material'
-import { FEMALE, MALE } from 'life'
+// import { FEMALE, MALE } from 'life'
 
 interface IProps {
 	name: string
@@ -19,6 +19,8 @@ export default function SexFormControl(props: IProps) {
 	const { name, value, onChange, label, disabled } = props
 	const handleChange = onChange
 	const textColor = disabled ? 'text.disabled' : 'text.primary'
+	const MALE = 'Male'
+	const FEMALE = 'Female'
 	return (
 		<FormControl>
 			<RadioGroup

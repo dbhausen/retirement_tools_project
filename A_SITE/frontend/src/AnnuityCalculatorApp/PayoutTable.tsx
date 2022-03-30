@@ -1,5 +1,4 @@
-/* eslint-disable no-unused-vars */
-import * as React from 'react'
+import { useContext } from 'react'
 import Paper from '@mui/material/Paper'
 import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
@@ -8,11 +7,8 @@ import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import { Grid, styled, TableFooter, Typography } from '@mui/material'
-import { AnnuityContext } from 'AnnuityContext'
-import { useContext } from 'react'
-import { displayCurrency } from 'CoupleContext'
-import { blue, green, red } from '@mui/material/colors'
-import { useTheme } from '@emotion/react'
+import { displayCurrency } from './CoupleContext'
+import { AnnuityContext } from './AnnuityContext'
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
 	[`&.${tableCellClasses.head}`]: {
@@ -144,7 +140,6 @@ function createData(
 
 export default function StickyHeadTable() {
 	const { annuityConfig } = useContext(AnnuityContext)
-	const theme = useTheme()
 	const rows: Data[] = []
 	let totalPayments = 0
 	let breakevenYear = ''

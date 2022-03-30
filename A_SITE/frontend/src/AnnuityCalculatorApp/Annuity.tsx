@@ -1,6 +1,9 @@
 import * as React from 'react'
 
-import { NumberTextField, PercentTextField } from 'NumberTextField'
+import {
+	NumberTextField,
+	PercentTextField,
+} from 'AnnuityCalculatorApp/NumberTextField'
 import {
 	Box,
 	Button,
@@ -11,11 +14,11 @@ import {
 	Typography,
 } from '@mui/material'
 import { useContext } from 'react'
-import { CoupleContext, displayCurrency } from 'CoupleContext'
-import { AnnuityContext, defaultAnnuityConfig } from 'AnnuityContext'
-import AnnuityHelp from 'AnnuityHelp'
-import DeferFormControl from 'DeferralFormControl'
-import { Couple, Person } from 'Couple'
+import { CoupleContext, displayCurrency } from './CoupleContext'
+import { AnnuityContext, defaultAnnuityConfig } from './AnnuityContext'
+import AnnuityHelp from './AnnuityHelp'
+import DeferFormControl from './DeferralFormControl'
+import { Couple, Person } from './Couple'
 
 const Annuity = () => {
 	const { couple } = useContext(CoupleContext)

@@ -1,13 +1,13 @@
+import { useContext } from 'react'
 import { Grid, Paper, Typography } from '@mui/material'
-import { AnnuityContext } from 'AnnuityContext'
-import { Couple } from 'Couple'
+import { AnnuityContext } from './AnnuityContext'
+import { Couple } from './Couple'
 import {
 	CoupleContext,
 	displayCurrency,
 	displayFixed,
 	displayPercent3,
-} from 'CoupleContext'
-import { useContext } from 'react'
+} from './CoupleContext'
 
 const PayoutHelp = () => {
 	const { couple } = useContext(CoupleContext)

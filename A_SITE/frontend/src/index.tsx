@@ -23,7 +23,7 @@ import {
 import { useContext, useState } from 'react'
 
 import Home from 'Home'
-import AnnuityApp from './App'
+import AnnuityApp from './AnnuityCalculatorApp/App'
 
 const drawerWidth = 240
 
