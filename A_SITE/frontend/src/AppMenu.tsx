@@ -14,9 +14,9 @@ const AppMenu = () => {
 	}
 
 	return (
-		<Box sx={{ marginTop: '70px' }}>
+		<Box sx={{ height: '40px' }}>
 			<IconButton
-				sx={{ position: 'absolute', right: 10, top: 0, ml: 1 }}
+				sx={{ position: 'absolute', right: 30, top: 0, ml: 1 }}
 				onClick={handleToggle}
 				color='inherit'
 			>
@@ -33,7 +33,7 @@ const AppMenu = () => {
 						sm: 'block',
 						md: 'none',
 						position: 'absolute',
-						right: 10,
+						right: 30,
 						top: 25,
 						ml: 1,
 					},

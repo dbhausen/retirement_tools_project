@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import Button from '@mui/material/Button'
 
-import './index.css'
 import { Box } from '@mui/material'
 
 const axios = require('axios').default

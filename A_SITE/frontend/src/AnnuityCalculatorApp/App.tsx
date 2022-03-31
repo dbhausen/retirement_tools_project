@@ -36,7 +36,7 @@ interface StyledTabProps {
 	component: any
 	disabled?: boolean
 }
-const drawerWidth = 240
+
 const AntTabs = styled(Tabs)(() => ({
 	marginTop: 3,
 	borderBottom: '1px solid primary',
@@ -103,7 +103,7 @@ function MyTabs() {
 	const routeMatch = useRouteMatch(['/Annuity', '/Payout', '/'])
 	const currentTab = routeMatch?.pattern?.path
 	const { couple, setStoredCouple } = useContext(CoupleContext)
-	const { theme } = useContext(ThemeModeContext)
+	const { theme, drawerWidth } = useContext(ThemeModeContext)
 
 	const handleTabChange = () => {
 		window.scrollTo(0, 0)

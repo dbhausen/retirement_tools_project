@@ -17,6 +17,7 @@ interface IThemeModeContext {
 	theme: Theme
 	setMobileOpen: Dispatch<SetStateAction<boolean>>
 	mobileOpen: boolean
+	drawerWidth: number
 }
 
 const defaultMode = {
@@ -24,6 +25,7 @@ const defaultMode = {
 	theme: createTheme(),
 	setMobileOpen: () => {},
 	mobileOpen: false,
+	drawerWidth: 240,
 }
 
 const ThemeModeContext = createContext<IThemeModeContext>(defaultMode)
@@ -33,6 +35,7 @@ const ThemeModeContextProvider = ({ children }: any) => {
 	const [mobileOpen, setMobileOpen] = useState(false)
 	const mode = isDarkMode ? 'dark' : 'light'
 	const handleToggle = toggle
+	const drawerWidth = 240
 
 	const contextValue = useMemo(() => {
 		const theme = mode === 'light' ? lightTheme : darkTheme
@@ -41,8 +44,9 @@ const ThemeModeContextProvider = ({ children }: any) => {
 			theme,
 			mobileOpen,
 			setMobileOpen,
+			drawerWidth,
 		}
-	}, [mode, handleToggle, mobileOpen, setMobileOpen])
+	}, [mode, handleToggle, mobileOpen, setMobileOpen, drawerWidth])
 
 	const body = document.querySelector('body')
 	if (body) {

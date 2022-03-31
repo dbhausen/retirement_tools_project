@@ -16,6 +16,7 @@ import {
 
 import CalculateIcon from '@mui/icons-material/Calculate'
 import HomeIcon from '@mui/icons-material/Home'
+import NetworkCheckIcon from '@mui/icons-material/NetworkCheck'
 import {
 	ThemeModeContext,
 	ThemeModeContextProvider,
@@ -23,9 +24,8 @@ import {
 import { useContext, useState } from 'react'
 
 import Home from 'Home'
+import UnderConstruction from 'UnderConstruction'
 import AnnuityApp from './AnnuityCalculatorApp/App'
-
-const drawerWidth = 240
 
 const StyledToolbar = styled(Toolbar)(({ theme }) => ({
 	alignItems: 'flex-start',
@@ -33,10 +33,15 @@ const StyledToolbar = styled(Toolbar)(({ theme }) => ({
 	height: 71,
 }))
 
-const appList = [{ name: 'Home' }, { name: 'Annuity Calculator' }]
+const appList = [
+	{ name: 'Home' },
+	{ name: 'Annuity Calculator' },
+	{ name: 'Income Stress Test' },
+]
 
 function App() {
-	const { mobileOpen, setMobileOpen } = useContext(ThemeModeContext)
+	const { mobileOpen, setMobileOpen, drawerWidth } =
+		useContext(ThemeModeContext)
 	const [selectedApp, setSelectedApp] = useState<string>('Annuity Calculator')
 	const handleDrawerToggle = () => {
 		setMobileOpen(!mobileOpen)
@@ -59,6 +64,9 @@ function App() {
 							{app.name === 'Home' ? <HomeIcon /> : null}
 							{app.name === 'Annuity Calculator' ? (
 								<CalculateIcon />
+							) : null}
+							{app.name === 'Income Stress Test' ? (
+								<NetworkCheckIcon />
 							) : null}
 						</ListItemIcon>
 						<ListItemText primary={app.name} />
@@ -121,6 +129,9 @@ function App() {
 				<Grid item xs>
 					{selectedApp === 'Annuity Calculator' ? <AnnuityApp /> : null}
 					{selectedApp === 'Home' ? <Home /> : null}
+					{selectedApp === 'Income Stress Test' ? (
+						<UnderConstruction appName='Income Stress Test' />
+					) : null}
 				</Grid>
 			</Grid>
 		</Paper>

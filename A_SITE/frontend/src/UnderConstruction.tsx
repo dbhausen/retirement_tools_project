@@ -3,10 +3,15 @@ import { useContext } from 'react'
 import { ThemeModeContext } from 'styles/ThemeModeContext'
 import AppMenu from './AppMenu'
 
-const Home = () => {
+interface IProps {
+	appName: string
+}
+
+const UnderConstruction = (props: IProps) => {
 	const { drawerWidth } = useContext(ThemeModeContext)
+	const { appName } = props
 	return (
-		<Box sx={{ paddingTop: '72px', paddingBottom: '10px' }}>
+		<Box sx={{ paddingTop: '70px', paddingBottom: '10px' }}>
 			<AppBar sx={{ height: '70px' }}>
 				<Grid container sx={{}}>
 					<Grid
@@ -27,40 +32,18 @@ const Home = () => {
 							sx={{ padding: '22px' }}
 							gutterBottom
 						>
-							Retirement Planning Tools
+							{appName}
 						</Typography>
 					</Grid>
 
 					<AppMenu />
 				</Grid>
 			</AppBar>
-			<Typography
-				variant='h3'
-				component='div'
-				sx={{ textAlign: 'center', padding: '15px' }}
-				gutterBottom
-			>
-				The retirement planning tools you always wanted.
-			</Typography>
-			<Typography
-				component='div'
-				variant='body1'
-				sx={{ padding: '15px' }}
-				gutterBottom
-			>
-				RPT provides robust and configurable tools with no strings attached.
-				<ul>
-					<li>No Ads</li>
-					<li>No Logins</li>
-					<li>Secure (no data is sent)</li>
-					<li>
-						No Sponserships from financial services providers or insurance
-						companies
-					</li>
-				</ul>
+			<Typography variant='h5' gutterBottom>
+				{appName} is under construction
 			</Typography>
 		</Box>
 	)
 }
 
-export default Home
+export default UnderConstruction
