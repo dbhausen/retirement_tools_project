@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { createTheme } from '@mui/material'
 import { blueGrey, green, grey, indigo, red } from '@mui/material/colors'
+import commonAccordian from './commonAccordian'
 import commonStyles from './commonStyles'
 
 export default createTheme({
@@ -52,5 +53,6 @@ export default createTheme({
 				},
 			},
 		},
+		...commonAccordian,
 	},
 })

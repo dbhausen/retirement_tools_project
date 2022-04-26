@@ -1,9 +1,6 @@
 import * as React from 'react'
 
-import {
-	NumberTextField,
-	PercentTextField,
-} from 'AnnuityCalculatorApp/NumberTextField'
+import { NumberTextField, PercentTextField } from 'components/NumberTextField'
 import {
 	Box,
 	Button,

@@ -1,5 +1,6 @@
 import { createTheme } from '@mui/material'
 import { blue, green, grey, purple, red } from '@mui/material/colors'
+import commonAccordian from './commonAccordian'
 import commonStyles from './commonStyles'
 
 export default createTheme({
@@ -30,5 +31,8 @@ export default createTheme({
 			A400: blue[900],
 			A700: blue[300],
 		},
+	},
+	components: {
+		...commonAccordian,
 	},
 })

@@ -4,12 +4,13 @@ import { blue } from '@mui/material/colors'
 const SizeIdWrapper = styled('div')(({ theme }) => ({
 	padding: theme.spacing(0, 1),
 	top: 50,
+	right: 70,
 	position: 'absolute',
 	color: blue[800],
 	pointerEvents: 'none',
 	display: 'flex',
-	alignItems: 'left',
-	justifyContent: 'left',
+	alignItems: 'right',
+	justifyContent: 'right',
 }))
 
 const SizeId = () => (

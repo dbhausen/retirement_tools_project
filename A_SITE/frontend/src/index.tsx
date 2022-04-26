@@ -24,8 +24,10 @@ import {
 import { useContext, useState } from 'react'
 
 import Home from 'Home'
+// eslint-disable-next-line no-unused-vars
 import UnderConstruction from 'UnderConstruction'
-import AnnuityApp from './AnnuityCalculatorApp/App'
+import StressTestApp from 'StressTestApp/StressTestApp'
+import AnnuityApp from 'AnnuityCalculatorApp/AnnuityCalculatorApp'
 
 const StyledToolbar = styled(Toolbar)(({ theme }) => ({
 	alignItems: 'flex-start',
@@ -48,6 +50,7 @@ function App() {
 	}
 	const handleClick = (selected: any) => {
 		setSelectedApp(selected.app.name)
+		setMobileOpen(false)
 	}
 
 	const drawer = (
@@ -129,9 +132,7 @@ function App() {
 				<Grid item xs>
 					{selectedApp === 'Annuity Calculator' ? <AnnuityApp /> : null}
 					{selectedApp === 'Home' ? <Home /> : null}
-					{selectedApp === 'Income Stress Test' ? (
-						<UnderConstruction appName='Income Stress Test' />
-					) : null}
+					{selectedApp === 'Income Stress Test' ? <StressTestApp /> : null}
 				</Grid>
 			</Grid>
 		</Paper>
