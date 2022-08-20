@@ -1,5 +1,5 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable arrow-body-style */
+import * as React from 'react'
 import {
 	Accordion,
 	AccordionDetails,
@@ -12,7 +12,6 @@ import {
 	IconButton,
 	Radio,
 	RadioGroup,
-	Toolbar,
 	Typography,
 } from '@mui/material'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
@@ -20,6 +19,8 @@ import { useState, ChangeEvent, useContext } from 'react'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import { ThemeModeContext } from 'styles/ThemeModeContext'
+import { NumberTextField } from 'components/NumberTextField'
+import { StressTestContext } from './StressTestContext'
 
 const Assets = () => {
 	const [expandedList, setExpandedList] = useState([
@@ -35,6 +36,8 @@ const Assets = () => {
 	const [type, setType] = useState('Income')
 	const [allExpand, setAllExpand] = useState(false)
 	const { drawerWidth, theme } = useContext(ThemeModeContext)
+	const { stressTestConfig, setStressTestConfig, setStoredStressTestConfig } =
+		useContext(StressTestContext)
 
 	const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
 		setType((event.target as HTMLInputElement).value)
@@ -46,6 +49,17 @@ const Assets = () => {
 	const handleCloseAllClick = () => {
 		setExpandedList([false, false, false, false, false, false, false, false])
 		setAllExpand(false)
+	}
+
+	const handleStressChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+		setStressTestConfig({
+			...stressTestConfig,
+			[event.target.name]: event.target.value,
+		})
+		setStoredStressTestConfig({
+			...stressTestConfig,
+			[event.target.name]: event.target.value,
+		})
 	}
 
 	const handleClick = (index: number) => {
@@ -118,33 +132,39 @@ const Assets = () => {
 					)}
 				</Box>
 			</AppBar>
-			<Accordion
-				hidden={type === 'Assets'}
-				expanded={expandedList[0]}
-				onClick={() => handleClick(0)}
-			>
+			<Accordion hidden={type === 'Assets'} expanded={expandedList[0]}>
 				<AccordionSummary
 					expandIcon={<ExpandMoreIcon />}
 					aria-controls='panel1a-content'
 					id='panel1a-header'
+					onClick={() => handleClick(0)}
 				>
 					<Typography>Earned Income</Typography>
 				</AccordionSummary>
 				<AccordionDetails>
 					<Typography>
-						How much. When do you expect it to end. fixed or cola
+						How much. When do you expect it to end. fixe
 					</Typography>
+					<NumberTextField
+						label='Spouse 1'
+						name='earnedIncomeSpouse1'
+						prefix='$'
+						thousandSeparator
+						decimalScale={0}
+						fixedDecimalScale={true}
+						value={stressTestConfig.earnedIncomeSpouse1}
+						onChange={handleStressChange}
+						variant='standard'
+						allowNegative={false}
+					/>
 				</AccordionDetails>
 			</Accordion>
-			<Accordion
-				hidden={type === 'Assets'}
-				expanded={expandedList[1]}
-				onClick={() => handleClick(1)}
-			>
+			<Accordion hidden={type === 'Assets'} expanded={expandedList[1]}>
 				<AccordionSummary
 					expandIcon={<ExpandMoreIcon />}
 					aria-controls='panel1a-content'
 					id='panel1a-header'
+					onClick={() => handleClick(1)}
 				>
 					<Typography>Social Security</Typography>
 				</AccordionSummary>
@@ -152,15 +172,12 @@ const Assets = () => {
 					<Typography>You, spouse amount and when to start</Typography>
 				</AccordionDetails>
 			</Accordion>
-			<Accordion
-				hidden={type === 'Assets'}
-				expanded={expandedList[2]}
-				onClick={() => handleClick(2)}
-			>
+			<Accordion hidden={type === 'Assets'} expanded={expandedList[2]}>
 				<AccordionSummary
 					expandIcon={<ExpandMoreIcon />}
 					aria-controls='panel1a-content'
 					id='panel1a-header'
+					onClick={() => handleClick(2)}
 				>
 					<Typography>Other Fixed income</Typography>
 				</AccordionSummary>
@@ -168,15 +185,12 @@ const Assets = () => {
 					<Typography>You, spouse amount and when to start</Typography>
 				</AccordionDetails>
 			</Accordion>
-			<Accordion
-				hidden={type === 'Income'}
-				expanded={expandedList[3]}
-				onClick={() => handleClick(3)}
-			>
+			<Accordion hidden={type === 'Income'} expanded={expandedList[3]}>
 				<AccordionSummary
 					expandIcon={<ExpandMoreIcon />}
 					aria-controls='panel1a-content'
 					id='panel1a-header'
+					onClick={() => handleClick(3)}
 				>
 					<Typography>Tax Deferred Portfolio</Typography>
 				</AccordionSummary>
@@ -184,15 +198,12 @@ const Assets = () => {
 					<Typography>Amount and asset allocation</Typography>
 				</AccordionDetails>
 			</Accordion>
-			<Accordion
-				hidden={type === 'Income'}
-				expanded={expandedList[4]}
-				onClick={() => handleClick(4)}
-			>
+			<Accordion hidden={type === 'Income'} expanded={expandedList[4]}>
 				<AccordionSummary
 					expandIcon={<ExpandMoreIcon />}
 					aria-controls='panel2a-content'
 					id='panel2a-header'
+					onClick={() => handleClick(4)}
 				>
 					<Typography>Taxable Portfolio</Typography>
 				</AccordionSummary>
@@ -200,15 +211,12 @@ const Assets = () => {
 					<Typography>Amount and asset allocation</Typography>
 				</AccordionDetails>
 			</Accordion>
-			<Accordion
-				hidden={type === 'Income'}
-				expanded={expandedList[5]}
-				onClick={() => handleClick(5)}
-			>
+			<Accordion hidden={type === 'Income'} expanded={expandedList[5]}>
 				<AccordionSummary
 					expandIcon={<ExpandMoreIcon />}
 					aria-controls='panel3a-content'
 					id='panel3a-header'
+					onClick={() => handleClick(5)}
 				>
 					<Typography>Income Property</Typography>
 				</AccordionSummary>
@@ -223,15 +231,12 @@ const Assets = () => {
 					</Typography>
 				</AccordionDetails>
 			</Accordion>
-			<Accordion
-				hidden={type === 'Income'}
-				expanded={expandedList[6]}
-				onClick={() => handleClick(6)}
-			>
+			<Accordion hidden={type === 'Income'} expanded={expandedList[6]}>
 				<AccordionSummary
 					expandIcon={<ExpandMoreIcon />}
 					aria-controls='panel3a-content'
 					id='panel3a-header'
+					onClick={() => handleClick(6)}
 				>
 					<Typography>Other Appreciating Assets</Typography>
 				</AccordionSummary>
@@ -247,15 +252,12 @@ const Assets = () => {
 					</Typography>
 				</AccordionDetails>
 			</Accordion>
-			<Accordion
-				hidden={type === 'Income'}
-				expanded={expandedList[7]}
-				onClick={() => handleClick(7)}
-			>
+			<Accordion hidden={type === 'Income'} expanded={expandedList[7]}>
 				<AccordionSummary
 					expandIcon={<ExpandMoreIcon />}
 					aria-controls='panel3a-content'
 					id='panel3a-header'
+					onClick={() => handleClick(7)}
 				>
 					<Typography>Home</Typography>
 				</AccordionSummary>

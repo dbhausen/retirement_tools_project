@@ -21,6 +21,7 @@ import {
 	StyledToolbar,
 	TitleWrapper,
 } from '../components/AntTab'
+import { StressTestContextProvider } from './StressTestContext'
 
 function useRouteMatch(patterns: readonly string[]) {
 	const { pathname } = useLocation()
@@ -137,11 +138,13 @@ function MyTabs() {
 const App = () => (
 	<Router>
 		<MyTabs />
-		<Routes>
-			<Route path='/Assets' element={<Assets />} />
-			<Route path='/Outlook' element={<Outlook />} />
-			<Route path='/StressResults' element={<StressResults />} />
-		</Routes>
+		<StressTestContextProvider>
+			<Routes>
+				<Route path='/Assets' element={<Assets />} />
+				<Route path='/Outlook' element={<Outlook />} />
+				<Route path='/StressResults' element={<StressResults />} />
+			</Routes>
+		</StressTestContextProvider>
 	</Router>
 )
 

@@ -75,14 +75,15 @@ const AnnuityHelp = () => (
 
 			<Grid>
 				<Typography gutterBottom>
-					The <strong>Total Value</strong> of an annuity is based on your
-					age and the annuity options you select. This is not the cost of
-					an annuity offered by any insurance company. That cost will be
-					determined by the insurance company. Most of that cost will be
-					for the value of the income stream you will receive but, you will
-					also pay: the sales commission, administrative cost, advertising,
-					golf tournament sponsorships and dividends paid to the
-					shareholders (in short, you will pay a lot).
+					The <strong>Total Value</strong> of an annuity, as calculated by
+					this tool, is based on your age and the annuity options you
+					select. This is not the cost of an annuity offered by any
+					insurance company. That cost will be determined by the insurance
+					company. Most of that cost will be for the value of the income
+					stream you will receive however, you will also pay: the sales
+					commission, administrative cost, advertising, golf tournament
+					sponsorships and dividends paid to the shareholders (in short,
+					you will pay a lot).
 				</Typography>
 			</Grid>
 		</Grid>

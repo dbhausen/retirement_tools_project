@@ -44,20 +44,52 @@ const ActuaryHelp = () => (
 					(actuarial tables).
 				</Typography>
 			</Grid>
+			<Grid>
+				<Typography component='div' gutterBottom>
+					Differences in education, employment opportunities, lifestyle
+					behaviors, social mobility and the wider local environment all
+					have a major impact on male and female longevity. In addition
+					however, research shows that lifestyle plays almost no factor in
+					health and longevity after the age of 80, and that almost
+					everything in advanced age is due to genetic factors. I think the
+					implication is that poor choices tend to result in death proir to
+					80.
+				</Typography>
+			</Grid>
+			<Grid>
+				<Typography component='div' gutterBottom>
+					For purposes of valuing an annuity, if are likely to outlive your
+					average age cohort then this tool understates the value to you of
+					an annuity you would purchase. On the other hand, if you face
+					above average risk of early death then an annuity is worth less.
+				</Typography>
+			</Grid>
+			<Grid>
+				<Typography component='div' gutterBottom>
+					One last point: Insurance Companies are evil but they are not
+					dumb. Insurance companies know all this and price their products
+					to make a profit based on the characteristics of the
+					self-selecting subset of the population that purchase annuities.
+					So you do not simply need to outlive the average person, you need
+					to outlive the average person who is willing to bet that they
+					will outlive the average person. Good luck!
+				</Typography>
+			</Grid>
 
 			<Typography
 				component='div'
 				gutterBottom
 				sx={{ margin: 0, padding: 0 }}
 			>
-				The Social Security Actuarial Life Table I used does not take into
-				account other risk factors such as:
+				The Social Security Actuarial Life Table I used only take sex into
+				account. Other risk factors are such as:
 				<ul>
 					<li>Health</li>
 					<li>Smoking Habits</li>
 					<li>Genetics</li>
 					<li>Gender Identity</li>
 				</ul>
+				are not brooken out.
 			</Typography>
 		</Grid>
 	</Paper>
