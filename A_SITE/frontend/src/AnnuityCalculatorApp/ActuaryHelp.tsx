@@ -82,7 +82,7 @@ const ActuaryHelp = () => (
 				sx={{ margin: 0, padding: 0 }}
 			>
 				The Social Security Actuarial Life Table I used only take sex into
-				account. Other risk factors such:
+				account. Other risk factors such as:
 				<ul>
 					<li>Health</li>
 					<li>Smoking Habits</li>
