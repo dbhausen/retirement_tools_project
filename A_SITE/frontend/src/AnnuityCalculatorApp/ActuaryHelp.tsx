@@ -26,13 +26,12 @@ const ActuaryHelp = () => (
 			</Grid>
 			<Grid>
 				<Typography component='div' gutterBottom>
-					The primary factor determining the value of an annuity income
-					stream is your age and sex (and, if married, that of your
+					The primary factors determining the value of an annuity income
+					stream are your age and sex (and, if married, that of your
 					spouse). The longer you are likely to receive the income the more
 					it is worth. The age and sex of you and your spouse is converted
 					by this tool into the probabilities of being alive at any given
-					age. The probabilities are expressed as percentages and the
-					calculations are based on the
+					age to collect a benifit. These calculations are based on the
 					<Link
 						sx={{ fontStyle: 'italic', fontWeight: 'bold' }}
 						href='https://www.ssa.gov/oact/STATS/table4c6.html'
@@ -48,25 +47,41 @@ const ActuaryHelp = () => (
 				<Typography component='div' gutterBottom>
 					Differences in education, employment opportunities, lifestyle
 					behaviors, social mobility and the wider local environment all
-					have a major impact on male and female longevity. In addition
-					however, research shows that lifestyle plays almost no factor in
-					health and longevity after the age of 80, and that almost
-					everything in advanced age is due to genetic factors. I think the
-					implication is that poor choices tend to result in death proir to
-					80.
+					have a major impact on male and female longevity. Research shows,
+					however, that lifestyle plays almost no factor in health and
+					longevity after the age of 80, and that almost everything in
+					advanced age is due to genetic factors. I think the implication
+					is that poor choices tend to result in death proir to 80.
+				</Typography>
+				<Typography
+					component='div'
+					gutterBottom
+					sx={{ margin: 0, padding: 0 }}
+				>
+					The Social Security Actuarial Life Table I used only take sex
+					into account. Other risk factors such as:
+					<ul>
+						<li>Health</li>
+						<li>Smoking Habits</li>
+						<li>Genetics</li>
+						<li>Gender Identity</li>
+					</ul>
+					are not brooken out.
 				</Typography>
 			</Grid>
 			<Grid>
 				<Typography component='div' gutterBottom>
-					For purposes of valuing an annuity, if are likely to outlive your
-					average age cohort then this tool understates the value to you of
-					an annuity you would purchase. On the other hand, if you face
-					above average risk of early death then an annuity is worth less.
+					For purposes of understanding the value of an annuity to you
+					personally, if you are likely to outlive your average age cohort
+					then this tool understates the value of an annuity you would
+					purchase. On the other hand, if you face above average risk of
+					early death then an annuity is worth less than the value
+					calculated here.
 				</Typography>
 			</Grid>
 			<Grid>
 				<Typography component='div' gutterBottom>
-					One last point: Insurance Companies are evil but they are not
+					One last point: Insurance companies are evil but they are not
 					dumb. Insurance companies know all this and price their products
 					to make a profit based on the characteristics of the
 					self-selecting subset of the population that purchase annuities.
@@ -75,22 +90,6 @@ const ActuaryHelp = () => (
 					will outlive the average person. Good luck!
 				</Typography>
 			</Grid>
-
-			<Typography
-				component='div'
-				gutterBottom
-				sx={{ margin: 0, padding: 0 }}
-			>
-				The Social Security Actuarial Life Table I used only take sex into
-				account. Other risk factors such as:
-				<ul>
-					<li>Health</li>
-					<li>Smoking Habits</li>
-					<li>Genetics</li>
-					<li>Gender Identity</li>
-				</ul>
-				are not brooken out.
-			</Typography>
 		</Grid>
 	</Paper>
 )
