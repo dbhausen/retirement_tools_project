@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import NumberFormat from 'react-number-format'
+import { NumericFormat } from 'react-number-format'
 import TextField, { TextFieldProps } from '@mui/material/TextField'
 
 interface CustomProps {
@@ -9,12 +9,12 @@ interface CustomProps {
 	name: string
 }
 
-const NumberFormatCustom = React.forwardRef<NumberFormat<any>, CustomProps>(
+const NumberFormatCustom = React.forwardRef<typeof NumericFormat, CustomProps>(
 	(props, ref) => {
 		const { onChange, ...other } = props
 
 		return (
-			<NumberFormat
+			<NumericFormat
 				{...other}
 				getInputRef={ref}
 				onValueChange={values => {
@@ -25,7 +25,7 @@ const NumberFormatCustom = React.forwardRef<NumberFormat<any>, CustomProps>(
 						},
 					})
 				}}
-				isNumericString={true}
+				valueIsNumericString={true}
 			/>
 		)
 	}
