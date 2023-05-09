@@ -61,12 +61,11 @@ const Payout = () => {
 							}}
 						>
 							<Typography gutterBottom>
-								The <strong>Total Value</strong> of this anuity
-								{' ( '}
+								The <strong>Total Value</strong> of this annuity is{' '}
 								<strong>
 									{displayCurrency(annuityConfig.totalAdjustedValue)}
 								</strong>
-								{' )'} is the sum of the{' '}
+								. This is the sum of the{' '}
 								<strong>Actuarial Values </strong>. This value is not
 								based on how long you think you will live. It is based
 								on the actuarial tables.

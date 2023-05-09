@@ -1,4 +1,3 @@
-import * as ReactDOM from 'react-dom'
 import './styles/index.css'
 
 import {
@@ -21,11 +20,10 @@ import {
 	ThemeModeContext,
 	ThemeModeContextProvider,
 } from 'styles/ThemeModeContext'
-import { useContext, useState } from 'react'
+import { StrictMode, useContext, useState } from 'react'
+import { createRoot } from 'react-dom/client'
 
 import Home from 'Home'
-// eslint-disable-next-line no-unused-vars
-import UnderConstruction from 'UnderConstruction'
 import StressTestApp from 'StressTestApp/StressTestApp'
 import AnnuityApp from 'AnnuityCalculatorApp/AnnuityCalculatorApp'
 
@@ -139,9 +137,13 @@ function App() {
 	)
 }
 
-ReactDOM.render(
-	<ThemeModeContextProvider>
-		<App />
-	</ThemeModeContextProvider>,
-	document.getElementById('root')
+const container = document.getElementById('root')
+const root = createRoot(container!)
+
+root.render(
+	<StrictMode>
+		<ThemeModeContextProvider>
+			<App />
+		</ThemeModeContextProvider>
+	</StrictMode>
 )

@@ -21,16 +21,21 @@
         {
             "name": "Chrome 3000",
             "request": "launch",
-            "type": "pwa-chrome",
+            "type": "chrome",
             "url": "http://localhost:3000",
-            "webRoot": "${workspaceFolder}/A_SITE/frontend"
+            "webRoot": "${workspaceFolder}/A_SITE/frontend/src",
+            "sourceMaps": true,
+            "sourceMapPathOverrides": {
+                "*": "${webRoot}/*"
+            },
         },
         {
             "name": "Chrome 8000",
             "request": "launch",
-            "type": "pwa-chrome",
+            "type": "chrome",
             "url": "http://localhost:8000",
-            "webRoot": "${workspaceFolder}/A_SITE/frontend"
+            "webRoot": "${workspaceFolder}/A_SITE/frontend/src",
+            "sourceMaps": true,
         },
         {
             "name": "Python: Django",

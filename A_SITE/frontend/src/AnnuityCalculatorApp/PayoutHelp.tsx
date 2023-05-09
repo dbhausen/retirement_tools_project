@@ -48,36 +48,13 @@ const PayoutHelp = () => {
 				<Grid>
 					<Typography gutterBottom>
 						This table is a breakout of the value of the payments received
-						by year
+						by year. For example if you scroll down to the year {year} you
+						will see:
 					</Typography>
 				</Grid>
+
 				<Grid>
 					<Typography component='div' gutterBottom>
-						<ul>
-							<li>
-								<strong>Year:</strong> Year of the payment
-							</li>
-							<li>
-								<strong>COLA Adjusted Payment:</strong> The nominal
-								amount paid in this year including the Cost-Of-Living
-								Adjustment
-							</li>
-							<li>
-								<strong>Discounted Value:</strong> The payment
-								discounted for the time value of money based the
-								Risk-Free Rate Of Return
-							</li>
-							<li>
-								<strong>Actuarial Value:</strong> The discounted value
-								of the annuity payment that may or may not be received
-								at a future date.
-							</li>
-						</ul>
-					</Typography>
-				</Grid>
-				<Grid>
-					<Typography component='div' gutterBottom>
-						For example, scroll down to the year {year}
 						<ul>
 							{couple.married ? (
 								<li>
@@ -97,19 +74,19 @@ const PayoutHelp = () => {
 								amount of{' '}
 								{displayCurrency(Number(annuityConfig.annuityAmount))}{' '}
 								with a {annuityConfig.costOfLivingAdjustment}
-								{'% '} annual Cost-Of-Living Adjustment.
+								{'% '} annual Cost-Of-Living Adjustment applied.
 							</li>
 							<li>
 								<strong>Discounted Value:</strong>{' '}
 								<strong>{discountedAmt}</strong> is the value today of
-								the {payment} that will be received in {year} based on
-								Risk-Free Rate Of Return of {annuityConfig.discountRate}
-								%
+								the {payment} that will ( if you are alive ) be received
+								in {year} based on Risk-Free Rate Of Return of{' '}
+								{annuityConfig.discountRate}%
 							</li>
 							<li>
 								<strong>Actuarial Value:</strong>{' '}
 								<strong>{actuarialAmt}</strong> is the {discountedAmt}{' '}
-								discounted payment multiplied by {either} (the odds that
+								Discounted Value multiplied by {either} (the odds that
 								at least one of you will be alive to collect the payment
 								in {year} based on the Social Security Life Table)
 							</li>

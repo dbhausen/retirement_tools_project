@@ -1,1 +1,0 @@
-{"version":3,"file":"static/css/main.b448a072.css","mappings":"AAAA,KAGC,qBAAuB,CAFvB,aAAc,CACd,QAED","sources":["styles/index.css"],"sourcesContent":["body {\n\tdisplay: block;\n\tmargin: 0px;\n\tbackground-color: black;\n}\n"],"names":[],"sourceRoot":""}
