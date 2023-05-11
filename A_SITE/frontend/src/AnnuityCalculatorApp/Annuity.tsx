@@ -1,6 +1,5 @@
 import * as React from 'react'
 
-import { NumberTextField, PercentTextField } from 'components/NumberTextField'
 import {
 	Box,
 	Button,
@@ -11,6 +10,10 @@ import {
 	Typography,
 } from '@mui/material'
 import { useContext } from 'react'
+import {
+	NumberTextField,
+	PercentTextField,
+} from '../components/NumberTextField'
 import { CoupleContext, displayCurrency } from './CoupleContext'
 import { AnnuityContext, defaultAnnuityConfig } from './AnnuityContext'
 import AnnuityHelp from './AnnuityHelp'

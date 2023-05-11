@@ -18,8 +18,8 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import { useState, ChangeEvent, useContext } from 'react'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
-import { ThemeModeContext } from 'styles/ThemeModeContext'
-import { NumberTextField } from 'components/NumberTextField'
+import { ThemeModeContext } from '../styles/ThemeModeContext'
+import { NumberTextField } from '../components/NumberTextField'
 import { StressTestContext } from './StressTestContext'
 
 const Assets = () => {

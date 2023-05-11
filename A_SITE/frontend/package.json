@@ -33,7 +33,14 @@
 		"start": "react-scripts start",
 		"build": "react-scripts build",
 		"test": "react-scripts test",
-		"eject": "react-scripts eject"
+		"eject": "react-scripts eject",
+		"dev-hot": "vite",
+		"v-build": "vite build",
+		"v-build-tsc": "tsc && vite build",
+		"lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+		"v-preview": "vite preview",
+		"v-build-tsc-preview": "tsc && vite build && vite preview",
+		"v-build-preview": "vite build && vite preview"
 	},
 	"eslintConfig": {
 		"extends": [
@@ -68,6 +75,9 @@
 		"eslint-plugin-react": "^7.29.2",
 		"eslint-plugin-react-hooks": "^4.3.0",
 		"prettier": "^2.5.1",
-		"typescript": "^5.0.0"
+		"typescript": "^5.0.0",
+		"vite": "^4.3.2",
+		"sass": "^1.62.1",
+		"@vitejs/plugin-react": "^4.0.0"
 	}
 }

@@ -8,8 +8,8 @@ import {
 	BrowserRouter as Router,
 } from 'react-router-dom'
 import { AppBar, Box, Grid, Typography } from '@mui/material'
-import SizeId from 'components/SizeId'
-import { ThemeModeContext } from 'styles/ThemeModeContext'
+import SizeId from '../components/SizeId'
+import { ThemeModeContext } from '../styles/ThemeModeContext'
 import Payout from './Payout'
 import Actuary from './Actuary'
 import Annuity from './Annuity'

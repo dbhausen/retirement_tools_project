@@ -53,7 +53,8 @@
             "request": "launch",
             "program": "${workspaceFolder}\\A_SITE\\manage.py",
             "args": [
-                "collectstatic"
+                "collectstatic",
+                "--clear"
             ],
             "django": true
         },

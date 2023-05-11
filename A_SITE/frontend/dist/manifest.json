@@ -1,0 +1,60 @@
+{
+  "_muimaterial.cde803fe.js": {
+    "file": "static/chunks/muimaterial.cde803fe.js",
+    "imports": [
+      "_react.de62f0e0.js"
+    ]
+  },
+  "_react.de62f0e0.js": {
+    "file": "static/chunks/react.de62f0e0.js"
+  },
+  "_reactrouterdom.8dd85d65.js": {
+    "file": "static/chunks/reactrouterdom.8dd85d65.js",
+    "imports": [
+      "_react.de62f0e0.js"
+    ]
+  },
+  "_tiptap.3a85a568.js": {
+    "file": "static/chunks/tiptap.3a85a568.js",
+    "imports": [
+      "_react.de62f0e0.js",
+      "_muimaterial.cde803fe.js"
+    ]
+  },
+  "_tiptapstarterkit.e796636d.js": {
+    "file": "static/chunks/tiptapstarterkit.e796636d.js",
+    "imports": [
+      "_tiptap.3a85a568.js"
+    ]
+  },
+  "_usehooksts.877b49c1.js": {
+    "file": "static/chunks/usehooksts.877b49c1.js",
+    "imports": [
+      "_react.de62f0e0.js"
+    ]
+  },
+  "index.css": {
+    "file": "static/css/index.css",
+    "src": "index.css"
+  },
+  "index.html": {
+    "css": [
+      "static/css/index.css"
+    ],
+    "file": "static/js/index.js",
+    "imports": [
+      "_muimaterial.cde803fe.js",
+      "_react.de62f0e0.js",
+      "_reactrouterdom.8dd85d65.js",
+      "_usehooksts.877b49c1.js",
+      "_tiptap.3a85a568.js",
+      "_tiptapstarterkit.e796636d.js"
+    ],
+    "isEntry": true,
+    "src": "index.html"
+  },
+  "src/tractor.png": {
+    "file": "static/png/tractor.png",
+    "src": "src/tractor.png"
+  }
+}

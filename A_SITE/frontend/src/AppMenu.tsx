@@ -3,7 +3,7 @@ import React, { useContext } from 'react'
 import Brightness7Icon from '@mui/icons-material/Brightness7'
 import Brightness4Icon from '@mui/icons-material/Brightness4'
 import MenuIcon from '@mui/icons-material/Menu'
-import { ThemeModeContext } from 'styles/ThemeModeContext'
+import { ThemeModeContext } from './styles/ThemeModeContext'
 
 const AppMenu = () => {
 	const { handleToggle, theme, mobileOpen, setMobileOpen } =

@@ -1,6 +1,6 @@
 import { AppBar, Box, Grid, Typography } from '@mui/material'
 import { useContext } from 'react'
-import { ThemeModeContext } from 'styles/ThemeModeContext'
+import { ThemeModeContext } from './styles/ThemeModeContext'
 import AppMenu from './AppMenu'
 
 const Home = () => {

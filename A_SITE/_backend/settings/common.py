@@ -23,8 +23,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 STATIC_URL = "static/"
 
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
-FRONTEND_TEMPLATE = BASE_DIR / "frontend" / "build"
-FRONTEND_STATIC_DIR = BASE_DIR / "frontend" / "build" / "static"
+# FRONTEND_TEMPLATE = BASE_DIR / "frontend" / "build"
+# FRONTEND_STATIC_DIR = BASE_DIR / "frontend" / "build" / "static"
+
+FRONTEND_TEMPLATE = BASE_DIR / "frontend" / "dist"
+FRONTEND_STATIC_DIR = BASE_DIR / "frontend" / "dist" / "static"
 
 STATICFILES_DIRS = [
     FRONTEND_STATIC_DIR,

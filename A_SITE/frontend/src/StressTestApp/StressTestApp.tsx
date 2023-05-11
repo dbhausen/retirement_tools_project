@@ -8,11 +8,11 @@ import {
 	BrowserRouter as Router,
 } from 'react-router-dom'
 import { AppBar, Box, Grid, Typography } from '@mui/material'
-import SizeId from 'components/SizeId'
-import { ThemeModeContext } from 'styles/ThemeModeContext'
+import { ThemeModeContext } from '../styles/ThemeModeContext'
 import Assets from './Assets'
 import Outlook from './Outlook'
 import StressResults from './StressResults'
+import SizeId from '../components/SizeId'
 
 import AppMenu from '../AppMenu'
 import {

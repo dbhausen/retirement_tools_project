@@ -16,16 +16,16 @@ import {
 import CalculateIcon from '@mui/icons-material/Calculate'
 import HomeIcon from '@mui/icons-material/Home'
 import NetworkCheckIcon from '@mui/icons-material/NetworkCheck'
-import {
-	ThemeModeContext,
-	ThemeModeContextProvider,
-} from 'styles/ThemeModeContext'
 import { StrictMode, useContext, useState } from 'react'
 import { createRoot } from 'react-dom/client'
 
-import Home from 'Home'
-import StressTestApp from 'StressTestApp/StressTestApp'
-import AnnuityApp from 'AnnuityCalculatorApp/AnnuityCalculatorApp'
+import StressTestApp from './StressTestApp/StressTestApp'
+import AnnuityApp from './AnnuityCalculatorApp/AnnuityCalculatorApp'
+import Home from './Home'
+import {
+	ThemeModeContext,
+	ThemeModeContextProvider,
+} from './styles/ThemeModeContext'
 
 const StyledToolbar = styled(Toolbar)(({ theme }) => ({
 	alignItems: 'flex-start',
