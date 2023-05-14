@@ -19,13 +19,16 @@ import NetworkCheckIcon from '@mui/icons-material/NetworkCheck'
 import { StrictMode, useContext, useState } from 'react'
 import { createRoot } from 'react-dom/client'
 
+// eslint-disable-next-line no-unused-vars
+import { userInfo } from 'os'
+import { UserContext, UserContextProvider } from './contexts/UserContext'
 import StressTestApp from './StressTestApp/StressTestApp'
 import AnnuityApp from './AnnuityCalculatorApp/AnnuityCalculatorApp'
 import Home from './Home'
 import {
 	ThemeModeContext,
 	ThemeModeContextProvider,
-} from './styles/ThemeModeContext'
+} from './contexts/ThemeModeContext'
 
 const StyledToolbar = styled(Toolbar)(({ theme }) => ({
 	alignItems: 'flex-start',
@@ -42,6 +45,7 @@ const appList = [
 function App() {
 	const { mobileOpen, setMobileOpen, drawerWidth } =
 		useContext(ThemeModeContext)
+	const { user } = useContext(UserContext)
 	const [selectedApp, setSelectedApp] = useState<string>('Annuity Calculator')
 	const handleDrawerToggle = () => {
 		setMobileOpen(!mobileOpen)
@@ -55,6 +59,8 @@ function App() {
 		<div>
 			<StyledToolbar />
 			<Divider />
+			<p>{user.name}</p>
+			<p>{user.isLoggedIn ? 'tru' : 'false'}</p>
 			<List>
 				{appList.map(app => (
 					<ListItemButton
@@ -142,8 +148,10 @@ const root = createRoot(container!)
 
 root.render(
 	<StrictMode>
-		<ThemeModeContextProvider>
-			<App />
-		</ThemeModeContextProvider>
+		<UserContextProvider>
+			<ThemeModeContextProvider>
+				<App />
+			</ThemeModeContextProvider>
+		</UserContextProvider>
 	</StrictMode>
 )

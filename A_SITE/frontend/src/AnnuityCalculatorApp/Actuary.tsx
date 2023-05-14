@@ -8,7 +8,7 @@ import SexFormControl from './SexFormControl'
 import CoupleStats from './CoupleStats'
 import { AnnuityContext, defaultAnnuityConfig } from './AnnuityContext'
 import ActuaryHelp from './ActuaryHelp'
-import { CoupleContext } from './CoupleContext'
+import { CoupleContext } from '../contexts/CoupleContext'
 
 function Actuary() {
 	const { couple, setCouple, setStoredCouple } = useContext(CoupleContext)

@@ -2,8 +2,10 @@ import { Box, IconButton } from '@mui/material'
 import React, { useContext } from 'react'
 import Brightness7Icon from '@mui/icons-material/Brightness7'
 import Brightness4Icon from '@mui/icons-material/Brightness4'
+
 import MenuIcon from '@mui/icons-material/Menu'
-import { ThemeModeContext } from './styles/ThemeModeContext'
+import LoginLogoutButton from './components/LoginLogoutButton'
+import { ThemeModeContext } from './contexts/ThemeModeContext'
 
 const AppMenu = () => {
 	const { handleToggle, theme, mobileOpen, setMobileOpen } =
@@ -15,6 +17,10 @@ const AppMenu = () => {
 
 	return (
 		<Box sx={{ height: '40px' }}>
+			<LoginLogoutButton
+				sx={{ position: 'absolute', right: 60, top: 0, ml: 1 }}
+				color='inherit'
+			/>
 			<IconButton
 				sx={{ position: 'absolute', right: 30, top: 0, ml: 1 }}
 				onClick={handleToggle}

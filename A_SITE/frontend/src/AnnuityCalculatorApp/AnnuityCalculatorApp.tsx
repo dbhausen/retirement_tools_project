@@ -9,12 +9,12 @@ import {
 } from 'react-router-dom'
 import { AppBar, Box, Grid, Typography } from '@mui/material'
 import SizeId from '../components/SizeId'
-import { ThemeModeContext } from '../styles/ThemeModeContext'
+import { ThemeModeContext } from '../contexts/ThemeModeContext'
 import Payout from './Payout'
 import Actuary from './Actuary'
 import Annuity from './Annuity'
 import { AnnuityContextProvider } from './AnnuityContext'
-import { CoupleContext, CoupleContextProvider } from './CoupleContext'
+import { CoupleContext, CoupleContextProvider } from '../contexts/CoupleContext'
 import AppMenu from '../AppMenu'
 import {
 	AntTab,

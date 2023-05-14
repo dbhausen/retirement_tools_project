@@ -7,12 +7,10 @@ export default {
 		rollupOptions: {
 			output: {
 				manualChunks: {
-					react: ['react'],
-					reactrouterdom: ['react-router-dom'],
 					muimaterial: ['@mui/material'],
-					tiptap: ['@tiptap/react'],
+					tiptapcore: ['@tiptap/core'],
 					tiptapstarterkit: ['@tiptap/starter-kit'],
-					usehooksts: ['usehooks-ts'],
+					recharts: ['recharts'],
 				},
 				assetFileNames: 'static/[ext]/[name][extname]',
 				chunkFileNames: 'static/chunks/[name].[hash].js',

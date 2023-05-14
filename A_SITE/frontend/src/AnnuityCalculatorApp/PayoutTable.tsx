@@ -1,13 +1,18 @@
 import { useContext } from 'react'
-import Paper from '@mui/material/Paper'
-import Table from '@mui/material/Table'
-import TableBody from '@mui/material/TableBody'
 import TableCell, { tableCellClasses } from '@mui/material/TableCell'
-import TableContainer from '@mui/material/TableContainer'
-import TableHead from '@mui/material/TableHead'
-import TableRow from '@mui/material/TableRow'
-import { Grid, styled, TableFooter, Typography } from '@mui/material'
-import { displayCurrency } from './CoupleContext'
+import {
+	Grid,
+	styled,
+	TableFooter,
+	Typography,
+	TableRow,
+	TableHead,
+	TableContainer,
+	TableBody,
+	Table,
+	Paper,
+} from '@mui/material'
+import { displayCurrency } from '../contexts/CoupleContext'
 import { AnnuityContext } from './AnnuityContext'
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({

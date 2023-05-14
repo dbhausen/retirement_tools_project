@@ -7,7 +7,7 @@ import {
 	displayCurrency,
 	displayFixed,
 	displayPercent3,
-} from './CoupleContext'
+} from '../contexts/CoupleContext'
 
 const PayoutHelp = () => {
 	const { couple } = useContext(CoupleContext)

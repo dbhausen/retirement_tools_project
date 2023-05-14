@@ -8,7 +8,7 @@ import {
 	BrowserRouter as Router,
 } from 'react-router-dom'
 import { AppBar, Box, Grid, Typography } from '@mui/material'
-import { ThemeModeContext } from '../styles/ThemeModeContext'
+import { ThemeModeContext } from '../contexts/ThemeModeContext'
 import Assets from './Assets'
 import Outlook from './Outlook'
 import StressResults from './StressResults'

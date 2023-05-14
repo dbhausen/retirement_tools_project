@@ -14,7 +14,7 @@ import {
 	NumberTextField,
 	PercentTextField,
 } from '../components/NumberTextField'
-import { CoupleContext, displayCurrency } from './CoupleContext'
+import { CoupleContext, displayCurrency } from '../contexts/CoupleContext'
 import { AnnuityContext, defaultAnnuityConfig } from './AnnuityContext'
 import AnnuityHelp from './AnnuityHelp'
 import DeferFormControl from './DeferralFormControl'

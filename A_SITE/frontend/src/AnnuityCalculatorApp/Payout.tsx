@@ -1,7 +1,7 @@
 import { Box, Grid, Paper, Typography } from '@mui/material'
 import { useContext } from 'react'
 import { AnnuityContext } from './AnnuityContext'
-import { CoupleContext, displayCurrency } from './CoupleContext'
+import { CoupleContext, displayCurrency } from '../contexts/CoupleContext'
 import PayoutHelp from './PayoutHelp'
 import PayoutTable from './PayoutTable'
 import { Couple } from './Couple'

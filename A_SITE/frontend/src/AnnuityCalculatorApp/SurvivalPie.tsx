@@ -2,7 +2,7 @@
 import { useContext } from 'react'
 import { PieChart, Pie, Cell } from 'recharts'
 import { Couple } from './Couple'
-import { CoupleContext } from './CoupleContext'
+import { CoupleContext } from '../contexts/CoupleContext'
 
 const COLORS = ['#37474F', '#00897B', '#43A047']
 const COLORS2 = ['#37474F', '#1B5E20']

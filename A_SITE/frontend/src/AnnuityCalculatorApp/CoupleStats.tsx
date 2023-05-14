@@ -1,7 +1,7 @@
 import { useContext } from 'react'
 import { Box, Grid, Typography } from '@mui/material'
 import { Couple } from './Couple'
-import { CoupleContext, displayPercent } from './CoupleContext'
+import { CoupleContext, displayPercent } from '../contexts/CoupleContext'
 
 import { COLORS, COLORS2, MyChart } from './SurvivalPie'
 
