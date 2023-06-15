@@ -4,8 +4,11 @@ import Brightness7Icon from '@mui/icons-material/Brightness7'
 import Brightness4Icon from '@mui/icons-material/Brightness4'
 
 import MenuIcon from '@mui/icons-material/Menu'
+
 import LoginLogoutButton from './components/LoginLogoutButton'
+import ProfileButton from './components/ProfileButton'
 import { ThemeModeContext } from './contexts/ThemeModeContext'
+import CsrfTokenTag from './components/CrsfTokenTag'
 
 const AppMenu = () => {
 	const { handleToggle, theme, mobileOpen, setMobileOpen } =
@@ -17,8 +20,13 @@ const AppMenu = () => {
 
 	return (
 		<Box sx={{ height: '40px' }}>
+			<CsrfTokenTag />
 			<LoginLogoutButton
 				sx={{ position: 'absolute', right: 60, top: 0, ml: 1 }}
+				color='inherit'
+			/>
+			<ProfileButton
+				sx={{ position: 'absolute', right: 120, top: 25, ml: 1 }}
 				color='inherit'
 			/>
 			<IconButton

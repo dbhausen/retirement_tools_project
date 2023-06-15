@@ -1,5 +1,5 @@
 {
-    "python.formatting.provider": "black",
+    "python.formatting.provider": "none",
     "git.ignoreLimitWarning": true,
     "files.exclude": {
         "**/node_modules": true,
@@ -12,5 +12,8 @@
     "editor.scrollbar.verticalScrollbarSize": 24,
     "python.linting.pylintArgs": [
         "--django-settings-module=_backend.settings.dev"
-    ]
+    ],
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.autopep8"
+    }
 }

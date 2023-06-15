@@ -1,4 +1,3 @@
-/* eslint-disable arrow-body-style */
 import * as React from 'react'
 import {
 	Accordion,

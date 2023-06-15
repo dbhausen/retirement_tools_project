@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
+from corsheaders.defaults import default_headers
 from pathlib import Path
 import os
 
@@ -23,8 +24,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 STATIC_URL = "static/"
 
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
-# FRONTEND_TEMPLATE = BASE_DIR / "frontend" / "build"
-# FRONTEND_STATIC_DIR = BASE_DIR / "frontend" / "build" / "static"
 
 FRONTEND_TEMPLATE = BASE_DIR / "frontend" / "dist"
 FRONTEND_STATIC_DIR = BASE_DIR / "frontend" / "dist" / "static"
@@ -33,8 +32,28 @@ STATICFILES_DIRS = [
     FRONTEND_STATIC_DIR,
 ]
 
+CORS_ALLOW_HEADERS = list(default_headers) + [
+    "x-csrftoken",
 
-# Application definition
+]
+CORS_ALLOW_CREDENTIALS = True
+
+# normalized heder expexted from client
+# example : x-crsftoken
+#   upper : X-CSRFTOKEN
+#  - to _ : X_CSRFTOKEN
+# add HTTP: HTTP_X_CSRFTOKEN
+CSRF_HEADER_NAME = 'HTTP_X_CSRFTOKEN'
+
+# name of cookie set by django CORS
+CSRF_COOKIE_NAME = 'csrftoken'
+
+CORS_ALLOW_CREDENTIALS = True
+CSRF_USE_SESSIONS = False
+CSRF_COOKIE_HTTPONLY = False
+
+SESSION_COOKIE_SAMESITE = 'lax'
+SESSION_COOKIE_SAMESITE_FORCE_ALL = True
 
 INSTALLED_APPS = [
     "corsheaders",
@@ -52,10 +71,10 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
-    "django.contrib.sessions.middleware.SessionMiddleware",
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.sessions.middleware.SessionMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
@@ -67,8 +86,11 @@ REST_FRAMEWORK = {
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
     "PAGE_SIZE": 10,
     "DEFAULT_PERMISSION_CLASSES": [
-        "rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly"
+        "rest_framework.permissions.IsAuthenticated"
     ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication',
+    ]
 }
 
 ROOT_URLCONF = "_backend.urls"

@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 import { createTheme, Theme, ThemeProvider } from '@mui/material'
 import {
 	createContext,

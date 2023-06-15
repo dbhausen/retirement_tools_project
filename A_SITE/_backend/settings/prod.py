@@ -1,11 +1,13 @@
 from _backend.settings.common import *
 
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = os.getenv("SECRET_KEY")
+
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
 
-CORS_ALLOW_CREDENTIALS = True
-
-# change to app.example.com in production settings
 CORS_ALLOWED_ORIGINS = [
     "http://dbhausen.pythonanywhere.com",
 ]
@@ -14,14 +16,10 @@ CSRF_TRUSTED_ORIGINS = [
     "http://dbhausen.pythonanywhere.com",
 ]
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv("SECRET_KEY")
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = ["*"]
-
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+SECURE_SSL_REDIRECT = True
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases

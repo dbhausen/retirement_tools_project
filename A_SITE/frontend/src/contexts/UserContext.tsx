@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-/* eslint-disable no-console */
+
 import React, {
 	createContext,
 	useState,

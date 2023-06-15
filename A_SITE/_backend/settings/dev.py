@@ -1,9 +1,5 @@
 from _backend.settings.common import *
 
-"""
-Django settings for _backend project.
-"""
-
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = "django-insecure-nt5x(^hmvy0vutc5(&v_gkn_#bduvinhox+rpwrxbmw!kub=f6"
 
@@ -12,19 +8,18 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
-CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_ALL_ORIGINS = True
 
-# change to app.example.com in production settings
-CORS_ALLOWED_ORIGINS = [
-    "http://dbhausen.pythonanywhere.com",
-    "http://localhost:3000",
-]
 
 CSRF_TRUSTED_ORIGINS = [
-    "http://dbhausen.pythonanywhere.com",
-    "http://localhost:3000",
+    "http://localhost:8000",
+    "http://127.0.0.1:8000",
+    "http://localhost:5173"
 ]
 
+CSRF_COOKIE_SECURE = False
+SESSION_COOKIE_SECURE = False
+SECURE_SSL_REDIRECT = False
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
