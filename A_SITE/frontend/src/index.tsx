@@ -16,12 +16,13 @@ import {
 import CalculateIcon from '@mui/icons-material/Calculate'
 import HomeIcon from '@mui/icons-material/Home'
 import NetworkCheckIcon from '@mui/icons-material/NetworkCheck'
+import TabIcon from '@mui/icons-material/Tab'
 import { StrictMode, useContext, useState } from 'react'
 import { createRoot } from 'react-dom/client'
 
 // eslint-disable-next-line no-unused-vars
 import { userInfo } from 'os'
-import { UserContext, UserContextProvider } from './contexts/UserContext'
+import { UserContextProvider } from './contexts/UserContext'
 import StressTestApp from './StressTestApp/StressTestApp'
 import AnnuityApp from './AnnuityCalculatorApp/AnnuityCalculatorApp'
 import Home from './Home'
@@ -29,6 +30,7 @@ import {
 	ThemeModeContext,
 	ThemeModeContextProvider,
 } from './contexts/ThemeModeContext'
+import SimpleTabs from './TabbedForm/TabGroup'
 
 const StyledToolbar = styled(Toolbar)(({ theme }) => ({
 	alignItems: 'flex-start',
@@ -40,12 +42,12 @@ const appList = [
 	{ name: 'Home' },
 	{ name: 'Annuity Calculator' },
 	{ name: 'Income Stress Test' },
+	{ name: 'Tabbed Form' },
 ]
 
 function App() {
 	const { mobileOpen, setMobileOpen, drawerWidth } =
 		useContext(ThemeModeContext)
-	const { user } = useContext(UserContext)
 	const [selectedApp, setSelectedApp] = useState<string>('Annuity Calculator')
 	const handleDrawerToggle = () => {
 		setMobileOpen(!mobileOpen)
@@ -59,8 +61,6 @@ function App() {
 		<div>
 			<StyledToolbar />
 			<Divider />
-			<p>{user.name}</p>
-			<p>{user.isLoggedIn ? 'tru' : 'false'}</p>
 			<List>
 				{appList.map(app => (
 					<ListItemButton
@@ -75,6 +75,7 @@ function App() {
 							{app.name === 'Income Stress Test' ? (
 								<NetworkCheckIcon />
 							) : null}
+							{app.name === 'Tabbed Form' ? <TabIcon /> : null}
 						</ListItemIcon>
 						<ListItemText primary={app.name} />
 					</ListItemButton>
@@ -137,6 +138,7 @@ function App() {
 					{selectedApp === 'Annuity Calculator' ? <AnnuityApp /> : null}
 					{selectedApp === 'Home' ? <Home /> : null}
 					{selectedApp === 'Income Stress Test' ? <StressTestApp /> : null}
+					{selectedApp === 'Tabbed Form' ? <SimpleTabs /> : null}
 				</Grid>
 			</Grid>
 		</Paper>

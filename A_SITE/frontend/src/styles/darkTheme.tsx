@@ -9,21 +9,17 @@ export default createTheme({
 	palette: {
 		mode: 'dark',
 		primary: {
-			main: indigo[400],
+			main: indigo[300],
 		},
 		secondary: {
-			main: indigo[300],
+			main: indigo[200],
 		},
 
 		success: {
-			light: '#0d4b22',
-			main: '#072d14',
-			dark: '#03230e',
+			main: green[400],
 		},
 		error: {
-			light: '#910808',
-			main: '#610505',
-			dark: '#420606',
+			main: red[400],
 		},
 		text: {
 			disabled: grey[800],

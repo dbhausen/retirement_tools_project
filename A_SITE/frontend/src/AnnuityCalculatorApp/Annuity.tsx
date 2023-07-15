@@ -72,7 +72,7 @@ const Annuity = () => {
 			escalatedAmt = escalator * amt
 			discountedAmt = escalatedAmt / discounter
 			const mortalityDiscount =
-				Couple.getProbabilityOfAtLeastOneReachingTargetAge(couple, age)
+				Couple.getProbabilityOfAtLeastOneReachingYear(couple, year)
 			actuarialAmt = discountedAmt * mortalityDiscount
 			escalator *= colaRate + 1
 			discounter *= discountRate + 1
@@ -254,7 +254,7 @@ const Annuity = () => {
 
 						<PercentTextField
 							InputLabelProps={{ style: { fontSize: 17 } }}
-							label='Risk-Free Rate Of Return (see note)'
+							label='Required Rate Of Return (see note)'
 							name='discountRate'
 							decimalScale={2}
 							fixedDecimalScale={true}

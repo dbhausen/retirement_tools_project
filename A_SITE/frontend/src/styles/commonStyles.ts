@@ -1,4 +1,14 @@
 export default {
+	components: {
+		// Name of the component
+		MuiFormControlLabel: {
+			// Name of the slot
+			root: {
+				// Some CSS
+				fontSize: '3rem',
+			},
+		},
+	},
 	typography: {
 		h3: {
 			fontSize: '1.2rem',

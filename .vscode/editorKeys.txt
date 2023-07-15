@@ -1,0 +1,18 @@
+Ctrl+P 	     Go to File…
+Ctrl+Shift+O Go to Symbol...
+ 
+Ctrl+X 	Cut line (empty selection) 
+Ctrl+C 	Copy line (empty selection) 
+
+Alt+ ↑ or ↓ 	 Move line up/down S
+hift+Alt + ↓ or ↑ Copy line up/down
+
+Ctrl+/ 	    Toggle line comment 
+Shift+Alt+A Toggle block comment 
+
+Alt+Click 	 Insert additional cursor 
+Ctrl+Alt+ ↑ or ↓ Insert cursor above / below 
+
+Ctrl+L       Select current line 
+Ctrl+Shift+L Select all occurrences of current selection
+Ctrl+Shift+Alt + (arrow key) Column (box) selection 

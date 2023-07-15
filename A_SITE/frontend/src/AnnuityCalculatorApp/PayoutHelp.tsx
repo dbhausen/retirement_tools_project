@@ -35,9 +35,9 @@ const PayoutHelp = () => {
 		spouse1Age = displayFixed(annuityConfig.payments[rowNumber].spouse1Age)
 		spouse2Age = displayFixed(annuityConfig.payments[rowNumber].spouse2Age)
 		either = displayPercent3(
-			Couple.getProbabilityOfAtLeastOneReachingTargetAge(
+			Couple.getProbabilityOfAtLeastOneReachingYear(
 				couple,
-				annuityConfig.payments[rowNumber].spouse1Age
+				annuityConfig.payments[rowNumber].year
 			)
 		)
 	}
@@ -80,7 +80,7 @@ const PayoutHelp = () => {
 								<strong>Discounted Value:</strong>{' '}
 								<strong>{discountedAmt}</strong> is the value today of
 								the {payment} that will ( if you are alive ) be received
-								in {year} based on Risk-Free Rate Of Return of{' '}
+								in {year} based on Required Rate Of Return of{' '}
 								{annuityConfig.discountRate}%
 							</li>
 							<li>

@@ -14,14 +14,10 @@ export default createTheme({
 			main: purple[900],
 		},
 		success: {
-			light: green[50],
-			main: green[100],
-			dark: green[200],
+			main: green[800],
 		},
 		error: {
-			light: red[50],
-			main: red[100],
-			dark: red[200],
+			main: red[800],
 		},
 		background: {
 			paper: grey[200],

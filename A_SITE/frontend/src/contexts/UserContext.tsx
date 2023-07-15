@@ -20,6 +20,8 @@ interface IUser {
 interface IUserContext {
 	user: IUser
 	setUser: Dispatch<SetStateAction<IUser>>
+	open: boolean
+	setOpen: Dispatch<SetStateAction<boolean>>
 }
 
 const defaultUser = {
@@ -30,6 +32,8 @@ const defaultUser = {
 const defaultContext = {
 	user: defaultUser,
 	setUser: () => {},
+	open: false,
+	setOpen: () => {},
 }
 
 // create context
@@ -37,36 +41,16 @@ const UserContext = createContext<IUserContext>(defaultContext)
 
 const UserContextProvider = ({ children }: any) => {
 	const [user, setUser] = useState<IUser>(defaultContext.user)
-	const url = 'https://randomuser.me/api/'
-
-	// fetch a user from a fake backend API
-	/*
-
-	useEffect(() => {
-		const fetchUser = () => {
-			// this would usually be your own backend, or localStorage
-			// for example
-
-			axios.get(url).then((response: any) => {
-				const ruser = response.data.results[0]
-
-				setUser({
-					name: ruser.name.last,
-					isLoggedIn: true,
-				})
-			})
-		}
-
-		fetchUser()
-	}, [])
-	*/
+	const [open, setOpen] = useState(false)
 
 	const contextValue = useMemo(
 		() => ({
 			user,
 			setUser,
+			open,
+			setOpen,
 		}),
-		[user, setUser]
+		[user, setUser, open, setOpen]
 	)
 
 	return (

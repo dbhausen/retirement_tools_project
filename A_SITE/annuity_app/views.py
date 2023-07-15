@@ -5,6 +5,7 @@ from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.views import generic
 
+
 from .models import Choice, Question
 
 from rest_framework import permissions
@@ -14,15 +15,55 @@ from rest_framework import status
 from rest_framework import generics, response
 from django.contrib.auth import login, logout
 from django.utils.decorators import method_decorator
+from rest_framework.decorators import api_view
 
 from . import serializers
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_protect, csrf_exempt
 
+from rest_framework.decorators import api_view, permission_classes, renderer_classes
+from rest_framework.permissions import AllowAny
+from rest_framework.renderers import JSONRenderer
+from rest_framework.response import Response
+from django.contrib.auth.password_validation import password_validators_help_texts
+from django.contrib.auth.models import User
+
 
 @method_decorator(csrf_protect, name='dispatch')
+@api_view(['POST'])
+def create_auth(request):
+    serialized = serializers.UserSerializer(data=request.DATA)
+    if serialized.is_valid():
+        serializers.UserSerializer.objects.create_user(
+            serialized.init_data['email'],
+            serialized.init_data['username'],
+            serialized.init_data['password']
+        )
+        return Response(serialized.data, status=status.HTTP_201_CREATED)
+    else:
+        return Response(serialized._errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+# does not work
+@api_view(['POST'])
+@permission_classes([AllowAny])
+@method_decorator(csrf_protect, name='dispatch')
+def register(self, request):
+    serializer = serializers.RegisterSerializer(data=self.request.data,
+                                                context={'request': self.request})
+    user = serializer.create(self.request.data)
+    return response.Response(serializers.UserSerializer(user).data, status=status.HTTP_202_ACCEPTED)
+
+
+@permission_classes([AllowAny])
+@method_decorator(csrf_protect, name='dispatch')
+class RegisterView(generics.CreateAPIView):
+    queryset = User.objects.all()
+    serializer_class = serializers.RegisterSerializer
+
+
+@permission_classes([AllowAny])
+@method_decorator(csrf_protect, name='dispatch')
 class LoginView(views.APIView):
-    # This view should be accessible also for unauthenticated users.
-    permission_classes = (permissions.AllowAny,)
 
     def post(self, request, format=None):
         serializer = serializers.LoginSerializer(data=self.request.data,
@@ -35,8 +76,8 @@ class LoginView(views.APIView):
         return response.Response(serializers.UserSerializer(user).data, status=status.HTTP_202_ACCEPTED)
 
 
+@permission_classes([AllowAny])
 class LogoutView(views.APIView):
-    permission_classes = (permissions.AllowAny,)
 
     def post(self, request):
         logout(request)
@@ -59,6 +100,10 @@ class GetCSRFToken(views.APIView):
     def get(self, request, format=None):
 
         return response.Response({'sucsess': 'CSRF cookie set'})
+
+
+def validatorHelp(request):
+    return JsonResponse({"helpTextList": password_validators_help_texts()})
 
 
 def csrf(request):

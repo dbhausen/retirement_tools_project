@@ -252,8 +252,27 @@ class Couple implements ICouple {
 		const p2 = couple.married
 			? Person.getProbabilityOfDeathByAge(couple.person2, targetAge)
 			: 1
+
 		return (
 			1 - Person.getProbabilityOfDeathByAge(couple.person1, targetAge) * p2
+		)
+	}
+
+	static getProbabilityOfAtLeastOneReachingYear = (
+		couple: ICouple,
+		year: number
+	): number => {
+		// Returns the probability that at least one of this couple will reach year.//
+		const currantYear = new Date().getFullYear()
+		const p1Target = year - currantYear + couple.person1.age
+		const p2Target = year - currantYear + couple.person2.age
+
+		const p2 = couple.married
+			? Person.getProbabilityOfDeathByAge(couple.person2, p2Target)
+			: 1
+
+		return (
+			1 - Person.getProbabilityOfDeathByAge(couple.person1, p1Target) * p2
 		)
 	}
 

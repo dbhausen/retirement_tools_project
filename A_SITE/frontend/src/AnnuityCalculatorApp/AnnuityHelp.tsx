@@ -5,10 +5,11 @@ const AnnuityHelp = () => (
 		<Grid container direction='column' sx={{ p: '15px' }}>
 			<Grid>
 				<Typography gutterBottom>
-					note: What is the <strong>Risk-Free Rate Of Return</strong>? You
-					will not see this on any insurance company sponsered web site
-					because it is built into the price of their product. For most
-					people, it makes sense to use a risk-free rate of return based on{' '}
+					note: What is your <strong>Required Rate Of Return</strong>? This
+					is the rate of return that you feel is suffcient for you to
+					choose this investment rather than keep yur money or make an
+					alternative investment. For most people, it makes sense to use a
+					required rate of return based on{' '}
 					<Link
 						sx={{ fontStyle: 'italic', fontWeight: 'bold' }}
 						href='https://www.cnbc.com/quotes/US30Y'
@@ -27,10 +28,10 @@ const AnnuityHelp = () => (
 				</Typography>
 				<Typography gutterBottom>
 					The lower the rate you choose the more valuable a fixed annuity
-					stream will be. If you put zero in for this rate you are saying
-					the value of a $20 bill in your pocket today is exactly as
-					valuable as one that will not be in your pocket until next week
-					or twenty years from now.
+					stream will be. If you put zero in for this rate you are saying a
+					$20 bill in your pocket today is exactly as valuable as one that
+					will not be in your pocket until next week or twenty years from
+					now.
 				</Typography>
 				<Typography gutterBottom>
 					On the other hand, if you use a rate based on historical stock

@@ -9,10 +9,14 @@ import LoginLogoutButton from './components/LoginLogoutButton'
 import ProfileButton from './components/ProfileButton'
 import { ThemeModeContext } from './contexts/ThemeModeContext'
 import CsrfTokenTag from './components/CrsfTokenTag'
+import { UserContext } from './contexts/UserContext'
+import ZodLoginLogoutButton from './components/ZodLoginLogoutButton'
 
 const AppMenu = () => {
 	const { handleToggle, theme, mobileOpen, setMobileOpen } =
 		useContext(ThemeModeContext)
+
+	const { user } = useContext(UserContext)
 
 	const handleDrawerToggle = () => {
 		setMobileOpen(!mobileOpen)
@@ -21,14 +25,24 @@ const AppMenu = () => {
 	return (
 		<Box sx={{ height: '40px' }}>
 			<CsrfTokenTag />
+
 			<LoginLogoutButton
 				sx={{ position: 'absolute', right: 60, top: 0, ml: 1 }}
 				color='inherit'
 			/>
-			<ProfileButton
-				sx={{ position: 'absolute', right: 120, top: 25, ml: 1 }}
+
+			<ZodLoginLogoutButton
+				sx={{ position: 'absolute', right: 60, top: 25, ml: 1 }}
 				color='inherit'
 			/>
+
+			{user.isLoggedIn ? (
+				<ProfileButton
+					sx={{ position: 'absolute', right: 120, top: 25, ml: 1 }}
+					color='inherit'
+				/>
+			) : null}
+
 			<IconButton
 				sx={{ position: 'absolute', right: 30, top: 0, ml: 1 }}
 				onClick={handleToggle}
