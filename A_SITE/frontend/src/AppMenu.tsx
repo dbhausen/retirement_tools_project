@@ -32,7 +32,7 @@ const AppMenu = () => {
 			/>
 
 			<ZodLoginLogoutButton
-				sx={{ position: 'absolute', right: 60, top: 25, ml: 1 }}
+				sx={{ position: 'absolute', right: 61, top: 25, ml: 1 }}
 				color='inherit'
 			/>
 
