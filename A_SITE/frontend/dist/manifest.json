@@ -1,20 +1,26 @@
 {
-  "_muimaterial.3a363570.js": {
-    "file": "static/chunks/muimaterial.3a363570.js"
+  "_mui_material.6de47a3e.js": {
+    "file": "static/chunks/mui_material.6de47a3e.js"
   },
-  "_recharts.0e96b0a8.js": {
-    "file": "static/chunks/recharts.0e96b0a8.js",
+  "_recharts.8e76a5a4.js": {
+    "file": "static/chunks/recharts.8e76a5a4.js",
     "imports": [
-      "_muimaterial.3a363570.js"
+      "_mui_material.6de47a3e.js"
     ]
   },
-  "_tiptapcore.c93d8523.js": {
-    "file": "static/chunks/tiptapcore.c93d8523.js"
+  "_tiptap_core.c93d8523.js": {
+    "file": "static/chunks/tiptap_core.c93d8523.js"
   },
-  "_tiptapstarterkit.be11279e.js": {
-    "file": "static/chunks/tiptapstarterkit.be11279e.js",
+  "_tiptap_starter_kit.1c7fe2bd.js": {
+    "file": "static/chunks/tiptap_starter_kit.1c7fe2bd.js",
     "imports": [
-      "_tiptapcore.c93d8523.js"
+      "_tiptap_core.c93d8523.js"
+    ]
+  },
+  "_x_data_grid.e418c9c4.js": {
+    "file": "static/chunks/x_data_grid.e418c9c4.js",
+    "imports": [
+      "_mui_material.6de47a3e.js"
     ]
   },
   "index.css": {
@@ -27,10 +33,11 @@
     ],
     "file": "static/js/index.js",
     "imports": [
-      "_muimaterial.3a363570.js",
-      "_tiptapcore.c93d8523.js",
-      "_tiptapstarterkit.be11279e.js",
-      "_recharts.0e96b0a8.js"
+      "_mui_material.6de47a3e.js",
+      "_tiptap_core.c93d8523.js",
+      "_tiptap_starter_kit.1c7fe2bd.js",
+      "_recharts.8e76a5a4.js",
+      "_x_data_grid.e418c9c4.js"
     ],
     "isEntry": true,
     "src": "index.html"

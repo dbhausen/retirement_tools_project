@@ -1,4 +1,4 @@
-import logging
+
 from django.http import HttpResponseRedirect, JsonResponse
 from django.middleware.csrf import get_token
 from django.shortcuts import get_object_or_404, render
@@ -6,7 +6,7 @@ from django.urls import reverse
 from django.views import generic
 
 
-from .models import Choice, Question
+from .models import Choice, Junk, Question, modelDict
 
 from rest_framework import permissions
 from rest_framework import views
@@ -21,11 +21,13 @@ from . import serializers
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_protect, csrf_exempt
 
 from rest_framework.decorators import api_view, permission_classes, renderer_classes
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.renderers import JSONRenderer
 from rest_framework.response import Response
 from django.contrib.auth.password_validation import password_validators_help_texts
 from django.contrib.auth.models import User
+# from .muiFields import MuiField
+from .muiFields import getMuiColDef
 
 
 @method_decorator(csrf_protect, name='dispatch')
@@ -52,6 +54,46 @@ def register(self, request):
                                                 context={'request': self.request})
     user = serializer.create(self.request.data)
     return response.Response(serializers.UserSerializer(user).data, status=status.HTTP_202_ACCEPTED)
+
+
+@method_decorator(ensure_csrf_cookie, name="dispatch")
+class GetMeta(views.APIView):
+    permission_classes = (permissions.AllowAny,)
+
+    def get(self, request, format=None):
+        modelName = request.query_params.get('model')
+        gridColDef = getMuiColDef(modelDict[modelName])
+        returnData = {'gridColDef': gridColDef}
+        return response.Response(data=returnData)
+
+
+@api_view(['POST', 'GET'])
+@permission_classes([AllowAny])
+def createJunk(request):
+    serializer = serializers.JunkSerializer(data=request.data)
+    junk = serializer.create(request.data)
+    return response.Response(data={'pk': junk.id, 'junk': serializers.JunkSerializer(junk).data}, status=status.HTTP_202_ACCEPTED)
+
+
+@permission_classes([IsAuthenticated])
+@method_decorator(csrf_protect, name='dispatch')
+class CreateJunkView(generics.CreateAPIView):
+    queryset = Junk.objects.all()
+    serializer_class = serializers.JunkSerializer
+
+
+@permission_classes([IsAuthenticated])
+@method_decorator(csrf_protect, name='dispatch')
+class UpdateJunkView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Junk.objects.all()
+    serializer_class = serializers.JunkSerializer
+
+
+@permission_classes([IsAuthenticated])
+@method_decorator(csrf_protect, name='dispatch')
+class ListJunkView(generics.ListAPIView):
+    queryset = Junk.objects.all()
+    serializer_class = serializers.JunkSerializer
 
 
 @permission_classes([AllowAny])

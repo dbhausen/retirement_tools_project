@@ -40,7 +40,7 @@ const Home = () => {
 				sx={{ textAlign: 'center', padding: '15px' }}
 				gutterBottom
 			>
-				The retirement planning tools you always wanted.
+				The retirement planning tools you always wanted
 			</Typography>
 			<Typography
 				component='div'

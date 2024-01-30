@@ -55,6 +55,8 @@ CSRF_COOKIE_HTTPONLY = False
 SESSION_COOKIE_SAMESITE = 'lax'
 SESSION_COOKIE_SAMESITE_FORCE_ALL = True
 
+DRF_AUTO_METADATA_ADAPTER = 'drf_auto_endpoint.adapters.ReactJsonSchemaAdapter'
+
 INSTALLED_APPS = [
     "corsheaders",
     "annuity_app.apps.AnnuityAppConfig",
@@ -67,7 +69,9 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "rest_framework",
+    "drf_auto_endpoint",
 ]
+
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -83,6 +87,9 @@ MIDDLEWARE = [
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
     # or allow read-only access for unauthenticated users.
+
+    'DEFAULT_METADATA_CLASS': 'drf_auto_endpoint.metadata.AutoMetadata',
+
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
     "PAGE_SIZE": 10,
     "DEFAULT_PERMISSION_CLASSES": [

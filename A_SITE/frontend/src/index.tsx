@@ -30,7 +30,7 @@ import {
 	ThemeModeContext,
 	ThemeModeContextProvider,
 } from './contexts/ThemeModeContext'
-import SimpleTabs from './TabbedForm/TabGroup'
+import MultiPartFormTabs from './TabbedForm/TabGroup'
 
 const StyledToolbar = styled(Toolbar)(({ theme }) => ({
 	alignItems: 'flex-start',
@@ -138,7 +138,7 @@ function App() {
 					{selectedApp === 'Annuity Calculator' ? <AnnuityApp /> : null}
 					{selectedApp === 'Home' ? <Home /> : null}
 					{selectedApp === 'Income Stress Test' ? <StressTestApp /> : null}
-					{selectedApp === 'Tabbed Form' ? <SimpleTabs /> : null}
+					{selectedApp === 'Tabbed Form' ? <MultiPartFormTabs /> : null}
 				</Grid>
 			</Grid>
 		</Paper>

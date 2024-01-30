@@ -1,3 +1,4 @@
+
 from django.contrib.auth import authenticate, get_user_model
 from django.contrib.auth.password_validation import validate_password
 from django.forms import ValidationError
@@ -6,7 +7,51 @@ from rest_framework import serializers
 
 from django.contrib.auth.models import User
 
+from annuity_app.models import Junk, Junk_Detail
+
 userModel = get_user_model()
+
+
+class JunkDetailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Junk_Detail
+        fields = fields = ['id', 'text']
+
+    def create(self, validated_data):
+        return super().create(validated_data)
+
+
+class JunkSerializer(serializers.ModelSerializer):
+    posts = JunkDetailSerializer(many=True, read_only=False)
+
+    class Meta:
+        model = Junk
+        fields = ['id',
+                  'user_name',
+                  'password',
+                  'color',
+                  'age',
+                  'name',
+                  'posts']
+
+    def create(self, validated_data):
+
+        post_data = validated_data.pop('posts')
+        junk = super().create(validated_data)
+        for post in post_data:
+            Junk_Detail.objects.create(junk=junk, **post)
+        return junk
+
+    def update(self, instance, validated_data):
+        post_data = validated_data.pop('posts')
+        for k in validated_data:
+            setattr(instance, k, validated_data[k])
+        instance.save()
+        (instance.posts).all().delete()
+        for post in post_data:
+            Junk_Detail.objects.create(junk=instance, **post)
+
+        return instance
 
 
 class UserSerializer(serializers.ModelSerializer):

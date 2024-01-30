@@ -4,7 +4,7 @@
     "files.exclude": {
         "**/node_modules": true,
         "**/*__*": true,
-        "**/migrations": true
+        "**/migrations": false
     },
     "jupyter.jupyterServerType": "local",
     "editor.scrollbar.horizontalScrollbarSize": 14,
@@ -15,5 +15,8 @@
     ],
     "[python]": {
         "editor.defaultFormatter": "ms-python.autopep8"
-    }
+    },
+    "python.analysis.extraPaths": [
+        "./A_SITE/annuity_app"
+    ]
 }

@@ -104,7 +104,11 @@ const FormTextField = (fieldProps: any) => {
 						return (
 							<ul>
 								{Object.entries(allMessages).map(([index, message]) => (
-									<li key={index}>{message}</li>
+									<li key={index}>
+										<Typography fontSize='small' color='error'>
+											{message}
+										</Typography>
+									</li>
 								))}
 							</ul>
 						)

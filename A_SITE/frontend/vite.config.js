@@ -7,10 +7,11 @@ export default {
 		rollupOptions: {
 			output: {
 				manualChunks: {
-					muimaterial: ['@mui/material'],
-					tiptapcore: ['@tiptap/core'],
-					tiptapstarterkit: ['@tiptap/starter-kit'],
+					mui_material: ['@mui/material'],
+					tiptap_core: ['@tiptap/core'],
+					tiptap_starter_kit: ['@tiptap/starter-kit'],
 					recharts: ['recharts'],
+					x_data_grid: ['@mui/x-data-grid'],
 				},
 				assetFileNames: 'static/[ext]/[name][extname]',
 				chunkFileNames: 'static/chunks/[name].[hash].js',

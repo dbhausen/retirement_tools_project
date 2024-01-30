@@ -21,6 +21,7 @@ const Form1 = ({
 	const rhf = useForm({
 		defaultValues: store,
 		criteriaMode: 'all',
+		mode: 'onChange',
 		resolver: zodResolver(page1),
 	})
 
@@ -28,9 +29,14 @@ const Form1 = ({
 
 	const handleClickShowPassword = () => setShowPassword(!showPassword)
 
+	const handleSubmitReset = (data: TForm1) => {
+		onSubmit(data)
+		rhf.reset(data)
+	}
+
 	return (
 		<FormProvider {...rhf}>
-			<form onSubmit={rhf.handleSubmit(onSubmit)}>
+			<form onSubmit={rhf.handleSubmit(handleSubmitReset)}>
 				<Stack spacing={1.2} width={300}>
 					<FormTextField
 						name='page1.username'
@@ -55,7 +61,16 @@ const Form1 = ({
 						showPassword={showPassword}
 						onClickShowPassword={handleClickShowPassword}
 					/>
-
+					<Button
+						type='button'
+						onClick={() => {
+							rhf.reset({
+								...store,
+							})
+						}}
+					>
+						reset
+					</Button>
 					<Button type='submit'>validate page 1</Button>
 
 					<DevTool control={rhf.control} />
